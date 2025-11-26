@@ -1,64 +1,31 @@
 /*****************************************************
- * 1. GLOBAL INLINE-STYLE KILLER (highest priority)
+ *  GLOBAL RESET – safe, not nuclear
  *****************************************************/
-body[style],
+html, body {
+    background: #1c1c1e !important; /* iOS dark gray */
+    color: #ffffff !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+
+*, *::before, *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove Excel inline background overrides */
 [style] {
     background: transparent !important;
-    color: #fff !important;
-    border: none !important;
     box-shadow: none !important;
 }
 
 /*****************************************************
- * 2. RESET DEFAULT FRAMEWORK BACKGROUNDS
- * (Bootstrap, MatBlazor, DevExpress, MDC)
- *****************************************************/
-html, body {
-    background: #000 !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-    color: #fff !important;
-}
-
-.dxbl-control *,
-.dxbl-grid *,
-.mat-theme,
-.mat-app-background,
-.mat-surface,
-.mat-card,
-.mat-mdc-card,
-.mdc-card,
-.mdc-dialog,
-.mdc-text-field,
-.mdc-select--filled,
-.mdc-select--outlined,
-.mdc-text-field--filled,
-.mdc-text-field--outlined {
-    background: transparent !important;
-    color: #fff !important;
-    border: none !important;
-}
-
-
-/*****************************************************
- * 3. MATERIAL THEME OVERRIDES
- *****************************************************/
-:root {
-    --mdc-theme-background: #000 !important;
-    --mdc-theme-surface: #000 !important;
-    --mdc-theme-on-surface: #fff !important;
-    --mdc-theme-text-primary-on-background: #fff !important;
-    --mdc-theme-text-secondary-on-background: rgba(255,255,255,.7) !important;
-}
-
-
-/*****************************************************
- * 4. iOS DARK MODE VARIABLES
+ *  iOS DARK THEME VARIABLES
  *****************************************************/
 :root {
     --ios-bg: #1c1c1e;
     --ios-bg-secondary: #2c2c2e;
     --ios-bg-tertiary: #3a3a3c;
-    --ios-border: rgba(255,255,255,0.12);
+    --ios-border: rgba(255,255,255,0.13);
     --ios-blue: #0a84ff;
     --ios-blue-light: rgba(10,132,255,0.25);
     --ios-radius: 14px;
@@ -66,208 +33,257 @@ html, body {
     --ios-text-secondary: #d1d1d6;
 }
 
+/*****************************************************
+ *  DISABLE BOOTSTRAP COLOR INJECTIONS
+ *****************************************************/
+:root {
+    --bs-body-bg: #1c1c1e !important;
+    --bs-body-color: #fff !important;
+    --bs-light: #2c2c2e !important;
+    --bs-dark: #000 !important;
+    --bs-primary: var(--ios-blue) !important;
+}
 
 /*****************************************************
- * 5. TOP BAR (Navbar)
+ *  HEADER / NAV BAR
  *****************************************************/
-.navbar,
-.dxbl-title-bar,
-.dxbl-toolbar {
-    background: #000 !important;
+.navbar, .dxbl-title-bar, .dxbl-toolbar {
+    background: #1c1c1e !important;
     color: #fff !important;
 }
 .navbar *, .dxbl-title-bar *, .dxbl-toolbar * {
     color: #fff !important;
-    stroke: #fff !important;
     fill: #fff !important;
+    stroke: #fff !important;
 }
 
-
 /*****************************************************
- * 6. POPUPS / MODALS
+ *  PANELS & POPUPS
  *****************************************************/
-.dxbl-modal,
-.dxbl-modal-content,
-.dxbl-popup,
-.dxbl-popup-content {
+.dxbl-modal, .dxbl-modal-content, .dxbl-popup, .dxbl-popup-content {
     background: var(--ios-bg-secondary) !important;
     border: 1px solid var(--ios-border) !important;
     border-radius: var(--ios-radius) !important;
+    padding: 12px !important;
     color: var(--ios-text) !important;
 }
 
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed";
     color: #fff !important;
-    font-weight: 700 !important;
-    font-size: 1.2rem !important;
+    font-size: 1.3rem;
+    font-weight: 700;
 }
-
-.dxbl-modal-footer {
-    background: var(--ios-bg-tertiary) !important;
-    padding: 14px !important;
-    border-radius: 0 0 var(--ios-radius) var(--ios-radius) !important;
-}
-
 
 /*****************************************************
- * 7. GRID (DevExpress Table)
+ *  GRID LAYOUT – iOS TABLE STYLE
  *****************************************************/
-.dxbl-grid,
-.dxbl-grid-table {
+.dxbl-grid, .dxbl-grid-table {
     background: transparent !important;
     border-collapse: separate !important;
-    border-spacing: 0 10px !important;
+    border-spacing: 0 12px !important;
 }
 
+/* HEADER CELLS */
 .dxbl-grid th {
     background: var(--ios-bg-tertiary) !important;
-    color: #fff !important;
-    border: 1px solid var(--ios-border) !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     padding: 12px !important;
+    border: 1px solid var(--ios-border) !important;
+    font-weight: 600 !important;
+    color: #fff !important;
 }
 
+/* DATA CELLS */
 .dxbl-grid td {
-    background: rgba(255,255,255,0.06) !important;
-    color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: var(--ios-bg-secondary) !important;
+    border: 1px solid var(--ios-border) !important;
     border-radius: 12px !important;
     padding: 14px !important;
+    color: #fff !important;
 }
 
-/* Hover */
 .dxbl-grid tr:hover td {
     background: var(--ios-blue-light) !important;
     border-color: var(--ios-blue) !important;
 }
 
-/* Kill Excel span background */
-.dxbl-grid td *, .dxbl-grid th * {
-    background: transparent !important;
-    color: #fff !important;
-}
-
-/* Remove DevExpress active row highlight (blue bar) */
-.dxbl-focused-row td {
-    background: rgba(40,40,50,0.6) !important;
-    border-color: rgba(255,255,255,0.15) !important;
-}
-
-
 /*****************************************************
- * 8. MAGNIFIER BUTTONS
+ *  COMMAND BUTTON CELLS (Magnifier)
  *****************************************************/
+.vtmf-Document-grid td.dxbl-grid-command-cell,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
+    padding: 0 !important;
+    border-radius: 12px !important;
+}
+
 button.grid-command {
     background: var(--ios-bg-tertiary) !important;
-    border-radius: 12px !important;
     border: 1px solid var(--ios-blue) !important;
+    border-radius: 12px !important;
     color: var(--ios-blue) !important;
-    padding: 6px !important;
+    transition: .15s ease;
 }
-
 button.grid-command:hover {
     background: var(--ios-blue) !important;
     color: #fff !important;
 }
 
-
 /*****************************************************
- * 9. GLOBAL BUTTON STYLE
+ *  GLOBAL BUTTONS (iOS DARK)
  *****************************************************/
-button,
-.btn,
-.dxbl-btn {
+.dxbl-btn, .btn, button {
     background: var(--ios-blue) !important;
     color: #fff !important;
-    border-radius: var(--ios-radius) !important;
-    padding: 12px 20px !important;
     border: none !important;
+    padding: 12px 22px !important;
+    border-radius: var(--ios-radius) !important;
+    font-size: 1rem !important;
+    transition: .15s;
 }
 
-button:hover,
-.btn:hover,
-.dxbl-btn:hover {
+.dxbl-btn:hover, .btn:hover, button:hover {
     background: #1a94ff !important;
 }
-
+.dxbl-btn:active, .btn:active, button:active {
+    background: #0060df !important;
+}
 
 /*****************************************************
- * 10. SECONDARY BUTTONS
+ *  SECONDARY GREY BUTTONS
  *****************************************************/
-.btn-secondary,
-.dxbl-btn-secondary {
+.dxbl-btn-secondary, .btn-secondary {
     background: #444 !important;
     color: #fff !important;
 }
 
+/*****************************************************
+ *  FOOTER BUTTONS
+ *****************************************************/
+.dxbl-modal-footer {
+    background: var(--ios-bg-tertiary) !important;
+    padding: 14px !important;
+    border-radius: 0 0 var(--ios-radius) var(--ios-radius) !important;
+    display: flex !important;
+    gap: 10px;
+}
 
 /*****************************************************
- * 11. MAIN MENU (Glass iOS style)
+ *  TEXT FIELDS / LABELS
+ *****************************************************/
+div[data-fname] span {
+    color: #fff !important;
+}
+div[data-fname="suppliername"] span,
+div[data-fname="stock"] span,
+div[data-fname="customername"] span {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+}
+
+/*****************************************************
+ *  KEYPAD (DX Number Pad)
+ *****************************************************/
+.dxbl-num-pad, .dxbl-num-pad * {
+    background: transparent !important;
+    border: none !important;
+}
+
+.dxbl-num-pad button {
+    background: var(--ios-bg-tertiary) !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 1.4rem !important;
+    margin: 8px !important;
+}
+.dxbl-num-pad button.dxbl-btn-secondary {
+    background: #444 !important;
+}
+
+/*****************************************************
+ *  MAIN MENU BUTTONS (Glass iOS)
  *****************************************************/
 .vtmf-procbutton,
 .vtmf-procbutton button,
 .dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    background: rgba(255,255,255,0.06) !important;
-    backdrop-filter: blur(22px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
-    border-radius: 18px !important;
+    background: rgba(255,255,255,0.07) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
     color: #fff !important;
     padding: 18px 24px !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,.45) !important;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+    font-size: 1.24rem !important;
+    transition: .2s;
 }
-
 .vtmf-procbutton:hover button {
-    background: rgba(10,132,255,.28) !important;
+    background: rgba(10,132,255,0.25) !important;
     border-color: var(--ios-blue) !important;
     transform: translateY(-3px);
 }
 
-
 /*****************************************************
- * 12. NUMERIC KEYPAD
+ *  READABILITY FIX
  *****************************************************/
-.dxbl-num-pad button {
-    background: var(--ios-bg-tertiary) !important;
-    border-radius: 14px !important;
+.dxbl-grid *, .dxbl-modal *, .dxbl-popup *, .dxbl-control * {
     color: #fff !important;
-    width: 70px !important;
-    height: 70px !important;
-    font-size: 1.3rem !important;
 }
 
+/*****************************************************
+ *  FROSTED BORDERS
+ *****************************************************/
+.dxbl-modal, .dxbl-popup, .vtmf-procbutton {
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
 
 /*****************************************************
- * 13. iOS SWITCHES
+ *  SHADOWS
  *****************************************************/
-.dxbl-switch,
-.dxbl-switch label {
+.dxbl-grid td,
+.dxbl-modal,
+.dxbl-popup,
+.vtmf-procbutton {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.45) !important;
+}
+
+/*****************************************************
+ *  iOS Toggle Switch (DX)
+ *****************************************************/
+.dxbl-switch, .dxbl-switch * {
+    background: transparent !important;
+    border: none !important;
+}
+
+.dxbl-switch {
     width: 54px !important;
     height: 32px !important;
-    cursor: pointer !important;
-    position: relative !important;
+    position: relative;
 }
+
+.dxbl-switch input { display: none !important; }
 
 .dxbl-switch label::before {
     content: "";
-    position: absolute;
     width: 54px;
     height: 32px;
-    background: #3a3a3c;
     border-radius: 20px;
+    background: #3a3a3c !important;
+    position: absolute;
     transition: .25s;
 }
 
 .dxbl-switch label::after {
     content: "";
-    position: absolute;
     width: 28px;
     height: 28px;
-    background: #fff;
-    top: 2px;
-    left: 2px;
     border-radius: 50%;
+    background: white;
+    position: absolute;
+    left: 2px;
+    top: 2px;
     transition: .25s;
 }
 
