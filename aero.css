@@ -1,31 +1,31 @@
 /*****************************************************
- *  GLOBAL RESET – safe, not nuclear
+ * GLOBAL RESET – safe (not nuclear)
  *****************************************************/
 html, body {
-    background: #1c1c1e !important; /* iOS dark gray */
+    background: #1c1c1e !important;
     color: #ffffff !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
 }
 
 *, *::before, *::after {
-    text-shadow: none !important;
     box-shadow: none !important;
+    text-shadow: none !important;
 }
 
-/* Remove Excel inline background overrides */
+/* Remove Excel inline styling */
 [style] {
     background: transparent !important;
     box-shadow: none !important;
 }
 
 /*****************************************************
- *  iOS DARK THEME VARIABLES
+ * iOS DARK THEME VARIABLES
  *****************************************************/
 :root {
     --ios-bg: #1c1c1e;
     --ios-bg-secondary: #2c2c2e;
     --ios-bg-tertiary: #3a3a3c;
-    --ios-border: rgba(255,255,255,0.13);
+    --ios-border: rgba(255,255,255,0.12);
     --ios-blue: #0a84ff;
     --ios-blue-light: rgba(10,132,255,0.25);
     --ios-radius: 14px;
@@ -34,73 +34,71 @@ html, body {
 }
 
 /*****************************************************
- *  DISABLE BOOTSTRAP COLOR INJECTIONS
+ * FORCE BOOTSTRAP INTO DARK
  *****************************************************/
 :root {
     --bs-body-bg: #1c1c1e !important;
-    --bs-body-color: #fff !important;
+    --bs-body-color: #ffffff !important;
     --bs-light: #2c2c2e !important;
-    --bs-dark: #000 !important;
+    --bs-dark: #000000 !important;
     --bs-primary: var(--ios-blue) !important;
 }
 
 /*****************************************************
- *  HEADER / NAV BAR
+ * HEADER / NAV BAR
  *****************************************************/
 .navbar, .dxbl-title-bar, .dxbl-toolbar {
     background: #1c1c1e !important;
-    color: #fff !important;
+    color: #ffffff !important;
 }
 .navbar *, .dxbl-title-bar *, .dxbl-toolbar * {
-    color: #fff !important;
-    fill: #fff !important;
-    stroke: #fff !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    stroke: #ffffff !important;
 }
 
 /*****************************************************
- *  PANELS & POPUPS
+ * POPUPS & MODALS
  *****************************************************/
-.dxbl-modal, .dxbl-modal-content, .dxbl-popup, .dxbl-popup-content {
+.dxbl-modal, .dxbl-modal-content,
+.dxbl-popup, .dxbl-popup-content {
     background: var(--ios-bg-secondary) !important;
     border: 1px solid var(--ios-border) !important;
     border-radius: var(--ios-radius) !important;
-    padding: 12px !important;
-    color: var(--ios-text) !important;
+    color: #ffffff !important;
 }
 
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed";
-    color: #fff !important;
+    color: #ffffff !important;
     font-size: 1.3rem;
     font-weight: 700;
 }
 
 /*****************************************************
- *  GRID LAYOUT – iOS TABLE STYLE
+ * GRID – iOS DARK
  *****************************************************/
 .dxbl-grid, .dxbl-grid-table {
     background: transparent !important;
-    border-collapse: separate !important;
     border-spacing: 0 12px !important;
 }
 
-/* HEADER CELLS */
+/* header cells */
 .dxbl-grid th {
     background: var(--ios-bg-tertiary) !important;
+    border: 1px solid var(--ios-border) !important;
     border-radius: 12px !important;
     padding: 12px !important;
-    border: 1px solid var(--ios-border) !important;
-    font-weight: 600 !important;
-    color: #fff !important;
+    color: #ffffff !important;
 }
 
-/* DATA CELLS */
+/* data cells */
 .dxbl-grid td {
     background: var(--ios-bg-secondary) !important;
     border: 1px solid var(--ios-border) !important;
     border-radius: 12px !important;
     padding: 14px !important;
-    color: #fff !important;
+    color: #ffffff !important;
 }
 
 .dxbl-grid tr:hover td {
@@ -109,70 +107,48 @@ html, body {
 }
 
 /*****************************************************
- *  COMMAND BUTTON CELLS (Magnifier)
+ * GRID COMMAND BUTTON (magnifier)
  *****************************************************/
-.vtmf-Document-grid td.dxbl-grid-command-cell,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
-    padding: 0 !important;
-    border-radius: 12px !important;
-}
-
 button.grid-command {
     background: var(--ios-bg-tertiary) !important;
     border: 1px solid var(--ios-blue) !important;
     border-radius: 12px !important;
     color: var(--ios-blue) !important;
-    transition: .15s ease;
 }
 button.grid-command:hover {
     background: var(--ios-blue) !important;
-    color: #fff !important;
+    color: white !important;
 }
 
 /*****************************************************
- *  GLOBAL BUTTONS (iOS DARK)
+ * BUTTONS – iOS DARK
  *****************************************************/
 .dxbl-btn, .btn, button {
     background: var(--ios-blue) !important;
-    color: #fff !important;
-    border: none !important;
-    padding: 12px 22px !important;
+    color: white !important;
     border-radius: var(--ios-radius) !important;
-    font-size: 1rem !important;
-    transition: .15s;
+    padding: 12px 22px !important;
 }
-
-.dxbl-btn:hover, .btn:hover, button:hover {
-    background: #1a94ff !important;
-}
-.dxbl-btn:active, .btn:active, button:active {
-    background: #0060df !important;
-}
-
-/*****************************************************
- *  SECONDARY GREY BUTTONS
- *****************************************************/
 .dxbl-btn-secondary, .btn-secondary {
-    background: #444 !important;
-    color: #fff !important;
+    background: #444444 !important;
+    color: white !important;
 }
 
 /*****************************************************
- *  FOOTER BUTTONS
+ * FOOTER
  *****************************************************/
 .dxbl-modal-footer {
     background: var(--ios-bg-tertiary) !important;
-    padding: 14px !important;
     border-radius: 0 0 var(--ios-radius) var(--ios-radius) !important;
-    display: flex !important;
-    gap: 10px;
+    padding: 14px !important;
 }
 
 /*****************************************************
- *  TEXT FIELDS / LABELS
+ * LABELS / TEXT FIELDS
  *****************************************************/
 div[data-fname] span {
-    color: #fff !important;
+    color: white !important;
+    font-weight: 500;
 }
 div[data-fname="suppliername"] span,
 div[data-fname="stock"] span,
@@ -182,175 +158,45 @@ div[data-fname="customername"] span {
 }
 
 /*****************************************************
- *  KEYPAD (DX Number Pad)
+ * NUM PAD
  *****************************************************/
-.dxbl-num-pad, .dxbl-num-pad * {
-    background: transparent !important;
-    border: none !important;
-}
-
 .dxbl-num-pad button {
     background: var(--ios-bg-tertiary) !important;
-    color: #fff !important;
+    color: white !important;
     border-radius: 14px !important;
     width: 70px !important;
     height: 70px !important;
-    font-size: 1.4rem !important;
-    margin: 8px !important;
-}
-.dxbl-num-pad button.dxbl-btn-secondary {
-    background: #444 !important;
 }
 
 /*****************************************************
- *  MAIN MENU BUTTONS (Glass iOS)
+ * IOS GLASS BUTTONS
  *****************************************************/
-.vtmf-procbutton,
 .vtmf-procbutton button,
 .dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    background: rgba(255,255,255,0.07) !important;
-    backdrop-filter: blur(18px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    color: #fff !important;
-    padding: 18px 24px !important;
-    border-radius: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
-    font-size: 1.24rem !important;
-    transition: .2s;
-}
-.vtmf-procbutton:hover button {
-    background: rgba(10,132,255,0.25) !important;
-    border-color: var(--ios-blue) !important;
-    transform: translateY(-3px);
-}
-
-/*****************************************************
- *  READABILITY FIX
- *****************************************************/
-.dxbl-grid *, .dxbl-modal *, .dxbl-popup *, .dxbl-control * {
-    color: #fff !important;
-}
-
-/*****************************************************
- *  FROSTED BORDERS
- *****************************************************/
-.dxbl-modal, .dxbl-popup, .vtmf-procbutton {
+    background: rgba(255,255,255,0.06) !important;
+    backdrop-filter: blur(18px) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
+    color: white !important;
+    border-radius: 18px !important;
 }
 
 /*****************************************************
- *  SHADOWS
+ * MATBLAZOR DARK FIXER
  *****************************************************/
-.dxbl-grid td,
-.dxbl-modal,
-.dxbl-popup,
-.vtmf-procbutton {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.45) !important;
-}
-
-/*****************************************************
- *  iOS Toggle Switch (DX)
- *****************************************************/
-.dxbl-switch, .dxbl-switch * {
-    background: transparent !important;
-    border: none !important;
-}
-
-.dxbl-switch {
-    width: 54px !important;
-    height: 32px !important;
-    position: relative;
-}
-
-.dxbl-switch input { display: none !important; }
-
-.dxbl-switch label::before {
-    content: "";
-    width: 54px;
-    height: 32px;
-    border-radius: 20px;
-    background: #3a3a3c !important;
-    position: absolute;
-    transition: .25s;
-}
-
-.dxbl-switch label::after {
-    content: "";
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: white;
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    transition: .25s;
-}
-
-.dxbl-switch input:checked + label::before {
-    background: var(--ios-blue) !important;
-}
-
-.dxbl-switch input:checked + label::after {
-    left: 24px !important;
-}
-/* --- NUKE MATBLAZOR WHITE BACKGROUND --- */
 .mat-app-background,
 .mdc-theme--background,
 .mdc-theme--surface,
-.mdc-card,
-.mat-card,
 .mat-dialog-container,
-.mat-menu-content,
-.mat-list,
-.mat-expansion-panel,
-.mat-form-field,
-.mat-input-element {
+.mat-card {
     background: #1c1c1e !important;
-    color: #ffffff !important;
-    border: none !important;
+    color: white !important;
 }
 
-/* --- REMOVE MATBLAZOR THEME VARIABLES --- */
-:root {
-    --mdc-theme-background: #1c1c1e !important;
-    --mdc-theme-surface: #1c1c1e !important;
-    --mdc-theme-on-surface: #ffffff !important;
-    --mdc-theme-on-background: #ffffff !important;
-}
-
-/* --- OVERRIDE DEVEXPRESS INLINE STYLE INJECTIONS --- */
-body,
-html {
-    background: #1c1c1e !important;
-    --dxbl-body-bg: #1c1c1e !important;
-    --dxbl-body-color: #ffffff !important;
-}
-
-/* Force all DevExpress containers to dark */
-.dxbl-control,
-.dxbl-control *,
-.dxbl-container,
-.dxbl-container * {
+/*****************************************************
+ * DEVEXPRESS FULL DARK FIXER
+ *****************************************************/
+.dxbl-control, .dxbl-control *, .dxbl-container * {
     background: transparent !important;
-    color: #ffffff !important;
-}
-
-/* DevExpress popup/overlay fix */
-.dxbl-modal,
-.dxbl-popup,
-.dxbl-popup-content,
-.dxbl-modal-content {
-    background: #2c2c2e !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
-}
-
-/* Prevent bootstrap from resetting background to white */
-.bg-white,
-.bg-light,
-.card,
-.card-body {
-    background: #1c1c1e !important;
-    color: #ffffff !important;
+    color: white !important;
 }
 
