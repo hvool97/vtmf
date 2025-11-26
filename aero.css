@@ -294,3 +294,63 @@ div[data-fname="customername"] span {
 .dxbl-switch input:checked + label::after {
     left: 24px !important;
 }
+/* --- NUKE MATBLAZOR WHITE BACKGROUND --- */
+.mat-app-background,
+.mdc-theme--background,
+.mdc-theme--surface,
+.mdc-card,
+.mat-card,
+.mat-dialog-container,
+.mat-menu-content,
+.mat-list,
+.mat-expansion-panel,
+.mat-form-field,
+.mat-input-element {
+    background: #1c1c1e !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* --- REMOVE MATBLAZOR THEME VARIABLES --- */
+:root {
+    --mdc-theme-background: #1c1c1e !important;
+    --mdc-theme-surface: #1c1c1e !important;
+    --mdc-theme-on-surface: #ffffff !important;
+    --mdc-theme-on-background: #ffffff !important;
+}
+
+/* --- OVERRIDE DEVEXPRESS INLINE STYLE INJECTIONS --- */
+body,
+html {
+    background: #1c1c1e !important;
+    --dxbl-body-bg: #1c1c1e !important;
+    --dxbl-body-color: #ffffff !important;
+}
+
+/* Force all DevExpress containers to dark */
+.dxbl-control,
+.dxbl-control *,
+.dxbl-container,
+.dxbl-container * {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+/* DevExpress popup/overlay fix */
+.dxbl-modal,
+.dxbl-popup,
+.dxbl-popup-content,
+.dxbl-modal-content {
+    background: #2c2c2e !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+/* Prevent bootstrap from resetting background to white */
+.bg-white,
+.bg-light,
+.card,
+.card-body {
+    background: #1c1c1e !important;
+    color: #ffffff !important;
+}
+
