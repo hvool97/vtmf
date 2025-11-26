@@ -1,313 +1,272 @@
 /*****************************************************
- * GLOBAL BASE — iOS LIGHT GLASS
+ * GLOBAL BASE – iOS LIGHT
  *****************************************************/
 html, body {
-    background: #f5f5f7 !important;
-    color: #1c1c1e !important;
+    background: #f5f5f7 !important;       /* iOS light gray */
+    color: #000 !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-
-    --dxbl-body-bg: #f5f5f7 !important;
-    --dxbl-body-color: #1c1c1e !important;
+    overscroll-behavior-y: none;
 }
 
-/* Reset shadows that break glass */
 *, *::before, *::after {
-    text-shadow: none !important;
     box-shadow: none !important;
+    text-shadow: none !important;
+    outline: none !important;
 }
 
-/* Inline style overrides (Excel, Blazor) */
+/* Remove Excel inline style pollution */
 [style] {
     background: transparent !important;
+    color: inherit !important;
     box-shadow: none !important;
 }
 
 /*****************************************************
- * THEME VARIABLES (LIGHT)
+ * iOS LIGHT VARIABLES
  *****************************************************/
 :root {
-    --ios-bg: rgba(255,255,255,0.55);
-    --ios-bg-secondary: rgba(255,255,255,0.65);
-    --ios-bg-tertiary: rgba(255,255,255,0.75);
-
-    --ios-border: rgba(0,0,0,0.08);
-    --ios-border-strong: rgba(0,0,0,0.12);
-
-    --ios-blue: #0a84ff;
-    --ios-blue-light: rgba(10,132,255,0.15);
-
+    --ios-bg: #f5f5f7;
+    --ios-bg-secondary: #ffffff;
+    --ios-bg-tertiary: #fafafa;
+    --ios-border: rgba(0,0,0,0.15);
+    --ios-blue: #007aff;
+    --ios-blue-light: rgba(0,122,255,0.12);
+    --ios-text: #000;
+    --ios-text-secondary: #3c3c43;
     --ios-radius: 14px;
 }
 
 /*****************************************************
- * BOOTSTRAP OVERRIDES
+ * RESET BOOTSTRAP COLORS
  *****************************************************/
 :root {
     --bs-body-bg: #f5f5f7 !important;
-    --bs-body-color: #1c1c1e !important;
+    --bs-body-color: #000 !important;
     --bs-light: #ffffff !important;
     --bs-white: #ffffff !important;
-    --bs-card-bg: rgba(255,255,255,0.6) !important;
-    --bs-primary: var(--ios-blue) !important;
+    --bs-card-bg: #ffffff !important;
+    --bs-primary: #007aff !important;
 }
 
 /*****************************************************
- * NAVIGATION / TOOLBAR (Glass)
+ * DEVEXPRESS BODY DEFAULT OVERRIDE
  *****************************************************/
-.navbar,
-.dxbl-title-bar,
-.dxbl-toolbar {
-    background: rgba(255,255,255,0.55) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    border-bottom: 1px solid var(--ios-border) !important;
-    color: #1c1c1e !important;
-}
-
-.navbar *,
-.dxbl-title-bar *,
-.dxbl-toolbar * {
-    color: #1c1c1e !important;
-    fill: #1c1c1e !important;
-    stroke: #1c1c1e !important;
+html, body {
+    --dxbl-body-bg: #f5f5f7 !important;
+    --dxbl-body-color: #000 !important;
 }
 
 /*****************************************************
- * GRID — GLASS PANELS
+ * NAVIGATION / TOOLBARS
  *****************************************************/
-.dxbl-grid,
-.dxbl-grid-table {
+.navbar, .dxbl-title-bar, .dxbl-toolbar {
+    background: #ffffff !important;
+    color: #000 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.12) !important;
+}
+.navbar *, .dxbl-title-bar *, .dxbl-toolbar * {
+    color: #000 !important;
+    fill: #000 !important;
+    stroke: #000 !important;
+}
+
+/*****************************************************
+ * GRID (DevExpress)
+ *****************************************************/
+.dxbl-grid, .dxbl-grid-table {
     background: transparent !important;
     border-collapse: separate !important;
     border-spacing: 0 12px !important;
 }
 
-/* HEADER */
+/* Header */
 .dxbl-grid th {
     background: var(--ios-bg-tertiary) !important;
-    backdrop-filter: blur(18px) saturate(180%) !important;
     border: 1px solid var(--ios-border) !important;
-    border-radius: 14px !important;
-    color: #1c1c1e !important;
+    color: #000 !important;
     padding: 12px !important;
+    border-radius: 12px !important;
 }
 
-/* CELLS */
+/* Data */
 .dxbl-grid td {
     background: var(--ios-bg-secondary) !important;
-    backdrop-filter: blur(18px) saturate(200%) !important;
     border: 1px solid var(--ios-border) !important;
-    border-radius: 14px !important;
-    color: #1c1c1e !important;
+    color: #000 !important;
+    border-radius: 12px !important;
     padding: 14px !important;
 }
 
-/* HOVER */
+/* Hover */
 .dxbl-grid tr:hover td {
-    background: rgba(10,132,255,0.10) !important;
-    border-color: var(--ios-blue-light) !important;
+    background: var(--ios-blue-light) !important;
+    border-color: var(--ios-blue) !important;
 }
 
 /*****************************************************
- * DETAIL VIEW (LabelCssClass + ValueCssClass)
+ * DETAIL VIEW OVERRIDE (LabelCssClass + ValueCssClass)
  *****************************************************/
-[class^="col-"],
-[class*=" col-"],
-.text-start,
-.fw-bold,
-.LabelCssClass,
-.ValueCssClass {
+[class^="col-"], [class*=" col-"],
+.text-start, .text-end, .text-left, .text-right,
+.LabelCssClass, .ValueCssClass, .fw-bold {
     background: transparent !important;
-    color: #1c1c1e !important;
+    color: #000 !important;
 }
 
-/* Subtle borders */
-.border,
-.border-1,
-.border-2,
-.border-3,
-.border-4,
-.border-5,
-.border-bottom,
-.border-top,
-.border-start,
-.border-end {
-    border-color: var(--ios-border-strong) !important;
+/* Border utilities = subtle */
+.border, .border-1, .border-2, .border-3, .border-4, .border-5,
+.border-bottom, .border-top, .border-start, .border-end {
+    border-color: rgba(0,0,0,0.15) !important;
 }
 
 /*****************************************************
- * POPUPS / MODALS — GLASS
+ * POPUPS / MODALS
  *****************************************************/
 .dxbl-modal,
 .dxbl-modal-content,
 .dxbl-popup,
 .dxbl-popup-content {
-    background: rgba(255,255,255,0.68) !important;
-    backdrop-filter: blur(22px) saturate(200%) !important;
+    background: var(--ios-bg-secondary) !important;
     border: 1px solid var(--ios-border) !important;
-    border-radius: 18px !important;
-    color: #1c1c1e !important;
+    color: #000 !important;
+    border-radius: var(--ios-radius) !important;
+}
+
+.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+    content: "Muuda andmed";
+    color: #000 !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
 }
 
 /*****************************************************
- * BUTTONS — iOS LIGHT
+ * BUTTONS – iOS style
  *****************************************************/
-button,
-.btn,
-.dxbl-btn {
-    background: var(--ios-blue) !important;
+button, .btn, .dxbl-btn {
+    background: #007aff !important;
     color: #fff !important;
     border-radius: var(--ios-radius) !important;
     padding: 12px 22px !important;
     border: none !important;
 }
 
-.btn-secondary,
-.dxbl-btn-secondary {
-    background: rgba(0,0,0,0.08) !important;
-    color: #1c1c1e !important;
-    border: 1px solid rgba(0,0,0,0.12) !important;
+.btn-secondary, .dxbl-btn-secondary {
+    background: #e5e5ea !important;
+    color: #000 !important;
 }
 
 /*****************************************************
- * GRID COMMAND BUTTON
+ * MAGNIFIER BUTTONS
  *****************************************************/
 button.grid-command {
-    background: var(--ios-bg-tertiary) !important;
+    background: #fafafa !important;
     border: 1px solid var(--ios-blue) !important;
-    border-radius: 12px !important;
     color: var(--ios-blue) !important;
+    border-radius: 12px !important;
 }
 
 /*****************************************************
- * KEYPAD — Glass Buttons
+ * KEYPAD STYLE
  *****************************************************/
 .dxbl-num-pad button {
-    background: rgba(255,255,255,0.55) !important;
-    backdrop-filter: blur(20px) !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.12) !important;
+    color: #000 !important;
     border-radius: 14px !important;
-    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * MATBLAZOR FIX
+ * REMOVE MATBLAZOR WHITE INJECTIONS (override tone)
  *****************************************************/
 .mat-app-background,
 .mdc-theme--background,
 .mdc-theme--surface,
-.mat-card,
-.mdc-card,
+.mat-card, .mdc-card,
 .mat-dialog-container,
 .mat-menu-content,
 .mat-list,
 .mat-form-field,
 .mat-input-element {
-    background: rgba(255,255,255,0.55) !important;
-    backdrop-filter: blur(20px) !important;
-    color: #1c1c1e !important;
+    background: var(--ios-bg-secondary) !important;
+    color: #000 !important;
 }
 
 /*****************************************************
- * BOOTSTRAP LIGHT FIX
+ * BOOTSTRAP CARDS
  *****************************************************/
-.bg-white,
-.bg-light,
-.card,
-.card-body {
-    background: rgba(255,255,255,0.55) !important;
-    backdrop-filter: blur(20px) !important;
-    color: #1c1c1e !important;
+.card, .card-body, .bg-white, .bg-light {
+    background: #ffffff !important;
+    color: #000 !important;
 }
 
 /*****************************************************
- * DEVEXPRESS GLOBAL RESET
+ * DEVEXPRESS INPUT FIELDS (light theme)
  *****************************************************/
-.dxbl-control *,
-.dxbl-container * {
-    background: transparent !important;
-    color: #1c1c1e !important;
-}
-
-/*****************************************************
- * INPUTS (DevExpress) — eliminate white boxes
- *****************************************************/
-.dxbl-edit,
-.dxbl-field,
-.dxbl-editor,
-.dxbl-input,
+.dxbl-control input,
+.dxbl-control select,
+.dxbl-control textarea,
 .dxbl-textbox-input,
 .dxbl-numberbox-input,
 .dxbl-combobox-input,
-.dxbl-spinedit-input,
-.dxbl-dateedit-input,
-.dxbl-mask-input,
-.dxbl-memo,
+.dxbl-editor,
 .dxbl-dropdown,
-.dxbl-dropdown-input,
-.dxbl-control input,
-.dxbl-control select,
-.dxbl-control textarea {
-    background: rgba(255,255,255,0.65) !important;
-    backdrop-filter: blur(18px) saturate(200%) !important;
-    border: 1px solid var(--ios-border) !important;
-    border-radius: 14px !important;
-    color: #1c1c1e !important;
-}
-
-/* Form-control patch */
-.dxbl-control .form-control {
-    background: rgba(255,255,255,0.65) !important;
-    color: #1c1c1e !important;
-    border: 1px solid var(--ios-border) !important;
+.dxbl-input {
+    background: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    color: #000 !important;
+    border-radius: 12px !important;
 }
 
 /* Placeholder */
 .dxbl-control input::placeholder {
-    color: rgba(0,0,0,0.35) !important;
+    color: #888 !important;
 }
 
 /*****************************************************
- * SWITCH — iOS LIGHT
+ * iOS SWITCH
  *****************************************************/
-.dxbl-switch,
-.dxbl-switch * {
-    background: transparent !important;
-}
-
-.dxbl-switch {
-    width: 54px !important;
-    height: 32px !important;
-}
-
-.dxbl-switch input {
-    display: none !important;
-}
+.dxbl-switch { width: 54px !important; height: 32px !important; }
+.dxbl-switch input { display:none !important; }
 
 .dxbl-switch label::before {
-    content: "";
-    width: 54px;
-    height: 32px;
-    border-radius: 20px;
-    background: rgba(0,0,0,0.15) !important;
-    position: absolute;
-    transition: .25s;
+    content:"";
+    width: 54px; height:32px;
+    background:#e5e5ea !important;
+    border-radius:20px;
+    position:absolute;
+    transition:.25s;
 }
 
 .dxbl-switch label::after {
-    content: "";
-    width: 28px;
-    height: 28px;
-    background: #fff !important;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: .25s;
+    content:"";
+    width:28px; height:28px;
+    background:white !important;
+    border-radius:50%;
+    position:absolute;
+    left:2px; top:2px;
+    transition:.25s;
 }
 
-.dxbl-switch input:checked + label::before {
-    background: var(--ios-blue) !important;
+.dxbl-switch input:checked + label::before { background:#007aff !important; }
+.dxbl-switch input:checked + label::after { left:24px !important; }
+
+/*****************************************************
+ * FROSTED GLASS BUTTONS (MAIN MENU)
+ *****************************************************/
+.vtmf-procbutton,
+.vtmf-procbutton button {
+    background: rgba(255,255,255,0.6) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    color: #000 !important;
+    border-radius: 18px !important;
+    padding: 18px 24px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18) !important;
 }
 
-.dxbl-switch input:checked + label::after {
-    left: 24px !important;
+.vtmf-procbutton:hover button {
+    background: rgba(0,122,255,0.15) !important;
+    border-color: var(--ios-blue) !important;
+    transform: translateY(-2px);
 }
