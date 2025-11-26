@@ -1,11 +1,24 @@
-/* KILL INLINE BODY STYLES */
-body[style] {
-    background: #000 !important;
+/*****************************************************
+ * 1. GLOBAL INLINE-STYLE KILLER (highest priority)
+ *****************************************************/
+body[style],
+[style] {
+    background: transparent !important;
     color: #fff !important;
     border: none !important;
+    box-shadow: none !important;
 }
 
-/* KILL ALL BACKGROUND OVERRIDES FROM FRAMEWORKS */
+/*****************************************************
+ * 2. RESET DEFAULT FRAMEWORK BACKGROUNDS
+ * (Bootstrap, MatBlazor, DevExpress, MDC)
+ *****************************************************/
+html, body {
+    background: #000 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+    color: #fff !important;
+}
+
 .dxbl-control *,
 .dxbl-grid *,
 .mat-theme,
@@ -13,8 +26,6 @@ body[style] {
 .mat-surface,
 .mat-card,
 .mat-mdc-card,
-.mat-mdc-form-field,
-.mdc-layout-grid,
 .mdc-card,
 .mdc-dialog,
 .mdc-text-field,
@@ -24,33 +35,24 @@ body[style] {
 .mdc-text-field--outlined {
     background: transparent !important;
     color: #fff !important;
+    border: none !important;
 }
 
+
 /*****************************************************
- *  BASE RESET – Safe (Excel-proof, DX-proof)
+ * 3. MATERIAL THEME OVERRIDES
  *****************************************************/
-html, body {
-    background: #1c1c1e !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-    color: #ffffff !important;
+:root {
+    --mdc-theme-background: #000 !important;
+    --mdc-theme-surface: #000 !important;
+    --mdc-theme-on-surface: #fff !important;
+    --mdc-theme-text-primary-on-background: #fff !important;
+    --mdc-theme-text-secondary-on-background: rgba(255,255,255,.7) !important;
 }
 
-*,
-*::before,
-*::after {
-    text-shadow: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-/* Remove Excel inline style injections */
-[style] {
-    background: transparent !important;
-    box-shadow: none !important;
-}
 
 /*****************************************************
- *  iOS COLOR TOKENS
+ * 4. iOS DARK MODE VARIABLES
  *****************************************************/
 :root {
     --ios-bg: #1c1c1e;
@@ -60,32 +62,29 @@ html, body {
     --ios-blue: #0a84ff;
     --ios-blue-light: rgba(10,132,255,0.25);
     --ios-radius: 14px;
-
     --ios-text: #ffffff;
     --ios-text-secondary: #d1d1d6;
 }
 
+
 /*****************************************************
- *  NAVIGATION BAR (iOS style)
+ * 5. TOP BAR (Navbar)
  *****************************************************/
 .navbar,
 .dxbl-title-bar,
 .dxbl-toolbar {
     background: #000 !important;
-    border: none !important;
-    padding: 14px !important;
+    color: #fff !important;
 }
-
-.navbar *,
-.dxbl-title-bar *,
-.dxbl-toolbar * {
+.navbar *, .dxbl-title-bar *, .dxbl-toolbar * {
     color: #fff !important;
     stroke: #fff !important;
     fill: #fff !important;
 }
 
+
 /*****************************************************
- *  POPUPS / MODALS (Dark glass)
+ * 6. POPUPS / MODALS
  *****************************************************/
 .dxbl-modal,
 .dxbl-modal-content,
@@ -93,70 +92,78 @@ html, body {
 .dxbl-popup-content {
     background: var(--ios-bg-secondary) !important;
     border: 1px solid var(--ios-border) !important;
-    border-radius: 18px !important;
-    padding: 14px !important;
+    border-radius: var(--ios-radius) !important;
     color: var(--ios-text) !important;
 }
 
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed";
-    font-size: 1.3rem !important;
+    color: #fff !important;
     font-weight: 700 !important;
-    color: var(--ios-text) !important;
+    font-size: 1.2rem !important;
 }
 
+.dxbl-modal-footer {
+    background: var(--ios-bg-tertiary) !important;
+    padding: 14px !important;
+    border-radius: 0 0 var(--ios-radius) var(--ios-radius) !important;
+}
+
+
 /*****************************************************
- *  GRID – True iOS Table Cards
+ * 7. GRID (DevExpress Table)
  *****************************************************/
 .dxbl-grid,
 .dxbl-grid-table {
     background: transparent !important;
     border-collapse: separate !important;
-    border-spacing: 0 12px !important;
+    border-spacing: 0 10px !important;
 }
 
-/* Header cells */
 .dxbl-grid th {
     background: var(--ios-bg-tertiary) !important;
-    color: var(--ios-text-secondary) !important;
-    padding: 12px !important;
+    color: #fff !important;
+    border: 1px solid var(--ios-border) !important;
     border-radius: 10px !important;
-    border: 1px solid var(--ios-border) !important;
-    font-weight: 600 !important;
+    padding: 12px !important;
 }
 
-/* Data cells */
 .dxbl-grid td {
-    background: var(--ios-bg-secondary) !important;
-    color: var(--ios-text) !important;
-    padding: 14px !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
     border-radius: 12px !important;
-    border: 1px solid var(--ios-border) !important;
+    padding: 14px !important;
 }
 
-/* Hover row */
+/* Hover */
 .dxbl-grid tr:hover td {
     background: var(--ios-blue-light) !important;
     border-color: var(--ios-blue) !important;
 }
 
-/* Remove Excel backgrounds inside cells */
-.dxbl-grid td *,
-.dxbl-grid th *,
-.dxbl-grid span {
+/* Kill Excel span background */
+.dxbl-grid td *, .dxbl-grid th * {
     background: transparent !important;
-    color: var(--ios-text) !important;
+    color: #fff !important;
 }
 
+/* Remove DevExpress active row highlight (blue bar) */
+.dxbl-focused-row td {
+    background: rgba(40,40,50,0.6) !important;
+    border-color: rgba(255,255,255,0.15) !important;
+}
+
+
 /*****************************************************
- *  COMMAND BUTTONS (Magnifier)
+ * 8. MAGNIFIER BUTTONS
  *****************************************************/
 button.grid-command {
     background: var(--ios-bg-tertiary) !important;
+    border-radius: 12px !important;
     border: 1px solid var(--ios-blue) !important;
     color: var(--ios-blue) !important;
-    border-radius: 12px !important;
-    transition: .15s ease;
+    padding: 6px !important;
 }
 
 button.grid-command:hover {
@@ -164,168 +171,104 @@ button.grid-command:hover {
     color: #fff !important;
 }
 
+
 /*****************************************************
- *  GLOBAL BUTTON STYLE (iOS large buttons)
+ * 9. GLOBAL BUTTON STYLE
  *****************************************************/
-.dxbl-btn,
+button,
 .btn,
-button {
+.dxbl-btn {
     background: var(--ios-blue) !important;
-    border-radius: 16px !important;
-    padding: 12px 22px !important;
-    border: none !important;
     color: #fff !important;
-    font-size: 1rem !important;
+    border-radius: var(--ios-radius) !important;
+    padding: 12px 20px !important;
+    border: none !important;
 }
 
-.dxbl-btn:hover,
-.btn:hover {
+button:hover,
+.btn:hover,
+.dxbl-btn:hover {
     background: #1a94ff !important;
 }
 
-.dxbl-btn:active,
-.btn:active {
-    background: #0060df !important;
-}
 
 /*****************************************************
- *  SECONDARY BUTTONS (Grey)
+ * 10. SECONDARY BUTTONS
  *****************************************************/
-.dxbl-btn-secondary,
-.btn-secondary {
+.btn-secondary,
+.dxbl-btn-secondary {
     background: #444 !important;
     color: #fff !important;
 }
 
-/*****************************************************
- *  MODAL FOOTER
- *****************************************************/
-.dxbl-modal-footer {
-    background: var(--ios-bg-tertiary) !important;
-    border-radius: 0 0 18px 18px !important;
-    padding: 14px !important;
-}
 
 /*****************************************************
- *  TEXT FIELDS
- *****************************************************/
-div[data-fname] span {
-    color: var(--ios-text) !important;
-}
-
-div[data-fname="suppliername"] span,
-div[data-fname="stock"] span,
-div[data-fname="customername"] span {
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-}
-
-/*****************************************************
- *  NUMERIC KEYPAD (iOS Dialpad)
- *****************************************************/
-.dxbl-num-pad {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    padding: 22px !important;
-}
-
-.dxbl-num-pad button {
-    background: var(--ios-bg-tertiary) !important;
-    color: var(--ios-text) !important;
-    border-radius: 14px !important;
-    width: 70px !important;
-    height: 70px !important;
-    font-size: 1.4rem !important;
-    margin: 8px !important;
-}
-
-.dxbl-num-pad button.dxbl-btn-secondary {
-    background: #444 !important;
-    color: #fff !important;
-}
-
-/*****************************************************
- *  HOME PAGE BUTTONS – iOS Glass Cards
+ * 11. MAIN MENU (Glass iOS style)
  *****************************************************/
 .vtmf-procbutton,
 .vtmf-procbutton button,
 .dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    background: rgba(255,255,255,0.08) !important;
-    backdrop-filter: blur(22px) !important;
-    -webkit-backdrop-filter: blur(22px) !important;
-    border: 1px solid rgba(255,255,255,0.18) !important;
+    background: rgba(255,255,255,0.06) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 18px !important;
     color: #fff !important;
     padding: 18px 24px !important;
-    margin-bottom: 12px !important;
-    border-radius: 18px !important;
-    font-size: 1.25rem !important;
-    font-weight: 500 !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,.45) !important;
 }
 
-/*****************************************************
- *  FROSTED BORDERS
- *****************************************************/
-.dxbl-modal,
-.dxbl-popup,
-.vtmf-procbutton,
-.dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    border: 1px solid rgba(255,255,255,0.12) !important;
-    background-clip: padding-box !important;
+.vtmf-procbutton:hover button {
+    background: rgba(10,132,255,.28) !important;
+    border-color: var(--ios-blue) !important;
+    transform: translateY(-3px);
 }
 
-/*****************************************************
- *  SHADOWS (iOS depth)
- *****************************************************/
-.dxbl-grid td,
-.dxbl-modal,
-.dxbl-popup,
-.vtmf-procbutton {
-    box-shadow:
-        0 2px 6px rgba(0,0,0,0.45),
-        0 0 22px rgba(0,0,0,0.28) inset !important;
-}
 
 /*****************************************************
- *  iOS SWITCHES
+ * 12. NUMERIC KEYPAD
  *****************************************************/
-.dxbl-switch {
+.dxbl-num-pad button {
+    background: var(--ios-bg-tertiary) !important;
+    border-radius: 14px !important;
+    color: #fff !important;
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 1.3rem !important;
+}
+
+
+/*****************************************************
+ * 13. iOS SWITCHES
+ *****************************************************/
+.dxbl-switch,
+.dxbl-switch label {
     width: 54px !important;
     height: 32px !important;
-    position: relative !important;
-}
-
-.dxbl-switch input {
-    display: none !important;
-}
-
-.dxbl-switch label {
     cursor: pointer !important;
+    position: relative !important;
 }
 
 .dxbl-switch label::before {
     content: "";
+    position: absolute;
     width: 54px;
     height: 32px;
     background: #3a3a3c;
     border-radius: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: .25s ease;
+    transition: .25s;
 }
 
 .dxbl-switch label::after {
     content: "";
+    position: absolute;
     width: 28px;
     height: 28px;
     background: #fff;
-    border-radius: 50%;
-    position: absolute;
     top: 2px;
     left: 2px;
-    transition: .25s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.45);
+    border-radius: 50%;
+    transition: .25s;
 }
 
 .dxbl-switch input:checked + label::before {
