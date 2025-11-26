@@ -1,9 +1,9 @@
 /* GLOBAL AERO BASE */
 :root {
-    --aero-glass-bg: rgba(255, 255, 255, 0.12);
-    --aero-glass-border: rgba(255, 255, 255, 0.25);
+    --aero-glass-bg: rgba(255, 255, 255, 0.10);
+    --aero-glass-border: rgba(255, 255, 255, 0.20);
     --aero-blue: #4cb2ff;
-    --aero-blue-glow: 0 0 18px rgba(76, 178, 255, 0.75), 0 0 30px rgba(76, 178, 255, 0.45);
+    --aero-blue-glow: 0 0 18px rgba(76,178,255,0.55), 0 0 30px rgba(76,178,255,0.35);
     --aero-blur: blur(18px) saturate(180%);
 }
 
@@ -17,76 +17,83 @@
     -webkit-backdrop-filter: var(--aero-blur) !important;
     border: 1px solid var(--aero-glass-border) !important;
     box-shadow: var(--aero-blue-glow) !important;
-    border-radius: 18px !important;
+    border-radius: 16px !important;
 }
 
-/* GRIDS (headers + rows) */
+/* GRID GLOBAL WRAPPER */
 .dxbl-grid,
 .dxbl-grid-table {
     background: transparent !important;
 }
 
-.dxbl-grid td, 
+/* HEADER CELLS ONLY — subtle aero */
 .dxbl-grid th {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
-    border-radius: 14px !important;
-    padding: 18px !important;
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255,255,255,0.16) !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+}
+
+/* ROW CELLS — minimal glass, stable layout */
+.dxbl-grid td {
+    background: rgba(255,255,255,0.04) !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 6px !important;
+    padding: 10px !important;
 }
 
 .dxbl-grid tr {
-    height: 60px !important;
-    transition: background-color .2s ease;
+    height: 42px !important;
+    transition: background-color .15s ease;
 }
 
 .dxbl-grid tr:hover td {
-    background: rgba(76, 178, 255, 0.18) !important;
-    border-color: rgba(76, 178, 255, 0.45) !important;
-    box-shadow: 0 0 14px rgba(76, 178, 255, 0.45);
+    background: rgba(76,178,255,0.12) !important;
+    border-color: rgba(76,178,255,0.32) !important;
 }
 
-/* COMMAND CELLS (full clickable buttons) */
+/* COMMAND BUTTON CELLS */
 .vtmf-Document-grid td.dxbl-grid-command-cell,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
     position: relative !important;
     padding: 0 !important;
+    border-radius: 10px !important;
 }
 
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command {
-    background: rgba(76, 178, 255, 0.15) !important;
-    border: 1px solid rgba(76, 178, 255, 0.35) !important;
+    background: rgba(76,178,255,0.18) !important;
+    border: 1px solid rgba(76,178,255,0.35) !important;
     backdrop-filter: blur(10px) !important;
     color: white !important;
-    border-radius: 12px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    height: 100% !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 100% !important;
-    height: 100% !important;
-    transition: 0.15s ease-in-out;
-    box-shadow: var(--aero-blue-glow);
+    transition: .15s ease-in-out;
 }
 
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command:hover,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command:hover {
     background: var(--aero-blue) !important;
-    box-shadow: 0 0 22px rgba(76, 178, 255, 0.85) !important;
 }
 
-/* BUTTONS – AERO HEAVY */
+/* BUTTONS — HEAVY AERO */
 .dxbl-btn,
 .btn {
-    background: var(--aero-glass-bg) !important;
+    background: rgba(255,255,255,0.12) !important;
     backdrop-filter: var(--aero-blur) !important;
     border: 1px solid var(--aero-glass-border) !important;
     color: white !important;
     border-radius: 14px !important;
-    font-size: 1.15rem !important;
-    padding: 14px 22px !important;
+    font-size: 1.1rem !important;
+    padding: 12px 20px !important;
     box-shadow: var(--aero-blue-glow) !important;
-    transition: 0.18s ease-in-out;
+    transition: .18s ease-in-out;
 }
 
 .dxbl-btn:hover,
@@ -98,42 +105,42 @@
 
 .dxbl-btn:active,
 .btn:active {
-    background: rgba(0, 140, 255, 0.85) !important;
-    box-shadow: 0 0 12px rgba(0, 140, 255, 0.65) inset !important;
+    background: rgba(0,140,255,0.75) !important;
+    box-shadow: 0 0 12px rgba(0,140,255,0.45) inset !important;
 }
 
-/* XL Buttons in header */
+/* XL HEADER BUTTONS */
 .vtmf-btn-xl,
 .vtmfs-btn-xl {
     font-size: 1.25rem !important;
-    background: rgba(76, 178, 255, 0.20) !important;
-    border-radius: 16px !important;
+    background: rgba(76,178,255,0.22) !important;
+    border-radius: 14px !important;
     box-shadow: var(--aero-blue-glow) !important;
+    padding: 10px 26px !important;
 }
 
-/* MODAL TITLE - GLASS */
+/* MODAL TITLE */
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed";
     color: var(--aero-blue) !important;
-    font-weight: bold;
-    font-size: 1.4rem;
-    text-shadow: 0 0 14px rgba(76,178,255,0.8);
+    font-weight: 700;
+    font-size: 1.35rem;
+    text-shadow: 0 0 14px rgba(76,178,255,0.65);
 }
 
-/* FOOTER BUTTON AREA */
+/* FOOTER */
 .dxbl-modal-footer {
     display: flex;
-    gap: 14px;
-    backdrop-filter: blur(14px);
+    gap: 12px;
+    backdrop-filter: blur(12px);
 }
 
-/* BADGE / INFO FIELD TEXT TWEAKS */
+/* TEXT FIELD COLORS */
 div[data-fname] span {
     color: white !important;
-    font-weight: 500;
 }
 
-/* Strong fields */
+/* STRONG FIELDS */
 div[data-fname="suppliername"] span,
 div[data-fname="stock"] span,
 div[data-fname="customername"] span,
@@ -141,25 +148,26 @@ div[data-fname="AD"] span,
 div[data-fname="ALD"] span,
 div[data-fname="fromstock"] span,
 div[data-fname="tostocktr"] span {
-    font-size: 1.2rem !important;
+    font-size: 1.15rem !important;
     font-weight: 700 !important;
 }
 
-/* Smaller info fields */
+/* SMALL INFO FIELDS */
 div[data-fname="vatprice"] span,
 div[data-fname="state"] span,
 div[data-fname="datafield3"] span,
 div[data-fname="number"] span,
 div[data-fname="SH"] span {
-    font-size: 0.9rem !important;
-    opacity: 0.8;
+    font-size: 0.85rem !important;
+    opacity: .75;
 }
 
 /* MOBILE DETAIL BUTTON */
 @media (max-width: 575px) {
     .dxbs-toggle-cell .btn-toggle svg {
-        height: 34px;
-        width: 34px;
+        height: 32px;
+        width: 32px;
         filter: drop-shadow(0 0 10px rgba(76,178,255,0.9));
     }
 }
+
