@@ -258,3 +258,50 @@ button.grid-command {
 
 .dxbl-switch input:checked + label::before { background:var(--ios-blue) !important; }
 .dxbl-switch input:checked + label::after { left:24px !important; }
+/* DEVEXPRESS INPUT FIX — removes white background */
+.dxbl-edit,
+.dxbl-field,
+.dxbl-editor,
+.dxbl-input,
+.dxbl-textbox-input,
+.dxbl-numberbox-input,
+.dxbl-combobox-input,
+.dxbl-spinedit-input,
+.dxbl-dateedit-input,
+.dxbl-mask-input,
+.dxbl-memo,
+.dxbl-dropdown,
+.dxbl-dropdown-input,
+.dxbl-control input,
+.dxbl-control select,
+.dxbl-control textarea {
+    background: var(--ios-bg-secondary) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--ios-border) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+/* Remove inner white bootstrap form-control background */
+.dxbl-control .form-control {
+    background: var(--ios-bg-secondary) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--ios-border) !important;
+    box-shadow: none !important;
+}
+
+/* Input placeholder fix */
+.dxbl-control input::placeholder {
+    color: #888 !important;
+    opacity: 1 !important;
+}
+
+/* Remove DevExpress focused bright-blue box */
+.dxbl-control input:focus,
+.dxbl-control select:focus,
+.dxbl-control textarea:focus {
+    background: var(--ios-bg-secondary) !important;
+    border-color: var(--ios-blue) !important;
+    box-shadow: 0 0 0 2px rgba(10,132,255,0.4) !important;
+}
+
