@@ -1,0 +1,355 @@
+/* väiksem kui medium ekraanil oleks detailide avamise nupp suurem 
+vt. https://getbootstrap.com/docs/5.0/layout/breakpoints/
+
+@media (max-width: 575px) {
+.dxbs-toggle-cell .btn-toggle svg {
+    height: 30px;
+    width: 30px;
+}
+}
+
+.btn-primary {
+      font-size: x-large;
+} 
+*/
+
+
+/* dokumendi ridadel valiku akna seaded*/
+.dxbl-modal>.dxbl-modal-root>.dxbl-popup.dxbl-popup-scrollable>.dxbl-modal-content {
+    max-width: max-content;
+}
+
+/* Päises skänneri nupud  */
+
+.vtmf-btn-xl {
+	left: 30%;
+	top: 0 !important;
+	height: auto;
+}
+
+.vtmfs-btn-xl {
+	right: 30%;
+	top: 0 !important;
+	height: auto;
+}
+
+
+.vtmf-btn-xl,
+.vtmfs-btn-xl {
+	font-size: 1rem; /* Sama suurus mõlemale */
+	padding: 8px 16px; /* Ühtlusta nuppude padding */
+	height: auto; /* Vältida liiga suurt kõrgust */
+	width: auto; /* Hoida dünaamiline suurus */
+	border-radius: 6px; /* Säilitada ümarad servad */
+}
+
+
+
+/* üldine popupi paigutus – kehtib kõigile seadmetele */
+
+@media screen and (max-height: 750px) {
+	.dxbl-popup-portal .dxbl-popup-content::after {
+		content: "";
+		display: block;
+		height: 150px;
+		background: rgba(255, 0, 0, 0.1); /* testimiseks nähtav */
+	}
+}
+
+
+
+/* Täpsem sihtimine ainult popupnuppudele */
+
+
+.dxbl-modal .dxbl-modal-title.dxbl-text {
+	visibility: hidden; /* Peidab originaalteksti */
+	position: relative;
+}
+
+	.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+		content: "Muuda andmed"; /* Uus tekst */
+		visibility: visible;
+		position: absolute;
+	}
+
+
+/* Suurendab ridade vahelist ruumi ja lisab ridade kõrgust */
+.dxbl-grid tr {
+    height: 60px; /* Määrab iga rea minimaalse kõrguse */
+}
+
+/* Lisab ruumi tabelirakkude sees */
+.dxbl-grid td, .dxbl-grid th {
+    padding: 20px; /* Suurendab ruumi raku sisu ja äärte vahel */
+}
+
+/* Lisab vahed ridade vahel */
+.dxbl-grid {
+    border-spacing: 0 20px; /* Vahe ridade vahel */
+    border-collapse: separate; /* Veendu, et äärised ei kattu */
+}
+
+
+.dxbl-modal-footer {
+    display: flex; /* Muudab paigutuse paindlikuks */
+    flex-direction: row /*  column; Asetab elemendid üksteise alla vertikaalselt */
+    align-items: center; /* Joondab elemendid keskele horisontaalselt */
+	gap: 15px; /* Lisab ainult vahe elementide vahel */
+}
+
+.dxbl-modal-footer button:nth-of-type(2) {
+    background-color: lightgray;
+    color: black;
+}
+
+.dxbl-btn-primary {
+    font-size: x-large;
+	 --dxbl-btn-active-bg-pressed: red;
+}
+
+.dxbl-btn.dxbl-lg {
+	width: -webkit-fill-available;
+    font-size: x-large;
+}
+
+.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg {
+    width: 99%;
+}
+
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg {
+    width: 99%;
+}
+
+.dxbl-btn-caption {
+    display: inline-block; /* Tagab, et nupu sisu ei mõjuta selle klikkimist */
+}
+
+
+.popupnupud {
+  	width: 99%;
+	margin-top: 15px;
+ }
+
+.paisenupud {
+  font-weight: bold; /* This makes the text bold */
+  width: 100px; /* This sets the width */
+  padding-top: 10px; /* This sets the top padding */
+  padding-bottom: 10px; /* This sets the bottom padding */
+  background-color: lightgray; /* Initial background color */
+  transition: background-color 0.3s; /* Smooth transition for background-color change */
+} 
+
+.jalusenupud {
+  font-weight: bold; /* This makes the text bold */
+  width: 100px;      /* This sets the width to 150 pixels */
+  padding-top: 20px;  /* This sets the top padding */
+  padding-bottom: 20px; /* This sets the bottom padding */
+} 
+
+div[data-fname="vatprice"] span{
+	font-size: smaller;
+	}
+
+div[data-fname="state"] span{
+	font-size: smaller;
+	}
+
+div[data-fname="datafield3"] span{
+	font-size: smaller;
+	}
+div[data-fname="number"] span{
+	font-size: smaller;
+	}
+
+div[data-fname="suppliername"] span{
+	font-size: large;
+	font-weight: bold;
+	}	
+	
+div[data-fname="stock"] span{
+	font-size: large;
+	font-weight: bold;
+	}	
+
+div[data-fname="customername"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+
+div[data-fname="AN"] span{
+	font-size: medium;
+	}
+
+div[data-fname="AD"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+	
+div[data-fname="ALD"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+	
+div[data-fname="fromstock"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+div[data-fname="tostocktr"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+	
+	
+	
+div[data-fname="SH"] span{
+	font-size: smaller;
+	font-weight: bold;
+	}
+
+div[data-fname="customername"] span{
+	font-size: large;
+	font-weight: bold;
+	}
+	
+div[data-fname="CAIC"] span{
+	/* font-size: large; */
+	font-weight: bold;
+	}	
+
+div[data-fname="ALD"] span{
+	font-size: large; 
+	font-weight: bold;
+	}
+/*
+
+.dxbl-btn-primary {
+    font-size: x-large;
+	transition: background-color 0s 3s, border-color 0s 3s;
+	 --dxbl-btn-active-bg-pressed: red;
+}
+
+
+.dxbl-btn-primary:active,
+.dxbl-btn-primary.error {
+    background-color: red !important;
+    border-color: red !important;
+    transition: none;
+}
+
+ protsesside loetelu nupu lisastiil. rakendatakse settingus Index.ProcessButtonCssClass 
+.vtmf-procbutton {
+
+}
+*/
+/* nii ei tohi muuta fondi suurust. tuleb kasutada lehe baassuurust alusena
+.h2, h2 {
+    font-size: calc(1.301rem + .612vw);
+    font-weight: 900;
+}
+*/
+
+/* tuleb kasutada selektorina terminali vaatesse kaasa pandud id-d, et ei kirjutataks üle kõikide uute protsesside klasse
+ja siin on neid lisaks ilmselgelt liiga palju. See muudab renderdamise aeglaseks
+kui pead stiilis kasutama 2+ selektorit, on midagi valesti selektori valikul
+.dxbs-textbox .form-control, .dxbs-memo .form-control, .dxbs-button-edit .form-control, .dxbs-button-edit .input-group .form-control, .dxbs-spin-edit .form-control, .dxbs-spin-edit .input-group .form-control, .dxbs-dropdown-edit .input-group .form-control, .dxbs-textbox .col-form-label, .dxbs-memo .col-form-label, .dxbs-button-edit .col-form-label, .dxbs-spin-edit .col-form-label, .dxbs-dropdown-edit .col-form-label {
+    vertical-align: middle;
+    font-size: x-large;
+    font-weight: bold;
+}
+*/
+
+/* ei tohi üle kirjutada klassi, mis ütleb, et see on spetsiaalselt 14px pildi saamiseks
+.dx-image.dx-image-size-14px {
+    width: 30px;
+    height: 30px;
+}
+*/
+
+/* w-100 on ainult LAIUSE jaoks - width-100%. seda ei tohi kasutada KÕRGUSE seadmiseks
+.w-100 {
+    width: 100%!important;
+    height: max-content;
+}
+*/
+
+/* see on nupu üldklass ja selles ei tohi muuta parameetreid, mida saab muuta kõrguse klassiga
+.btn {
+    line-height: 8;
+}
+*/
+
+/* === dokumendi PÄIS (loendi grid) === */
+.vtmf-Document-grid td.dxbl-grid-command-cell {
+  position: relative !important;
+  padding: 0 !important;
+}
+
+.vtmf-Document-grid .dxbl-grid-table tr {
+  height: 48px !important; /* timmi vajadusel 44–56px */
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command {
+  position: absolute !important;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  z-index: 1;
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell
+  > button.grid-command.dxbl-btn-icon-only {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: normal !important;
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell
+  > button.grid-command .dxbl-btn-icon {
+  pointer-events: none !important;
+}
+
+
+/* === dokumendi READ (items grid) === */
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
+  position: relative !important;
+  padding: 0 !important;
+}
+
+.vtmf-DocumentItems-grid .dxbl-grid-table tr {
+  height: 48px !important;
+}
+
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command {
+  position: absolute !important;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  z-index: 1;
+}
+
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell
+  > button.grid-command.dxbl-btn-icon-only {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: normal !important;
+}
+
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell
+  > button.grid-command .dxbl-btn-icon {
+  pointer-events: none !important;
+}
+
+
+
