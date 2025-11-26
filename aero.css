@@ -1,7 +1,14 @@
-/* ===========================
-   iOS 17 / Apple VisionOS STYLE
-   Clean, minimal, depth-based UI
-   =========================== */
+/* FORCE GLOBAL TEXT TO BLACK (fixes white text) */
+.dxbl-grid td span,
+.dxbl-grid th span,
+td.dxbl-grid-command-cell span,
+.dxbl-modal-content span,
+.dxbl-popup-content span,
+body,
+.dxbl-grid td,
+.dxbl-grid th {
+    color: #1c1c1e !important;
+}
 
 :root {
     --ios-bg: #f5f5f7;
