@@ -270,3 +270,138 @@ div[data-fname="tostocktr"] span {
 body * {
     color: var(--ios-text) !important;
 }
+/*****************************************************
+ *  iOS-17 FROSTED BORDERS (global)
+ *****************************************************/
+.ios-glass,
+.dxbl-modal,
+.dxbl-popup,
+.vtmf-procbutton,
+.dxbl-btn-standalone.dxbl-btn.dxbl-lg {
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    background: rgba(255,255,255,0.06) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    border-radius: 18px !important;
+}
+
+/*****************************************************
+ *  iOS-17 SHADOWS (realistic depth)
+ *****************************************************/
+.ios-shadow,
+.dxbl-grid td,
+.dxbl-modal,
+.dxbl-popup,
+.vtmf-procbutton,
+.dxbl-btn-standalone.dxbl-btn.dxbl-lg {
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.45),
+        0 0 32px rgba(0,0,0,0.35) inset !important;
+}
+
+.ios-shadow-strong {
+    box-shadow:
+        0 6px 24px rgba(0,0,0,0.55),
+        0 0 40px rgba(0,0,0,0.28) inset !important;
+}
+
+/*****************************************************
+ *  iOS-17 SWITCHES (toggle buttons)
+ *****************************************************/
+/* wrapper */
+.ios-switch {
+    position: relative;
+    width: 54px;
+    height: 32px;
+    border-radius: 20px;
+    background: #3a3a3c;
+    transition: 0.25s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* the circle */
+.ios-switch::before {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border-radius: 50%;
+    left: 2px;
+    top: 2px;
+    transition: 0.25s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* active state */
+.ios-switch.active {
+    background: #0a84ff;
+}
+
+.ios-switch.active::before {
+    left: 24px;
+    background: #fff;
+}
+
+/*****************************************************
+ *  iOS SWITCH — clickable integration for DevExpress
+ *****************************************************/
+.dxbl-switch,
+.dxbl-switch * {
+    background: transparent !important;
+    border: none !important;
+}
+
+.dxbl-switch {
+    width: 54px !important;
+    height: 32px !important;
+    position: relative !important;
+}
+
+.dxbl-switch input {
+    display: none !important;
+}
+
+.dxbl-switch label {
+    display: block !important;
+    cursor: pointer !important;
+}
+
+.dxbl-switch label::before,
+.dxbl-switch label::after {
+    content: "" !important;
+    position: absolute !important;
+    transition: 0.25s ease !important;
+}
+
+/* background track */
+.dxbl-switch label::before {
+    width: 54px !important;
+    height: 32px !important;
+    background: #3a3a3c !important;
+    border-radius: 20px !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* knob */
+.dxbl-switch label::after {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+    top: 2px !important;
+    left: 2px !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.45) !important;
+}
+
+/* checked */
+.dxbl-switch input:checked + label::before {
+    background: #0a84ff !important;
+}
+
+.dxbl-switch input:checked + label::after {
+    left: 24px !important;
+}
