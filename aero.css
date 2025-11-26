@@ -1,70 +1,78 @@
 /*****************************************************
- * GLOBAL BASE — iOS DARK
+ * GLOBAL BASE — iOS LIGHT GLASS
  *****************************************************/
 html, body {
-    background: #1c1c1e !important;
-    color: #fff !important;
+    background: #f5f5f7 !important;
+    color: #1c1c1e !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-    --dxbl-body-bg: #1c1c1e !important;
-    --dxbl-body-color: #ffffff !important;
+
+    --dxbl-body-bg: #f5f5f7 !important;
+    --dxbl-body-color: #1c1c1e !important;
 }
 
+/* Reset shadows that break glass */
 *, *::before, *::after {
     text-shadow: none !important;
     box-shadow: none !important;
 }
 
-/* Remove inline Excel/Blazor injected background overrides */
+/* Inline style overrides (Excel, Blazor) */
 [style] {
     background: transparent !important;
     box-shadow: none !important;
 }
 
 /*****************************************************
- * THEME VARIABLES (iOS)
+ * THEME VARIABLES (LIGHT)
  *****************************************************/
 :root {
-    --ios-bg: #1c1c1e;
-    --ios-bg-secondary: #2c2c2e;
-    --ios-bg-tertiary: #3a3a3c;
-    --ios-border: rgba(255,255,255,0.13);
+    --ios-bg: rgba(255,255,255,0.55);
+    --ios-bg-secondary: rgba(255,255,255,0.65);
+    --ios-bg-tertiary: rgba(255,255,255,0.75);
+
+    --ios-border: rgba(0,0,0,0.08);
+    --ios-border-strong: rgba(0,0,0,0.12);
+
     --ios-blue: #0a84ff;
-    --ios-blue-light: rgba(10,132,255,0.22);
+    --ios-blue-light: rgba(10,132,255,0.15);
+
     --ios-radius: 14px;
 }
 
 /*****************************************************
- * BOOTSTRAP THEME OVERRIDE
+ * BOOTSTRAP OVERRIDES
  *****************************************************/
 :root {
-    --bs-body-bg: #1c1c1e !important;
-    --bs-body-color: #fff !important;
-    --bs-light: #2c2c2e !important;
-    --bs-white: #1c1c1e !important;
-    --bs-card-bg: #1c1c1e !important;
+    --bs-body-bg: #f5f5f7 !important;
+    --bs-body-color: #1c1c1e !important;
+    --bs-light: #ffffff !important;
+    --bs-white: #ffffff !important;
+    --bs-card-bg: rgba(255,255,255,0.6) !important;
     --bs-primary: var(--ios-blue) !important;
 }
 
 /*****************************************************
- * TOOLBARS / HEADERS
+ * NAVIGATION / TOOLBAR (Glass)
  *****************************************************/
 .navbar,
 .dxbl-title-bar,
 .dxbl-toolbar {
-    background: #1c1c1e !important;
-    color: #fff !important;
+    background: rgba(255,255,255,0.55) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid var(--ios-border) !important;
+    color: #1c1c1e !important;
 }
 
 .navbar *,
 .dxbl-title-bar *,
 .dxbl-toolbar * {
-    color: #fff !important;
-    fill: #fff !important;
-    stroke: #fff !important;
+    color: #1c1c1e !important;
+    fill: #1c1c1e !important;
+    stroke: #1c1c1e !important;
 }
 
 /*****************************************************
- * GRID (DevExpress)
+ * GRID — GLASS PANELS
  *****************************************************/
 .dxbl-grid,
 .dxbl-grid-table {
@@ -73,29 +81,34 @@ html, body {
     border-spacing: 0 12px !important;
 }
 
+/* HEADER */
 .dxbl-grid th {
     background: var(--ios-bg-tertiary) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
     border: 1px solid var(--ios-border) !important;
-    color: #fff !important;
+    border-radius: 14px !important;
+    color: #1c1c1e !important;
     padding: 12px !important;
-    border-radius: 12px !important;
 }
 
+/* CELLS */
 .dxbl-grid td {
     background: var(--ios-bg-secondary) !important;
+    backdrop-filter: blur(18px) saturate(200%) !important;
     border: 1px solid var(--ios-border) !important;
-    color: #fff !important;
+    border-radius: 14px !important;
+    color: #1c1c1e !important;
     padding: 14px !important;
-    border-radius: 12px !important;
 }
 
+/* HOVER */
 .dxbl-grid tr:hover td {
-    background: var(--ios-blue-light) !important;
-    border-color: var(--ios-blue) !important;
+    background: rgba(10,132,255,0.10) !important;
+    border-color: var(--ios-blue-light) !important;
 }
 
 /*****************************************************
- * DETAIL VIEW (LabelCssClass / ValueCssClass)
+ * DETAIL VIEW (LabelCssClass + ValueCssClass)
  *****************************************************/
 [class^="col-"],
 [class*=" col-"],
@@ -104,9 +117,10 @@ html, body {
 .LabelCssClass,
 .ValueCssClass {
     background: transparent !important;
-    color: #fff !important;
+    color: #1c1c1e !important;
 }
 
+/* Subtle borders */
 .border,
 .border-1,
 .border-2,
@@ -117,31 +131,25 @@ html, body {
 .border-top,
 .border-start,
 .border-end {
-    border-color: rgba(255,255,255,0.12) !important;
+    border-color: var(--ios-border-strong) !important;
 }
 
 /*****************************************************
- * POPUPS / MODALS
+ * POPUPS / MODALS — GLASS
  *****************************************************/
 .dxbl-modal,
 .dxbl-modal-content,
 .dxbl-popup,
 .dxbl-popup-content {
-    background: var(--ios-bg-secondary) !important;
+    background: rgba(255,255,255,0.68) !important;
+    backdrop-filter: blur(22px) saturate(200%) !important;
     border: 1px solid var(--ios-border) !important;
-    border-radius: var(--ios-radius) !important;
-    color: #fff !important;
-}
-
-.dxbl-modal .dxbl-modal-title.dxbl-text::after {
-    content: "Muuda andmed";
-    color: #fff !important;
-    font-weight: 700 !important;
-    font-size: 1.3rem !important;
+    border-radius: 18px !important;
+    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * BUTTONS
+ * BUTTONS — iOS LIGHT
  *****************************************************/
 button,
 .btn,
@@ -155,12 +163,13 @@ button,
 
 .btn-secondary,
 .dxbl-btn-secondary {
-    background: #444 !important;
-    color: #fff !important;
+    background: rgba(0,0,0,0.08) !important;
+    color: #1c1c1e !important;
+    border: 1px solid rgba(0,0,0,0.12) !important;
 }
 
 /*****************************************************
- * GRID COMMAND BUTTON (Magnifier)
+ * GRID COMMAND BUTTON
  *****************************************************/
 button.grid-command {
     background: var(--ios-bg-tertiary) !important;
@@ -170,16 +179,17 @@ button.grid-command {
 }
 
 /*****************************************************
- * KEYPAD
+ * KEYPAD — Glass Buttons
  *****************************************************/
 .dxbl-num-pad button {
-    background: var(--ios-bg-tertiary) !important;
-    color: #fff !important;
+    background: rgba(255,255,255,0.55) !important;
+    backdrop-filter: blur(20px) !important;
     border-radius: 14px !important;
+    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * MATBLAZOR WHITE BACKGROUND FIX
+ * MATBLAZOR FIX
  *****************************************************/
 .mat-app-background,
 .mdc-theme--background,
@@ -191,42 +201,72 @@ button.grid-command {
 .mat-list,
 .mat-form-field,
 .mat-input-element {
-    background: #1c1c1e !important;
-    color: #fff !important;
+    background: rgba(255,255,255,0.55) !important;
+    backdrop-filter: blur(20px) !important;
+    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * BOOTSTRAP CLEANUP
+ * BOOTSTRAP LIGHT FIX
  *****************************************************/
 .bg-white,
 .bg-light,
 .card,
 .card-body {
-    background: #1c1c1e !important;
-    color: #fff !important;
+    background: rgba(255,255,255,0.55) !important;
+    backdrop-filter: blur(20px) !important;
+    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * DEVEXPRESS GLOBAL CLEANUP
+ * DEVEXPRESS GLOBAL RESET
  *****************************************************/
 .dxbl-control *,
 .dxbl-container * {
     background: transparent !important;
-    color: #ffffff !important;
+    color: #1c1c1e !important;
 }
 
 /*****************************************************
- * iOS GLASS EFFECT (Optional)
+ * INPUTS (DevExpress) — eliminate white boxes
  *****************************************************/
-.dxbl-modal,
-.dxbl-popup,
-.vtmf-procbutton {
-    border: 1px solid rgba(255,255,255,0.12) !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.45) !important;
+.dxbl-edit,
+.dxbl-field,
+.dxbl-editor,
+.dxbl-input,
+.dxbl-textbox-input,
+.dxbl-numberbox-input,
+.dxbl-combobox-input,
+.dxbl-spinedit-input,
+.dxbl-dateedit-input,
+.dxbl-mask-input,
+.dxbl-memo,
+.dxbl-dropdown,
+.dxbl-dropdown-input,
+.dxbl-control input,
+.dxbl-control select,
+.dxbl-control textarea {
+    background: rgba(255,255,255,0.65) !important;
+    backdrop-filter: blur(18px) saturate(200%) !important;
+    border: 1px solid var(--ios-border) !important;
+    border-radius: 14px !important;
+    color: #1c1c1e !important;
+}
+
+/* Form-control patch */
+.dxbl-control .form-control {
+    background: rgba(255,255,255,0.65) !important;
+    color: #1c1c1e !important;
+    border: 1px solid var(--ios-border) !important;
+}
+
+/* Placeholder */
+.dxbl-control input::placeholder {
+    color: rgba(0,0,0,0.35) !important;
 }
 
 /*****************************************************
- * iOS SWITCH
+ * SWITCH — iOS LIGHT
  *****************************************************/
 .dxbl-switch,
 .dxbl-switch * {
@@ -246,8 +286,8 @@ button.grid-command {
     content: "";
     width: 54px;
     height: 32px;
-    background: #3a3a3c !important;
     border-radius: 20px;
+    background: rgba(0,0,0,0.15) !important;
     position: absolute;
     transition: .25s;
 }
@@ -259,8 +299,8 @@ button.grid-command {
     background: #fff !important;
     border-radius: 50%;
     position: absolute;
-    left: 2px;
     top: 2px;
+    left: 2px;
     transition: .25s;
 }
 
@@ -270,53 +310,4 @@ button.grid-command {
 
 .dxbl-switch input:checked + label::after {
     left: 24px !important;
-}
-
-/*****************************************************
- * DEVEXPRESS INPUT FIX (White Rectangles)
- *****************************************************/
-.dxbl-edit,
-.dxbl-field,
-.dxbl-editor,
-.dxbl-input,
-.dxbl-textbox-input,
-.dxbl-numberbox-input,
-.dxbl-combobox-input,
-.dxbl-spinedit-input,
-.dxbl-dateedit-input,
-.dxbl-mask-input,
-.dxbl-memo,
-.dxbl-dropdown,
-.dxbl-dropdown-input,
-.dxbl-control input,
-.dxbl-control select,
-.dxbl-control textarea {
-    background: var(--ios-bg-secondary) !important;
-    color: #ffffff !important;
-    border: 1px solid var(--ios-border) !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
-}
-
-/* Bootstrap form-control inside DevExpress */
-.dxbl-control .form-control {
-    background: var(--ios-bg-secondary) !important;
-    color: #ffffff !important;
-    border: 1px solid var(--ios-border) !important;
-    box-shadow: none !important;
-}
-
-/* Placeholder */
-.dxbl-control input::placeholder {
-    color: #888 !important;
-    opacity: 1 !important;
-}
-
-/* Focus ring */
-.dxbl-control input:focus,
-.dxbl-control select:focus,
-.dxbl-control textarea:focus {
-    background: var(--ios-bg-secondary) !important;
-    border-color: var(--ios-blue) !important;
-    box-shadow: 0 0 0 2px rgba(10,132,255,0.4) !important;
 }
