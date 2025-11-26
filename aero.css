@@ -1,3 +1,20 @@
+/* FORCE ALL TEXT INSIDE DEVEXPRESS TO BLACK */
+.dxbl-grid td,
+.dxbl-grid td *,
+.dxbl-grid th,
+.dxbl-grid th *,
+.dxbl-grid .dxbl-text,
+.dxbl-grid .dxbl-text *,
+.dxbl-modal-content,
+.dxbl-modal-content *,
+.dxbl-popup-content,
+.dxbl-popup-content *,
+.dxbl-control,
+.dxbl-control * {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
 /*****************************************************
  *  MASTER OVERRIDE – take control over Excel + DX
  *****************************************************/
