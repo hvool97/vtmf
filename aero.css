@@ -361,4 +361,181 @@ button.grid-command .dxbl-btn-icon {
     stroke: #fff !important;
     fill: #fff !important;
 }
+/*****************************************************
+ *  UNBREAKABLE OVERRIDE – EXCEL + DEVEXPRESS RESET
+ *  NOTHING WILL OVERRIDE THIS ANYMORE
+ *****************************************************/
+
+/* full element reset */
+*,
+*::before,
+*::after {
+    background-clip: border-box !important;
+    color: #000 !important;
+    border-color: rgba(0,0,0,0.15) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+
+    fill: #000 !important;
+    stroke: #000 !important;
+
+    outline: none !important;
+}
+
+/* fully remove Excel host default borders/backgrounds */
+html, body {
+    background: #f5f6f7 !important;
+}
+
+/*****************************************************
+ *  BUTTONS — FORCE ALL STATES
+ *****************************************************/
+button,
+button *,
+.dxbl-btn,
+.dxbl-btn *,
+.btn,
+.btn * {
+    color: #000 !important;
+    background: #e5e5ea !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
+}
+
+button:hover,
+.dxbl-btn:hover,
+.btn:hover {
+    background: #d1d1d6 !important;
+}
+
+button:active,
+.dxbl-btn:active,
+.btn:active {
+    background: #c7c7cc !important;
+}
+
+/* EXCEPTION: main blue action buttons */
+.dxbl-btn-primary,
+.dxbl-btn-primary *,
+.btn-primary,
+.btn-primary * {
+    background: #007aff !important;
+    border-color: #007aff !important;
+    color: #fff !important;
+}
+
+/*****************************************************
+ * MAGNIFIER BUTTON — REMOVE 2ND BORDER LAYER
+ *****************************************************/
+.grid-command,
+.grid-command *,
+.dxbl-btn-icon-only,
+.dxbl-btn-icon-only *,
+.dxbl-btn-icon {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* actual cell button style */
+button.grid-command {
+    background: #e9f3ff !important;
+    border: 1px solid #007aff !important;
+    border-radius: 12px !important;
+    color: #007aff !important;
+}
+button.grid-command:hover {
+    background: #007aff !important;
+    color: #fff !important;
+}
+
+/*****************************************************
+ * NUMERIC KEYPAD FIX (DX PAD OVERRIDES)
+ *****************************************************/
+.dxbl-num-pad,
+.dxbl-num-pad * {
+    background: transparent !important;
+    border: none !important;
+    color: #000 !important;
+}
+
+.dxbl-num-pad button {
+    background: #007aff !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 1.4rem !important;
+    margin: 6px !important;
+}
+
+.dxbl-num-pad button.dxbl-btn-secondary {
+    background: #d1d1d6 !important;
+    color: #000 !important;
+}
+
+/*****************************************************
+ * MODALS
+ *****************************************************/
+.dxbl-modal,
+.dxbl-modal-content,
+.dxbl-popup,
+.dxbl-popup-content {
+    background: #fff !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    border-radius: 18px !important;
+    color: #000 !important;
+}
+
+/* modal title */
+.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+    content: "Muuda andmed" !important;
+    color: #000 !important;
+}
+
+/*****************************************************
+ * GRID RESET
+ *****************************************************/
+.dxbl-grid,
+.dxbl-grid-table,
+.dxbl-grid * {
+    background: transparent !important;
+    color: #000 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dxbl-grid th {
+    background: #f2f2f7 !important;
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    color: #000 !important;
+}
+
+.dxbl-grid td {
+    background: #fff !important;
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    color: #000 !important;
+    border-radius: 12px !important;
+}
+
+.dxbl-grid tr:hover td {
+    background: rgba(0,122,255,0.12) !important;
+    border-color: #007aff !important;
+}
+
+/*****************************************************
+ * HEADER / TOOLBAR (Hydraulic text)
+ *****************************************************/
+.navbar,
+.dxbl-title-bar,
+.dxbl-toolbar,
+.navbar *,
+.dxbl-title-bar *,
+.dxbl-toolbar * {
+    color: #fff !important;
+    fill: #fff !important;
+    stroke: #fff !important;
+}
 
