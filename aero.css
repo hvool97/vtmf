@@ -1,131 +1,186 @@
-/************************************************************
- *   VTMF iOS DARK MODE – HIGH FIDELITY (APPLE DESIGN)
- *   Full theme overhaul. DevExpress-safe reset included.
- *   Author: ChatGPT for Henry (Hydraulic)
- ************************************************************/
+/*********************************************************************
+ *   VTMF APPLE UI — iOS 17 DARK THEME + TRANSITIONS + WIDGETS
+ *   Full UI framework overrides. Written for Henry (Hydraulic).
+ *********************************************************************/
 
-/* iOS system dark palette */
+/* ---------------------------------------------
+   iOS COLOR SYSTEM (DARK MODE)
+--------------------------------------------- */
 :root {
-    --ios-bg: #000000; /* true black */
-    --ios-bg-secondary: #1c1c1e; /* iOS grouped background */
-    --ios-card: #2c2c2e; /* card surfaces */
-    --ios-border: rgba(255,255,255,0.08);
+    --ios-bg: #000000;
+    --ios-bg-secondary: #1c1c1e;
+    --ios-bg-tertiary: #2c2c2e;
+
+    --ios-card: #1f1f1f;
+    --ios-card-secondary: #2c2c2e;
+
     --ios-text: #ffffff;
-    --ios-text-secondary: rgba(255,255,255,0.7);
+    --ios-text-secondary: rgba(255,255,255,0.65);
+
+    --ios-border: rgba(255,255,255,0.12);
+
     --ios-blue: #0a84ff;
-    --ios-blue-light: rgba(10,132,255,0.25);
+    --ios-blue-light: rgba(10,132,255,0.22);
+
+    --ios-green: #30d158;
+    --ios-red: #ff453a;
+
     --ios-radius: 16px;
     --ios-radius-small: 12px;
+
+    --ios-tabbar-bg: rgba(22,22,22,0.78);
+
+    --ios-blur-heavy: blur(26px) saturate(180%);
+    --ios-blur-light: blur(18px) saturate(180%);
+
+    --ios-anim-fast: 0.15s cubic-bezier(.23,1.22,.51,1.04);
+    --ios-anim-medium: 0.25s ease;
 }
 
-/************************************************************
- * GLOBAL RESET (Safe Nuclear – layout preserved)
- ************************************************************/
+/* ---------------------------------------------
+   GLOBAL SAFE RESET (Excel cannot override)
+--------------------------------------------- */
 html, body {
     background: var(--ios-bg) !important;
-    color: var(--ios-text) !important;
     margin: 0 !important;
     padding: 0 !important;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
                  "Segoe UI", Roboto, Arial, sans-serif !important;
+    color: var(--ios-text) !important;
 }
 
-* {
-    background: none !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+*, *:before, *:after {
     text-shadow: none !important;
-    color: var(--ios-text) !important;
+    box-shadow: none !important;
+    outline: none !important;
     max-width: 100% !important;
 }
 
-/************************************************************
- * HEADER (Apple iOS Navigation Bar)
- ************************************************************/
+/* ---------------------------------------------
+   iOS NAVBAR (top)
+--------------------------------------------- */
 .navbar,
 .dxbl-title-bar,
 .dxbl-toolbar {
-    background: rgba(20,20,20,0.85) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    padding: 16px !important;
-    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    background: rgba(20,20,20,0.78) !important;
+    backdrop-filter: var(--ios-blur-heavy) !important;
+    padding: 14px 18px !important;
+    border-bottom: 1px solid var(--ios-border) !important;
 }
 
 .navbar *,
-.dxbl-toolbar *,
-.dxbl-title-bar * {
+.dxbl-title-bar *,
+.dxbl-toolbar * {
     color: var(--ios-text) !important;
     fill: var(--ios-text) !important;
     stroke: var(--ios-text) !important;
+    font-size: 1.12rem !important;
     font-weight: 600 !important;
 }
 
-/************************************************************
- * SECTION TITLES (Apple Settings Style)
- ************************************************************/
-h1, h2, h3,
-.dxbl-grid-title,
+/* ---------------------------------------------
+   TABS — iOS bottom tab bar (NEW)
+--------------------------------------------- */
+.ios-tabbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 68px;
+
+    background: var(--ios-tabbar-bg);
+    backdrop-filter: var(--ios-blur-heavy);
+    border-top: 1px solid var(--ios-border);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.ios-tabbar button {
+    background: none !important;
+    border: none !important;
+    color: var(--ios-text-secondary) !important;
+    font-size: 0.75rem !important;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.ios-tabbar button.active {
+    color: var(--ios-blue) !important;
+}
+
+.ios-tabbar svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+/* ---------------------------------------------
+   iOS SECTION LABELS (Settings style)
+--------------------------------------------- */
+h1,h2,h3,
 .vtmf-section-title {
     color: var(--ios-text-secondary) !important;
-    font-size: 0.85rem !important;
-    letter-spacing: .4px !important;
-    text-transform: uppercase !important;
-    margin: 16px 12px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 0.82rem !important;
+    margin: 18px 14px;
 }
 
-/************************************************************
- * GRID – iOS Grouped Card Tables
- ************************************************************/
+/* ---------------------------------------------
+   GRID (iOS Card Table)
+--------------------------------------------- */
 .dxbl-grid,
 .dxbl-grid-table {
-    border-spacing: 0 12px !important;
     border-collapse: separate !important;
-    color: var(--ios-text) !important;
+    border-spacing: 0 12px !important;
 }
 
-/* Header cells */
 .dxbl-grid th {
     background: var(--ios-bg-secondary) !important;
     padding: 12px !important;
-    border-radius: var(--ios-radius-small) !important;
     border: 1px solid var(--ios-border) !important;
+    border-radius: var(--ios-radius-small) !important;
     color: var(--ios-text-secondary) !important;
-    font-weight: 600 !important;
 }
 
-/* Data cells (Apple cards) */
 .dxbl-grid td {
-    background: var(--ios-card) !important;
+    background: var(--ios-card-secondary) !important;
     padding: 16px !important;
     border-radius: var(--ios-radius-small) !important;
     border: 1px solid var(--ios-border) !important;
-    font-size: 1.02rem !important;
+    transition: var(--ios-anim-fast);
+    color: var(--ios-text) !important;
 }
 
-/* Row hover */
+/* hover */
 .dxbl-grid tr:hover td {
     background: var(--ios-blue-light) !important;
     border-color: var(--ios-blue) !important;
 }
 
-/************************************************************
- * MAGNIFIER BUTTONS (Search Icon Cells)
- ************************************************************/
+/* ---------------------------------------------
+   MAGNIFIER BUTTON (Search cell button)
+--------------------------------------------- */
 button.grid-command {
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
+    background: #1e1e1e !important;
+    border: 1px solid var(--ios-border) !important;
+
+    width: 50px !important;
+    height: 50px !important;
+
     border-radius: 14px !important;
-    padding: 0 !important;
-    width: 48px !important;
-    height: 48px !important;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    transition: 0.15s ease-in-out !important;
+    transition: var(--ios-anim-fast);
 }
 
 button.grid-command:hover {
@@ -135,43 +190,41 @@ button.grid-command:hover {
 
 button.grid-command svg {
     stroke: var(--ios-text) !important;
-    width: 24px !important;
-    height: 24px !important;
+    width: 24px;
+    height: 24px;
 }
 
-/************************************************************
- * FULL iOS BUTTON KIT
- ************************************************************/
+/* ---------------------------------------------
+   iOS BUTTONS (Primary)
+--------------------------------------------- */
 button,
 .dxbl-btn,
 .btn {
     background: var(--ios-blue) !important;
-    color: white !important;
-    border-radius: var(--ios-radius) !important;
+    border-radius: var(--ios-radius);
     padding: 14px 22px !important;
+    border: none !important;
+
     font-size: 1.05rem !important;
     font-weight: 500 !important;
-    transition: 0.15s ease-in-out !important;
+    transition: var(--ios-anim-fast);
 }
 
 button:hover,
-.dxbl-btn:hover,
-.btn:hover {
+.dxbl-btn:hover {
     background: #409cff !important;
 }
 
-button:active,
-.dxbl-btn:active,
-.btn:active {
+button:active {
     background: #0060df !important;
 }
 
-/************************************************************
- * SECONDARY BUTTONS (iOS Grey Pills)
- ************************************************************/
+/* ---------------------------------------------
+   SECONDARY BUTTONS
+--------------------------------------------- */
 .btn-secondary,
 .dxbl-btn-secondary {
-    background: #3a3a3c !important;
+    background: #38383a !important;
     color: var(--ios-text) !important;
 }
 
@@ -179,99 +232,200 @@ button:active,
     background: #4a4a4c !important;
 }
 
-/************************************************************
- * HOME MENU BUTTONS — iOS Pills With Depth
- ************************************************************/
-.vtmf-procbutton,
-.vtmf-procbutton button,
-.dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    background: var(--ios-card) !important;
-    border-radius: 22px !important;
-    padding: 20px 28px !important;
-    margin-bottom: 12px !important;
-
-    box-shadow:
-        0 8px 28px rgba(0,0,0,0.35),
-        0 2px 4px rgba(255,255,255,0.07) inset !important;
-
-    font-size: 1.22rem !important;
-    color: var(--ios-text) !important;
-    display: flex !important;
-    justify-content: center !important;
-}
-
-.vtmf-procbutton:hover button {
-    background: #3a3a3c !important;
-}
-
-/************************************************************
- * MODAL WINDOWS (iOS Sheets)
- ************************************************************/
+/* ---------------------------------------------
+   MODALS (iOS Sheets)
+--------------------------------------------- */
 .dxbl-modal,
-.dxbl-modal-content,
-.dxbl-popup {
-    background: var(--ios-card) !important;
+.dxbl-popup,
+.dxbl-modal-content {
+    background: var(--ios-card-secondary) !important;
     border-radius: 22px !important;
-    padding: 20px !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
+    border: 1px solid var(--ios-border) !important;
+    padding: 22px !important;
 
     box-shadow:
-        0 20px 40px rgba(0,0,0,0.55),
+        0 30px 60px rgba(0,0,0,0.55),
         0 0 1px rgba(255,255,255,0.2) inset !important;
 }
 
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed" !important;
-    color: var(--ios-text) !important;
-    font-size: 1.3rem !important;
-    font-weight: 700 !important;
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 
-/************************************************************
- * NUMERIC KEYPAD (Apple Passcode Pad)
- ************************************************************/
+/* ---------------------------------------------
+   INPUT FIELDS (iOS rounded)
+--------------------------------------------- */
+input,
+select,
+textarea {
+    background: #1c1c1e !important;
+    border-radius: var(--ios-radius-small) !important;
+    border: 1px solid var(--ios-border) !important;
+    padding: 14px !important;
+    color: var(--ios-text) !important;
+    font-size: 1rem !important;
+}
+
+input:focus {
+    border-color: var(--ios-blue) !important;
+    box-shadow: 0 0 0 3px rgba(10,132,255,0.35) !important;
+}
+
+/* ---------------------------------------------
+   iOS SWITCH (toggle)
+--------------------------------------------- */
+input[type="checkbox"].ios-switch {
+    appearance: none;
+    width: 50px;
+    height: 30px;
+    background: #3a3a3c;
+    border-radius: 30px;
+    position: relative;
+    transition: var(--ios-anim-fast);
+}
+
+input[type="checkbox"].ios-switch:checked {
+    background: var(--ios-blue);
+}
+
+input[type="checkbox"].ios-switch:after {
+    content: "";
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: var(--ios-anim-fast);
+}
+
+input[type="checkbox"].ios-switch:checked:after {
+    left: 22px;
+}
+
+/* ---------------------------------------------
+   iOS RADIO BUTTONS
+--------------------------------------------- */
+input[type="radio"].ios-radio {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+    border: 2px solid var(--ios-text-secondary);
+    position: relative;
+}
+
+input[type="radio"].ios-radio:checked {
+    border-color: var(--ios-blue);
+}
+
+input[type="radio"].ios-radio:checked:after {
+    content:"";
+    width: 12px;
+    height: 12px;
+    background: var(--ios-blue);
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+/* ---------------------------------------------
+   SEGMENTED CONTROL (iOS)
+--------------------------------------------- */
+.ios-segment {
+    display: flex;
+    background: #1c1c1e;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.ios-segment button {
+    flex: 1;
+    background: none !important;
+    border-radius: 10px;
+    color: var(--ios-text-secondary);
+}
+
+.ios-segment button.active {
+    background: var(--ios-blue) !important;
+    color: white !important;
+}
+
+/* ---------------------------------------------
+   NUMERIC KEYPAD (iOS passcode pad)
+--------------------------------------------- */
 .dxbl-num-pad {
     display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 14px !important;
-    padding: 20px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px;
 }
 
 .dxbl-num-pad button {
-    width: 74px !important;
-    height: 74px !important;
-    border-radius: 100px !important;
+    width: 78px !important;
+    height: 78px !important;
+    border-radius: 999px;
     background: #2c2c2e !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    border: 1px solid var(--ios-border) !important;
     font-size: 1.45rem !important;
+
+    transition: var(--ios-anim-fast);
 }
 
 .dxbl-num-pad button:hover {
     background: #3a3a3c !important;
 }
 
-.dxbl-num-pad .dxbl-btn-secondary {
+.dxbl-num-pad button.dxbl-btn-secondary {
     background: #48484a !important;
-    color: white !important;
 }
 
-/************************************************************
- * INPUT FIELDS (iOS Rounded Inputs)
- ************************************************************/
-input,
-select,
-textarea {
-    background: #1c1c1e !important;
-    border-radius: var(--ios-radius-small) !important;
-    padding: 12px 14px !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
-    font-size: 1rem !important;
-    color: var(--ios-text) !important;
+/* ---------------------------------------------
+   iOS ANIMATIONS
+--------------------------------------------- */
+
+/* spring scale */
+.ios-spring {
+    transition: var(--ios-anim-fast);
+}
+.ios-spring:active {
+    transform: scale(0.94);
 }
 
-input:focus {
-    border-color: var(--ios-blue) !important;
-    box-shadow: 0 0 0 3px rgba(10,132,255,0.35) !important;
+/* fade in */
+.ios-fade {
+    opacity: 0;
+    animation: iosFadeIn .3s ease forwards;
+}
+@keyframes iosFadeIn {
+    to { opacity: 1; }
+}
+
+/* ripple on press */
+.ios-ripple {
+    position: relative;
+    overflow: hidden;
+}
+.ios-ripple:active::after {
+    content: "";
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:200%;
+    height:200%;
+    background: rgba(255,255,255,0.15);
+    border-radius:50%;
+    transform: translate(-50%,-50%) scale(0);
+    animation: iosRipple .4s ease-out;
+}
+@keyframes iosRipple {
+    to { transform: translate(-50%,-50%) scale(1); opacity:0; }
 }
 
