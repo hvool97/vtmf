@@ -1,270 +1,277 @@
-/*****************************************************
- *  GLOBAL NUCLEAR RESET — STAGE ZERO
- *  Disable Excel / DevExpress inherited dimensions,
- *  colors, borders, shadows, line-heights, padding.
- *****************************************************/
-html, body, *, *::before, *::after {
-    all: unset !important;
-    display: revert !important;
-    box-sizing: border-box !important;
+/************************************************************
+ *   VTMF iOS DARK MODE – HIGH FIDELITY (APPLE DESIGN)
+ *   Full theme overhaul. DevExpress-safe reset included.
+ *   Author: ChatGPT for Henry (Hydraulic)
+ ************************************************************/
+
+/* iOS system dark palette */
+:root {
+    --ios-bg: #000000; /* true black */
+    --ios-bg-secondary: #1c1c1e; /* iOS grouped background */
+    --ios-card: #2c2c2e; /* card surfaces */
+    --ios-border: rgba(255,255,255,0.08);
+    --ios-text: #ffffff;
+    --ios-text-secondary: rgba(255,255,255,0.7);
+    --ios-blue: #0a84ff;
+    --ios-blue-light: rgba(10,132,255,0.25);
+    --ios-radius: 16px;
+    --ios-radius-small: 12px;
+}
+
+/************************************************************
+ * GLOBAL RESET (Safe Nuclear – layout preserved)
+ ************************************************************/
+html, body {
+    background: var(--ios-bg) !important;
+    color: var(--ios-text) !important;
     margin: 0 !important;
     padding: 0 !important;
-    text-decoration: none !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    border: none !important;
-    background: none !important;
-    color: inherit !important;
-    font: inherit !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    max-height: none !important;
-    min-height: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+                 "Segoe UI", Roboto, Arial, sans-serif !important;
 }
 
-/* Restore base HTML defaults */
-html, body {
-    display: block !important;
-    background: #f5f6f7 !important; /* iOS light background */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
-    color: #000 !important;
-    line-height: 1.25 !important;
-}
-
-/*****************************************************
- *  NUCLEAR DIMENSION OVERRIDE
- *  Kill Excel forcing widths/heights & weird scaling
- *****************************************************/
 * {
-    width: auto !important;
-    height: auto !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: var(--ios-text) !important;
     max-width: 100% !important;
-    max-height: 100% !important;
-    flex-shrink: 1 !important;
-    flex-grow: 0 !important;
-    aspect-ratio: auto !important;
 }
 
-/*****************************************************
- *  iOS DESIGN VARIABLES
- *****************************************************/
-:root {
-    --ios-radius: 14px;
-    --ios-border: rgba(0,0,0,0.15);
-    --ios-blue: #007aff;
-    --ios-blue-light: rgba(0,122,255,0.15);
-    --ios-bg: #ffffff;
-    --ios-bg-secondary: #f2f2f7;
-    --ios-pill: #e5e5ea;
-}
-
-/*****************************************************
- *  RESTORE BASIC ELEMENT TYPES
- *****************************************************/
-button {
-    cursor: pointer !important;
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    font-family: inherit !important;
-    font-size: 1rem !important;
-}
-
-/*****************************************************
- *  WHITE iOS HEADER (you selected this)
- *****************************************************/
+/************************************************************
+ * HEADER (Apple iOS Navigation Bar)
+ ************************************************************/
 .navbar,
 .dxbl-title-bar,
 .dxbl-toolbar {
-    background: #ffffff !important;
-    color: #000 !important;
-    padding: 12px !important;
-    border-bottom: 1px solid rgba(0,0,0,0.10) !important;
+    background: rgba(20,20,20,0.85) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    padding: 16px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
 }
 
-.navbar * {
-    color: #000 !important;
-    fill: #000 !important;
-    stroke: #000 !important;
+.navbar *,
+.dxbl-toolbar *,
+.dxbl-title-bar * {
+    color: var(--ios-text) !important;
+    fill: var(--ios-text) !important;
+    stroke: var(--ios-text) !important;
+    font-weight: 600 !important;
 }
 
-/*****************************************************
- *  iOS GRID — clean card style
- *****************************************************/
+/************************************************************
+ * SECTION TITLES (Apple Settings Style)
+ ************************************************************/
+h1, h2, h3,
+.dxbl-grid-title,
+.vtmf-section-title {
+    color: var(--ios-text-secondary) !important;
+    font-size: 0.85rem !important;
+    letter-spacing: .4px !important;
+    text-transform: uppercase !important;
+    margin: 16px 12px !important;
+}
+
+/************************************************************
+ * GRID – iOS Grouped Card Tables
+ ************************************************************/
 .dxbl-grid,
 .dxbl-grid-table {
     border-spacing: 0 12px !important;
     border-collapse: separate !important;
-    background: transparent !important;
+    color: var(--ios-text) !important;
 }
 
-/* header */
+/* Header cells */
 .dxbl-grid th {
     background: var(--ios-bg-secondary) !important;
-    color: #000 !important;
-    font-weight: 600 !important;
-    padding: 14px !important;
-    border-radius: 10px !important;
+    padding: 12px !important;
+    border-radius: var(--ios-radius-small) !important;
     border: 1px solid var(--ios-border) !important;
+    color: var(--ios-text-secondary) !important;
+    font-weight: 600 !important;
 }
 
-/* cells */
+/* Data cells (Apple cards) */
 .dxbl-grid td {
-    background: var(--ios-bg) !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(0,0,0,0.12) !important;
-    padding: 14px !important;
-    color: #000 !important;
+    background: var(--ios-card) !important;
+    padding: 16px !important;
+    border-radius: var(--ios-radius-small) !important;
+    border: 1px solid var(--ios-border) !important;
+    font-size: 1.02rem !important;
 }
 
-/* hover */
+/* Row hover */
 .dxbl-grid tr:hover td {
     background: var(--ios-blue-light) !important;
     border-color: var(--ios-blue) !important;
 }
 
-/*****************************************************
- *  iOS BUTTONS — GLOBAL
- *****************************************************/
+/************************************************************
+ * MAGNIFIER BUTTONS (Search Icon Cells)
+ ************************************************************/
+button.grid-command {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    border-radius: 14px !important;
+    padding: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    transition: 0.15s ease-in-out !important;
+}
+
+button.grid-command:hover {
+    background: var(--ios-blue) !important;
+    border-color: var(--ios-blue) !important;
+}
+
+button.grid-command svg {
+    stroke: var(--ios-text) !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/************************************************************
+ * FULL iOS BUTTON KIT
+ ************************************************************/
+button,
 .dxbl-btn,
 .btn {
     background: var(--ios-blue) !important;
-    color: #fff !important;
+    color: white !important;
     border-radius: var(--ios-radius) !important;
-    padding: 12px 22px !important;
-    font-size: 1rem !important;
-    border: none !important;
-    transition: 0.15s ease !important;
+    padding: 14px 22px !important;
+    font-size: 1.05rem !important;
+    font-weight: 500 !important;
+    transition: 0.15s ease-in-out !important;
 }
 
+button:hover,
 .dxbl-btn:hover,
 .btn:hover {
-    background: #0a84ff !important;
+    background: #409cff !important;
 }
 
+button:active,
 .dxbl-btn:active,
 .btn:active {
     background: #0060df !important;
 }
 
-/*****************************************************
- *  SECONDARY BUTTONS
- *****************************************************/
-.dxbl-btn-secondary,
-.btn-secondary {
-    background: #d1d1d6 !important;
-    color: #000 !important;
+/************************************************************
+ * SECONDARY BUTTONS (iOS Grey Pills)
+ ************************************************************/
+.btn-secondary,
+.dxbl-btn-secondary {
+    background: #3a3a3c !important;
+    color: var(--ios-text) !important;
 }
 
-/*****************************************************
- *  iOS GREY PILLS (you selected option 3)
- *****************************************************/
+.btn-secondary:hover {
+    background: #4a4a4c !important;
+}
+
+/************************************************************
+ * HOME MENU BUTTONS — iOS Pills With Depth
+ ************************************************************/
 .vtmf-procbutton,
 .vtmf-procbutton button,
 .dxbl-btn-standalone.dxbl-btn.dxbl-lg {
-    background: var(--ios-pill) !important;
-    color: #000 !important;
-    border-radius: 16px !important;
-    padding: 18px 28px !important;
-    margin: 12px 0 !important;
+    background: var(--ios-card) !important;
+    border-radius: 22px !important;
+    padding: 20px 28px !important;
+    margin-bottom: 12px !important;
 
-    /* iOS 17 shadow level 2 */
     box-shadow:
-        0 4px 12px rgba(0,0,0,0.12),
-        0 1px 2px rgba(0,0,0,0.08) !important;
+        0 8px 28px rgba(0,0,0,0.35),
+        0 2px 4px rgba(255,255,255,0.07) inset !important;
 
+    font-size: 1.22rem !important;
+    color: var(--ios-text) !important;
     display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-
-    font-size: 1.20rem !important;
-    font-weight: 500 !important;
+    justify-content: center !important;
 }
 
-.vtmf-procbutton:hover button,
-.dxbl-btn-standalone.dxbl-btn.dxbl-lg:hover {
-    background: #d1d1d6 !important;
+.vtmf-procbutton:hover button {
+    background: #3a3a3c !important;
 }
 
-/*****************************************************
- *  SF SYMBOL ICON COMPATIBILITY
- *****************************************************/
-.vtmf-procbutton svg,
-.dxbl-toolbar svg,
-button svg {
-    width: 22px !important;
-    height: 22px !important;
-    stroke-width: 2 !important;
-    fill: none !important;
-    stroke: #000 !important;
+/************************************************************
+ * MODAL WINDOWS (iOS Sheets)
+ ************************************************************/
+.dxbl-modal,
+.dxbl-modal-content,
+.dxbl-popup {
+    background: var(--ios-card) !important;
+    border-radius: 22px !important;
+    padding: 20px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.55),
+        0 0 1px rgba(255,255,255,0.2) inset !important;
 }
 
-/*****************************************************
- *  MAGNIFIER GRID BUTTON (clean fix)
- *****************************************************/
-button.grid-command {
-    background: #e9f3ff !important;
-    border: 1px solid #007aff !important;
-    color: #007aff !important;
-    border-radius: 12px !important;
-    padding: 0 !important;
+.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+    content: "Muuda andmed" !important;
+    color: var(--ios-text) !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
 }
 
-button.grid-command:hover {
-    background: #007aff !important;
-    color: #fff !important;
-}
-
-button.grid-command .dxbl-btn-icon {
-    fill: none !important;
-    stroke: #007aff !important;
-}
-
-/*****************************************************
- *  NUMERIC KEYPAD — FIXED
- *****************************************************/
+/************************************************************
+ * NUMERIC KEYPAD (Apple Passcode Pad)
+ ************************************************************/
 .dxbl-num-pad {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 8px !important;
+    gap: 14px !important;
     padding: 20px !important;
 }
 
 .dxbl-num-pad button {
-    width: 70px !important;
-    height: 70px !important;
-    background: #007aff !important;
-    color: #fff !important;
-    border-radius: 16px !important;
-    font-size: 1.4rem !important;
+    width: 74px !important;
+    height: 74px !important;
+    border-radius: 100px !important;
+    background: #2c2c2e !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    font-size: 1.45rem !important;
 }
 
-.dxbl-num-pad button.dxbl-btn-secondary {
-    background: #d1d1d6 !important;
-    color: #000 !important;
+.dxbl-num-pad button:hover {
+    background: #3a3a3c !important;
 }
 
-/*****************************************************
- *  MODALS — final pass
- *****************************************************/
-.dxbl-modal,
-.dxbl-modal-content,
-.dxbl-popup,
-.dxbl-popup-content {
-    background: #fff !important;
-    border-radius: 18px !important;
-    border: 1px solid rgba(0,0,0,0.15) !important;
-    color: #000 !important;
+.dxbl-num-pad .dxbl-btn-secondary {
+    background: #48484a !important;
+    color: white !important;
 }
 
-/* modal title */
-.dxbl-modal .dxbl-modal-title.dxbl-text::after {
-    content: "Muuda andmed" !important;
-    color: #000 !important;
-    font-weight: 700 !important;
-    font-size: 1.2rem !important;
+/************************************************************
+ * INPUT FIELDS (iOS Rounded Inputs)
+ ************************************************************/
+input,
+select,
+textarea {
+    background: #1c1c1e !important;
+    border-radius: var(--ios-radius-small) !important;
+    padding: 12px 14px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    font-size: 1rem !important;
+    color: var(--ios-text) !important;
 }
+
+input:focus {
+    border-color: var(--ios-blue) !important;
+    box-shadow: 0 0 0 3px rgba(10,132,255,0.35) !important;
+}
+
