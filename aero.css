@@ -405,3 +405,48 @@ body * {
 .dxbl-switch input:checked + label::after {
     left: 24px !important;
 }
+/*****************************************************
+ *  DARK MODE TEXT BACKGROUND FIX (Excel + DevExpress)
+ *****************************************************/
+
+/* reset ALL inner spans inside table cells */
+.dxbl-grid td *,
+.dxbl-grid th *,
+.dxbl-grid .dxbl-text *,
+.dxbl-grid span,
+.dxbl-grid td span,
+.dxbl-grid th span {
+    background: transparent !important;
+    color: #fff !important;
+}
+
+/* force the actual cell backgrounds (so cells stay visible) */
+.dxbl-grid td {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    color: #fff !important;
+}
+
+/* remove Excel-injected background on editable fields */
+.dxbl-grid input,
+.dxbl-grid select,
+.dxbl-grid textarea {
+    background: transparent !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* remove highlight glow from "active" grid row that causes bright blue bar */
+.dxbl-grid .dxbl-focused-row td {
+    background: rgba(50,50,60,0.45) !important;
+    border-color: rgba(255,255,255,0.15) !important;
+}
+
+/* remove all unexpected inline backgrounds from DevExpress components */
+.dxbl-control *,
+.dxbl-edit *,
+.dxbl-field *,
+.dxbl-text {
+    background: transparent !important;
+}
+
