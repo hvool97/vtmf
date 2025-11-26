@@ -254,3 +254,111 @@ div[data-fname="tostocktr"] span {
     box-shadow: inset 0 0 16px rgba(0,0,0,0.35) !important;
     transform: scale(0.98);
 }
+/*****************************************************
+ *  FINAL FIX BLOCK – OVERRIDES FOR REMAINING DX/EXCEL STYLES
+ *****************************************************/
+
+/* --- FIX MODAL PRIMARY BUTTON (Sulge) --- */
+.dxbl-btn-primary,
+button.dxbl-btn-primary {
+    background: #e5e5ea !important;
+    color: #000 !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+}
+.dxbl-btn-primary:hover {
+    background: #d1d1d6 !important;
+}
+
+/* --- FIX MAGNIFIER BUTTON DOUBLE BORDER --- */
+button.grid-command,
+.dxbl-btn-icon-only,
+.dxbl-btn-icon-only .dxbl-btn-icon {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* unify magnifier look */
+button.grid-command {
+    background: #e9f3ff !important;
+    border: 1px solid #007aff !important;
+    border-radius: 12px !important;
+}
+button.grid-command:hover {
+    background: #007aff !important;
+    color: #fff !important;
+}
+
+/* remove inner icon wrapper border */
+button.grid-command .dxbl-btn-icon {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* --- FIX NUMERIC KEYPAD – iOS STYLE --- */
+.dxbl-num-pad,
+.dxbl-num-pad * {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dxbl-num-pad button {
+    background: #007aff !important;
+    color: #fff !important;
+    border-radius: 14px !important;
+    font-size: 1.4rem !important;
+    margin: 6px !important;
+    width: 70px !important;
+    height: 70px !important;
+}
+
+/* grey side buttons (delete, OK) */
+.dxbl-num-pad button.dxbl-btn-secondary {
+    background: #d1d1d6 !important;
+    color: #000 !important;
+}
+.dxbl-num-pad button.dxbl-btn-secondary:hover {
+    background: #bcbcc2 !important;
+}
+
+/* --- FIX CENTERING OF NUMPAD LAYOUT --- */
+.dxbl-num-pad {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    padding: 20px !important;
+}
+
+/* --- FIX MODAL CONTENT AREA --- */
+.dxbl-modal-content,
+.dxbl-modal-content * {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+/* background white, not grey */
+.dxbl-modal-content {
+    background: #ffffff !important;
+}
+
+/* --- FIX HEADER BRAND “Hydraulic” TO WHITE TOP BAR --- */
+.navbar,
+.dxbl-title-bar,
+.dxbl-toolbar {
+    color: #fff !important;
+}
+
+/* make the text white */
+.navbar * {
+    color: #fff !important;
+}
+
+/* fix menu icon to white */
+.navbar svg,
+.dxbl-toolbar svg {
+    stroke: #fff !important;
+    fill: #fff !important;
+}
+
