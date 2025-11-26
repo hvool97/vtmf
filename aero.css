@@ -1,3 +1,31 @@
+/* KILL INLINE BODY STYLES */
+body[style] {
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* KILL ALL BACKGROUND OVERRIDES FROM FRAMEWORKS */
+.dxbl-control *,
+.dxbl-grid *,
+.mat-theme,
+.mat-app-background,
+.mat-surface,
+.mat-card,
+.mat-mdc-card,
+.mat-mdc-form-field,
+.mdc-layout-grid,
+.mdc-card,
+.mdc-dialog,
+.mdc-text-field,
+.mdc-select--filled,
+.mdc-select--outlined,
+.mdc-text-field--filled,
+.mdc-text-field--outlined {
+    background: transparent !important;
+    color: #fff !important;
+}
+
 /*****************************************************
  *  BASE RESET – Safe (Excel-proof, DX-proof)
  *****************************************************/
