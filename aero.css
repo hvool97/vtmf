@@ -270,3 +270,28 @@ button.grid-command {
     border-color: var(--ios-blue) !important;
     transform: translateY(-2px);
 }
+/* DISABLE ALL APP CSS BELOW THIS LINE */
+*,
+*::before,
+*::after {
+    all: unset !important;
+    all: revert-layer !important;
+    box-sizing: border-box !important;
+}
+
+/* Prevent Bootstrap, DevExpress, MatBlazor, Excel from touching layout */
+:where(html, body, *, *::before, *::after) {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    color: inherit !important;
+}
+
+/* Reset root defaults */
+html, body {
+    all: unset !important;
+    display: block !important;
+    background: transparent !important;
+}
