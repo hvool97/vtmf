@@ -271,3 +271,108 @@ div[data-fname="tostocktr"] span {
 .dxbl-btn-standalone.dxbl-btn.dxbl-lg:active {
     transform: scale(0.97);
 }
+/*****************************************************
+ *  ULTRA NUCLEAR SIZE RESET (LEVEL 150)
+ *  DESTROYS:
+ *  - Excel default cell widths/heights
+ *  - DevExpress layout spacing
+ *  - Bootstrap spacing utilities
+ *  - Table auto-padding
+ *  - Flex/grid injected layouts
+ *****************************************************/
+
+/* 1) Kill inline width/height/padding/margin */
+*[style*="width"],
+*[style*="height"],
+*[style*="padding"],
+*[style*="margin"],
+*[style*="flex"],
+*[style*="grid"],
+*[style*="display"],
+*[style*="position"] {
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex: none !important;
+    grid: none !important;
+    display: block !important;
+    position: static !important;
+}
+
+/* 2) Remove ALL inherited spacing from Excel/Office host */
+html *, body * {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    min-height: auto !important;
+    max-height: none !important;
+    min-width: auto !important;
+    max-width: none !important;
+}
+
+/* 3) Neutralize DevExpress / Bootstrap spacing classes */
+[class*="p-"], [class*="pt-"], [class*="pb-"],
+[class*="pl-"], [class*="pr-"],
+[class*="m-"], [class*="mt-"], [class*="mb-"],
+[class*="ml-"], [class*="mr-"],
+[class*="gx-"], [class*="gy-"],
+[class*="g-"], [class*="gap-"] {
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+}
+
+/* 4) Kill DevExpress flex/grid/table layouts */
+[class*="dxbl-"], [class*="dxbs-"], [class*="dx-"] {
+    display: block !important;
+    flex: none !important;
+    grid: none !important;
+    table-layout: auto !important;
+}
+
+/* 5) Remove ANY min/max width from layouts */
+*, *::before, *::after {
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    max-height: none !important;
+}
+
+/* 6) Force YOUR sizing rules to always win */
+button, .btn, .dxbl-btn {
+    width: auto !important;
+    height: auto !important;
+    padding: 12px 22px !important;
+    font-size: 1rem !important;
+    border-radius: 14px !important;
+}
+
+/* 7) Normalize numeric keypad cell sizes */
+.dxbl-num-pad button {
+    width: 70px !important;
+    height: 70px !important;
+    line-height: normal !important;
+    padding: 0 !important;
+    margin: 6px !important;
+}
+
+/* 8) Normalize grid row/cell dimensions */
+.dxbl-grid td, .dxbl-grid th {
+    padding: 14px !important;
+    height: auto !important;
+    line-height: normal !important;
+}
+
+/* 9) Eliminate table collapse issues */
+table, tr, td {
+    border-spacing: 0 !important;
+    border-collapse: separate !important;
+}
+
+/* 10) Kill random alignments from host app */
+[class*="align"], [class*="justify"], [class*="center"] {
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+}
