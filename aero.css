@@ -1,10 +1,11 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
-   Fixed: duplicates removed, ordered, toolbar strip fix,
-   semantic alerts/states included.
-   Added: readable dropdowns, loading panel fix, dark alert pulse,
-   stubborn dxbl-btn-toolbar background, iOS-like animations.
-   Update: slower motion + hamburger fixed (no black square).
+   Fixed: ordered, no duplicates, toolbar strip fix,
+   readable dropdowns, loading panel fix, dark alert pulse,
+   stubborn dxbl-btn-toolbar background.
+   Update: hamburger fixed (no black square),
+   NO button transform animations (no jump),
+   keypad restyled to iOS calculator grayscale.
 ========================================================= */
 
 /* ------------------------
@@ -31,11 +32,17 @@
 
   --aero-focus: rgba(0,122,255,.28);
 
-  /* iOS-ish motion (SLOWER) */
+  /* motion (kept for page/popup only) */
   --aero-ease: cubic-bezier(.2,.9,.2,1);
-  --aero-fast: 220ms;
-  --aero-med: 360ms;
+  --aero-fast: 180ms;
+  --aero-med: 320ms;
   --aero-slow: 520ms;
+
+  /* calculator grayscale */
+  --calc-num-bg: #e5e5ea;
+  --calc-ctrl-bg: #d1d1d6;
+  --calc-op-bg: #1c1c1e;      /* grayscale “accent” */
+  --calc-op-fg: #ffffff;
 }
 
 /* ------------------------
@@ -87,19 +94,22 @@ a{ color: inherit; }
    SMALL SCREEN TOGGLE BUTTON
 ------------------------- */
 @media (max-width: 575px){
-  .dxbs-toggle-cell .btn-toggle svg{
-    height: 30px;
-    width: 30px;
-  }
+  .dxbs-toggle-cell .btn-toggle svg{ height: 30px; width: 30px; }
 }
 
 /* -------------------------
-   CUSTOM UTILITIES
+   UTILITIES
 ------------------------- */
 .w-65{ width: 65% !important; }
 
+/* If your grid/table uses this class, it is the “white strip” source */
+.div-bg-white,
+.dxbl-grid .bg-white{
+  background: transparent !important;
+}
+
 /* =========================================================
-   HEADER / TOP BAR LIGHT THEME
+   HEADER / TOP BAR
 ========================================================= */
 header,
 .navbar,
@@ -112,9 +122,7 @@ header,
   border-bottom: 1px solid rgba(0,0,0,.06) !important;
   box-shadow: var(--aero-shadow-soft) !important;
   color: var(--aero-text) !important;
-  transition:
-    background var(--aero-med) var(--aero-ease),
-    box-shadow var(--aero-med) var(--aero-ease) !important;
+  transition: background var(--aero-med) var(--aero-ease), box-shadow var(--aero-med) var(--aero-ease) !important;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -144,7 +152,7 @@ header svg,
   fill: currentColor !important;
 }
 
-/* Menu button surface (keeps it visible on light header) */
+/* Header button surface (NO transform to avoid “jump”) */
 header button,
 .navbar button,
 .dxbl-toolbar button,
@@ -154,26 +162,14 @@ header button,
   background: rgba(255,255,255,.55) !important;
   border: 1px solid rgba(0,0,0,.06) !important;
   border-radius: 12px !important;
-  transition:
-    transform var(--aero-fast) var(--aero-ease),
-    filter var(--aero-fast) var(--aero-ease) !important;
+  transition: filter var(--aero-fast) var(--aero-ease) !important;
 }
-
 header button:active,
 .navbar button:active,
 .dxbl-toolbar button:active,
 .dxbl-appbar button:active,
 .dxbs-topbar button:active{
-  transform: scale(.985) !important;
-}
-
-header button svg,
-.navbar button svg,
-.dxbl-toolbar button svg,
-.dxbl-appbar button svg,
-.dxbs-topbar button svg{
-  fill: currentColor !important;
-  stroke: currentColor !important;
+  filter: brightness(.96) !important;
 }
 
 header .oi, header i,
@@ -194,33 +190,21 @@ header .bg-white,
 
 /* =========================================================
    HAMBURGER FIX (Bootstrap 5 .navbar-toggler-icon)
-   Fixes the black square by undoing "span background".
+   Avoids black square and forces black 3-line icon.
 ========================================================= */
 
-/* NEVER paint the Bootstrap toggler icon span */
-header .navbar-toggler .navbar-toggler-icon,
-.navbar .navbar-toggler .navbar-toggler-icon,
-.dxbs-topbar .navbar-toggler .navbar-toggler-icon{
-  background-color: transparent !important;
-}
-
-/* Undo any global "span background" rule for this specific span */
-header .navbar-toggler span.navbar-toggler-icon,
-.navbar .navbar-toggler span.navbar-toggler-icon,
-.dxbs-topbar .navbar-toggler span.navbar-toggler-icon{
-  background: transparent !important;
-}
-
-/* Force black 3-line icon for Bootstrap toggler via CSS var */
+/* Force black 3-line SVG */
 header,
 .navbar,
 .dxbs-topbar{
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0,0,0,0.90)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-header .navbar-toggler-icon,
-.navbar .navbar-toggler-icon,
-.dxbs-topbar .navbar-toggler-icon{
+/* Ensure the icon span is not being painted */
+header .navbar-toggler .navbar-toggler-icon,
+.navbar .navbar-toggler .navbar-toggler-icon,
+.dxbs-topbar .navbar-toggler .navbar-toggler-icon{
+  background-color: transparent !important;
   background-image: var(--bs-navbar-toggler-icon-bg) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -229,19 +213,16 @@ header .navbar-toggler-icon,
   filter: none !important;
 }
 
-/* If you still use custom 3-line hamburgers elsewhere, keep them black */
-header .hamburger span,
-.navbar .hamburger span,
-header .hamburger::before,
-header .hamburger::after,
-.navbar .hamburger::before,
-.navbar .hamburger::after{
-  background: #000 !important;
-  border-color: #000 !important;
+/* If toggler is SVG-based somewhere */
+header .navbar-toggler svg,
+.navbar .navbar-toggler svg,
+.dxbs-topbar .navbar-toggler svg{
+  fill: #000 !important;
+  stroke: #000 !important;
 }
 
 /* =========================================================
-   DXBL TOOLBAR: remove white background strip
+   DXBL TOOLBAR: remove white strip
 ========================================================= */
 .dxbl-toolbar,
 .dxbl-toolbar-root,
@@ -264,7 +245,7 @@ header .hamburger::after,
   }
 }
 
-/* Inner host that was staying white */
+/* Inner host that stays white on some builds */
 .dxbl-toolbar > .dxbl-btn-toolbar,
 .dxbl-toolbar .dxbl-btn-toolbar,
 .dxbl-btn-toolbar,
@@ -274,7 +255,6 @@ div.dxbl-btn-toolbar{
   border: 1px solid rgba(0,0,0,.06) !important;
   box-shadow: var(--aero-shadow-soft) !important;
 }
-
 .dxbl-btn-toolbar::before,
 .dxbl-btn-toolbar::after{
   background: var(--aero-bg-1) !important;
@@ -286,8 +266,8 @@ div.dxbl-btn-toolbar{
 }
 
 /* =========================================================
-   UNIFIED BUTTON SYSTEM (Bootstrap + DevExpress)
-   Applies to normal buttons. Keyboard buttons excluded.
+   UNIFIED BUTTON SYSTEM
+   IMPORTANT: no transform animations (no jump).
 ========================================================= */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
@@ -320,28 +300,16 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
   text-decoration: none !important;
 
   transition:
-    transform var(--aero-fast) var(--aero-ease),
     filter var(--aero-fast) var(--aero-ease),
-    box-shadow var(--aero-med) var(--aero-ease) !important;
+    box-shadow var(--aero-fast) var(--aero-ease),
+    background-color var(--aero-fast) var(--aero-ease) !important;
 }
 
-/* iOS-ish press */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active{
-  transform: translateY(1px) scale(.985) !important;
-  filter: brightness(.99) !important;
-}
-
-/* Optional subtle “lift” on hover for desktop */
-@media (hover: hover){
-  button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
-  .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
-  .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover{
-    filter: brightness(1.02) !important;
-    box-shadow: 0 10px 22px rgba(0,0,0,.10) !important;
-    transform: translateY(-1px) !important;
-  }
+  filter: brightness(.96) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08) !important;
 }
 
 /* Neutralize Bootstrap variants */
@@ -352,7 +320,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   color: var(--aero-text) !important;
 }
 
-/* Fix: inner caption/icon backgrounds causing colored blocks */
+/* Prevent inner spans from painting blocks */
 .dxbl-btn * ,
 .btn *{
   background: transparent !important;
@@ -373,49 +341,86 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .vtmf-secondary-btn{ width: 100% !important; margin: .55rem !important; }
 .vtmf-secondary-process-btn{ width: 100% !important; margin: .55rem !important; }
 
-/* Keyboard buttons */
+/* =========================================================
+   KEYPAD: iOS calculator grayscale
+   (no blue/purple, no jump)
+========================================================= */
 .vtmf-kbd-num,
-.vtmf-kbd-ctrl{
-  width: 65% !important;
-  margin: .5rem !important;
-  padding: 1.4rem 1.2rem !important;
-  border-radius: var(--aero-radius-lg) !important;
-  font-size: 1.35rem !important;
-  font-weight: 800 !important;
-  box-shadow: var(--aero-shadow-soft) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
-}
-
-.vtmf-kbd-num{
-  background: linear-gradient(180deg, rgba(0,122,255,.18), rgba(0,122,255,.10)) !important;
-  color: rgba(0,122,255,1) !important;
-}
-
-.vtmf-kbd-ctrl{
-  background: linear-gradient(180deg, rgba(88,86,214,.18), rgba(88,86,214,.10)) !important;
-  color: rgba(88,86,214,1) !important;
-}
-
-.vtmf-kbd-num:active,
-.vtmf-kbd-ctrl:active{ transform: scale(.985) !important; }
-
+.vtmf-kbd-ctrl,
 .vtmf-kbd-start{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+
+  /* responsive “calculator button” size */
+  width: clamp(56px, 16vw, 74px) !important;
+  height: clamp(56px, 16vw, 74px) !important;
+  padding: 0 !important;
+  margin: .55rem !important;
+
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.85) !important;
+
+  transition:
+    filter var(--aero-fast) var(--aero-ease),
+    box-shadow var(--aero-fast) var(--aero-ease) !important;
+}
+
+/* Numbers */
+.vtmf-kbd-num{
+  background: var(--calc-num-bg) !important;
+  color: #000 !important;
+  font-size: 1.55rem !important;
+}
+
+/* Controls (backspace, clear, etc.) */
+.vtmf-kbd-ctrl{
+  background: var(--calc-ctrl-bg) !important;
+  color: #000 !important;
+  font-size: 1.35rem !important;
+}
+
+/* “Start/Enter/OK” style (grayscale accent) */
+.vtmf-kbd-start{
+  background: var(--calc-op-bg) !important;
+  color: var(--calc-op-fg) !important;
+
+  /* keep your positioning */
   top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
   z-index: 1050 !important;
-  border-radius: 999px !important;
+
+  /* let this one be pill if you want */
+  width: auto !important;
+  height: auto !important;
   padding: .55rem 1rem !important;
-  font-weight: 800 !important;
-  box-shadow: var(--aero-shadow-soft) !important;
-  background: var(--aero-glass-strong) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  color: var(--aero-text) !important;
-  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
+  margin: 0 !important;
 }
 
-.vtmf-kbd-start:active{ transform: translateY(1px) scale(.985) !important; }
+/* Press feedback without movement */
+.vtmf-kbd-num:active,
+.vtmf-kbd-ctrl:active,
+.vtmf-kbd-start:active{
+  filter: brightness(.92) !important;
+  box-shadow:
+    0 6px 12px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.75) !important;
+}
 
-/* Detail labels / values */
+/* If keypad icons exist */
+.vtmf-kbd-ctrl svg,
+.vtmf-kbd-start svg{
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* =========================================================
+   DETAIL LABELS / VALUES
+========================================================= */
 .vtmf-detail-label{
   font-weight: 700;
   padding-bottom: .35rem;
@@ -431,7 +436,6 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .vtmf-detail-value-lg{ text-align: left; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
 .vtmf-detail-label-xl{ font-weight: 800; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
 .vtmf-detail-value-xl{ text-align: left; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
-
 .vtmf-detail-action{ width: 100% !important; }
 
 /* Icons */
@@ -444,7 +448,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 }
 
 /* =========================================================
-   SEMANTIC STATUS + ALERTS (DB replacements)
+   SEMANTIC STATUS + ALERTS
 ========================================================= */
 .vtmf-alert-success{
   width: 100%;
@@ -479,13 +483,12 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   display: inline-block;
 }
 
-/* Dark alert slow pulse */
+/* Dark alert slow hue pulse */
 @keyframes vtmf-alert-hue-breathe{
   0%   { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
   50%  { filter: hue-rotate(18deg);  box-shadow: 0 10px 26px rgba(0,0,0,.14); }
   100% { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
 }
-
 .alert.alert-dark,
 .alert-alert-dark,
 div.alert-alert-dark{
@@ -531,7 +534,7 @@ div.alert-alert-dark{
 .dxbl-listbox-item:hover{ background: rgba(0,0,0,.04) !important; }
 .dxbl-listbox-item.dxbl-selected,
 .dxbl-listbox-item[aria-selected="true"]{
-  background: rgba(0,122,255,.10) !important;
+  background: rgba(0,0,0,.05) !important; /* grayscale */
   color: var(--aero-text) !important;
 }
 
@@ -547,13 +550,12 @@ input, select, textarea,
   border: 1px solid rgba(0,0,0,.10) !important;
   transition: box-shadow var(--aero-fast) var(--aero-ease), border-color var(--aero-fast) var(--aero-ease) !important;
 }
-
 ::placeholder{ color: rgba(10,14,20,.48) !important; }
 
 /* =========================================================
-   UGLY BLUE FIX (grid selection + loading cards/panels)
+   UGLY BLUE FIX (grid selection + loading panels)
 ========================================================= */
-.dxbl-grid .bg-primary{ background: rgba(0,122,255,.10) !important; }
+.dxbl-grid .bg-primary{ background: rgba(0,0,0,.05) !important; } /* grayscale */
 .dxbl-grid .text-white{ color: var(--aero-text) !important; }
 
 .dxbl-loadpanel,
@@ -582,23 +584,157 @@ input, select, textarea,
   }
 }
 
-.dxbl-loadpanel .bg-primary,
-.dxbl-loading-panel .bg-primary{
-  background: rgba(0,122,255,.10) !important;
+/* =========================================================
+   DEVEXPRESS / DXBL POPUPS + LAYOUT
+========================================================= */
+.dxbl-modal-content,
+.dxbl-popup,
+.dxbl-popup-content,
+.dxbl-card,
+.dxbl-grid,
+.dxbl-form,
+.dxbl-layout-item{
+  border-radius: var(--aero-radius-lg);
 }
-.dxbl-loadpanel .text-white,
-.dxbl-loading-panel .text-white{
-  color: var(--aero-text) !important;
+
+.dxbl-modal-content,
+.dxbl-popup-content{
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .dxbl-modal-content,
+  .dxbl-popup-content{
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
+/* Modal width fix */
+.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content{
+  max-width: max-content;
+}
+
+/* Popup height fix */
+@media screen and (max-height: 750px){
+  .dxbl-popup-portal .dxbl-popup-content::after{
+    content: "";
+    display: block;
+    height: 150px;
+  }
+}
+
+/* Custom modal title */
+.dxbl-modal .dxbl-modal-title.dxbl-text{ visibility: hidden; position: relative; }
+.dxbl-modal .dxbl-modal-title.dxbl-text::after{
+  content: "Muuda andmed";
+  visibility: visible;
+  position: absolute;
+}
+
+/* Grid spacing */
+.dxbl-grid tr{ height: 60px; }
+.dxbl-grid td,
+.dxbl-grid th{ padding: 20px; }
+.dxbl-grid{ border-spacing: 0 20px; border-collapse: separate; }
+
+/* Modal footer layout */
+.dxbl-modal-footer{ display: flex; flex-direction: row; align-items: center; gap: 15px; }
+.dxbl-modal-footer button:nth-of-type(2){ background-color: lightgray; color: black; }
+
+/* Button size overrides (kept) */
+.dxbl-btn-primary{ font-size: x-large; }
+.dxbl-btn.dxbl-lg{ width: -webkit-fill-available; font-size: x-large; }
+.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{ width: 99%; }
+.dxbl-btn-caption{ display: inline-block; }
+.popupnupud{ width: 99%; margin-top: 15px; }
+
+/* Header + footer buttons (kept) */
+.paisenupud{
+  font-weight: bold;
+  width: 100px;
+  padding: 10px 0;
+  background-color: lightgray;
+  transition: background-color var(--aero-med) var(--aero-ease);
+}
+.jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
+
+/* Field size overrides */
+div[data-fname="vatprice"] span,
+div[data-fname="state"] span,
+div[data-fname="datafield3"] span,
+div[data-fname="number"] span,
+div[data-fname="AN"] span,
+div[data-fname="SH"] span{ font-size: smaller; }
+
+div[data-fname="AD"] span,
+div[data-fname="ALD"] span,
+div[data-fname="fromstock"] span,
+div[data-fname="tostocktr"] span{ font-size: large; font-weight: bold; }
+
+div[data-fname="suppliername"] span,
+div[data-fname="stock"] span,
+div[data-fname="customername"] span{ font-size: large; font-weight: bold; }
+
+div[data-fname="CAIC"] span{ font-weight: bold; }
+
+/* Document grid command cell fix */
+.vtmf-Document-grid td.dxbl-grid-command-cell,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
+  position: relative !important;
+  padding: 0 !important;
+}
+.vtmf-Document-grid .dxbl-grid-table tr,
+.vtmf-DocumentItems-grid .dxbl-grid-table tr{
+  height: 48px !important;
+}
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
+  position: absolute !important;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  z-index: 1;
+}
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
+  width: 100% !important;
+  height: 100% !important;
+  line-height: normal !important;
+}
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
+  pointer-events: none !important;
+}
+
+/* Header scanner buttons (kept) */
+.vtmf-btn-xl{ left: 30%; top: 0 !important; }
+.vtmfs-btn-xl{ right: 30%; top: 0 !important; }
+.vtmf-btn-xl,
+.vtmfs-btn-xl{
+  font-size: 1rem;
+  padding: 8px 16px;
+  height: auto;
+  width: auto;
+  border-radius: 6px;
 }
 
 /* =========================================================
-   PAGE CHANGE / POPUP OPEN iOS-ish animations (slower)
+   PAGE / POPUP ANIMATIONS (kept)
 ========================================================= */
 @keyframes vtmf-fade-up{
   from{ opacity: 0; transform: translateY(10px); }
   to{ opacity: 1; transform: translateY(0); }
 }
-
 @keyframes vtmf-pop{
   from{ opacity: 0; transform: scale(.98); }
   to{ opacity: 1; transform: scale(1); }
