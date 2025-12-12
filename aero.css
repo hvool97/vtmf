@@ -401,3 +401,40 @@ div[data-fname="CAIC"] span{ font-weight: bold; }
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
     pointer-events: none !important;
 }
+/* =========================================================
+   DXBL TOOLBAR: remove white background strip
+========================================================= */
+.dxbl-toolbar,
+.dxbl-toolbar-root,
+.dxbl-toolbar-items,
+.dxbl-toolbar-content,
+.dxbl-toolbar-container{
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .dxbl-toolbar,
+  .dxbl-toolbar-root,
+  .dxbl-toolbar-items,
+  .dxbl-toolbar-content,
+  .dxbl-toolbar-container{
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+  }
+}
+
+/* The inner toolbar button host that often stays white */
+.dxbl-toolbar > .dxbl-btn-toolbar,
+.dxbl-toolbar .dxbl-btn-toolbar{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* If the toolbar uses groups/wrappers */
+.dxbl-toolbar .dxbl-toolbar-group,
+.dxbl-toolbar .dxbl-toolbar-item{
+  background: transparent !important;
+}
