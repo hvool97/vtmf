@@ -1,5 +1,7 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
+   Cleaned: duplicates removed, unified buttons integrated,
+   keyboard colors preserved, blue patch fix included.
 ========================================================= */
 
 /* ------------------------
@@ -17,7 +19,6 @@
 
     --aero-glass: rgba(255,255,255,.62);
     --aero-glass-strong: rgba(255,255,255,.78);
-    --aero-border: rgba(255,255,255,.70);
 
     --aero-shadow: 0 10px 30px rgba(0,0,0,.10);
     --aero-shadow-soft: 0 6px 18px rgba(0,0,0,.08);
@@ -25,8 +26,6 @@
     --aero-radius-lg: 18px;
     --aero-radius-md: 14px;
 
-    --aero-accent: rgba(0,122,255,1);
-    --aero-accent-2: rgba(88,86,214,1);
     --aero-focus: rgba(0,122,255,.28);
 }
 
@@ -51,13 +50,6 @@ a{ color: inherit; }
     outline: none !important;
     box-shadow: 0 0 0 4px var(--aero-focus) !important;
     border-radius: 10px;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .aero-glass{
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
-        backdrop-filter: blur(18px) saturate(180%);
-    }
 }
 
 /* -------------------------
@@ -95,6 +87,7 @@ header a,
 .dxbl-appbar a{
     color: var(--aero-text) !important;
 }
+
 header svg,
 .navbar svg,
 .dxbl-toolbar svg,
@@ -102,13 +95,16 @@ header svg,
     fill: currentColor !important;
 }
 
-/* Make menu/hamburger visible on light header */
+/* Menu/hamburger visibility */
 header button,
 .navbar button,
 .dxbl-toolbar button,
 .dxbl-appbar button,
 .dxbs-topbar button{
   color: var(--aero-text) !important;
+  background: rgba(255,255,255,.55) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  border-radius: 12px !important;
 }
 header button svg,
 .navbar button svg,
@@ -122,24 +118,6 @@ header .oi, header i,
 .navbar .oi, .navbar i{
   color: var(--aero-text) !important;
 }
-header button,
-.navbar button,
-.dxbl-toolbar button,
-.dxbl-appbar button,
-.dxbs-topbar button{
-  background: rgba(255,255,255,.55) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  border-radius: 12px !important;
-}
-
-/* -------------------------
-   BOOTSTRAP BUTTON BASE (gentle)
-------------------------- */
-.btn{
-    border-radius: var(--aero-radius-md);
-    transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
-}
-.btn:active{ transform: translateY(1px); }
 
 /* -------------------------
    SMALL SCREEN TOGGLE BUTTON
@@ -157,82 +135,84 @@ header button,
 .w-65 { width: 65% !important; }
 
 /* =========================================================
-   SEMANTIC BUTTONS (DB stores only these)
+   UNIFIED BUTTON SYSTEM (Bootstrap + DevExpress)
+   Applies to normal buttons. Keyboard buttons are excluded.
 ========================================================= */
+button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-standalone:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-primary:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-secondary:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-danger:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-success:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-info:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
+.dxbl-btn-warning:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start){
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .5rem !important;
 
-.vtmf-process-btn{
-    width: 100% !important;
-    margin: .55rem !important;
-    padding: 1.05rem 1.1rem !important;
-    border-radius: var(--aero-radius-lg) !important;
+  min-height: 44px !important;
+  padding: .65rem 1rem !important;
 
-    background: var(--aero-glass-strong) !important;
-    border: 1px solid rgba(0,0,0,.06) !important;
-    box-shadow: var(--aero-shadow-soft) !important;
+  border-radius: 16px !important;
+  font-weight: 750 !important;
+  font-size: 1rem !important;
+  line-height: 1.1 !important;
 
-    color: var(--aero-text) !important;
-    font-weight: 650;
-    letter-spacing: .2px;
-}
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .vtmf-process-btn{
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
-        backdrop-filter: blur(18px) saturate(180%);
-    }
-}
-@media (min-width: 768px){
-    .vtmf-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
-}
-.vtmf-process-btn:hover{ filter: brightness(1.02); }
-.vtmf-process-btn:active{ transform: translateY(1px) scale(.995); }
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.08) !important;
+  color: var(--aero-text) !important;
 
-.vtmf-secondary-btn{
-    width: 100% !important;
-    margin: .55rem !important;
-    padding: 1.05rem 1.1rem !important;
-    border-radius: var(--aero-radius-lg) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+  text-decoration: none !important;
 
-    background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72)) !important;
-    border: 1px solid rgba(0,0,0,.06) !important;
-    box-shadow: var(--aero-shadow) !important;
-
-    color: var(--aero-text) !important;
-    font-weight: 750;
-    letter-spacing: .3px;
-}
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .vtmf-secondary-btn{
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        backdrop-filter: blur(20px) saturate(180%);
-    }
-}
-@media (min-width: 768px){
-    .vtmf-secondary-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
-}
-.vtmf-secondary-btn:hover{ filter: brightness(1.02); }
-.vtmf-secondary-btn:active{ transform: translateY(1px) scale(.995); }
-
-.vtmf-secondary-process-btn{
-    width: 100% !important;
-    margin: .55rem !important;
-    padding: 1.05rem 1.1rem !important;
-    border-radius: 999px !important;
-
-    background: var(--aero-glass) !important;
-    border: 1px solid rgba(0,0,0,.10) !important;
-    color: var(--aero-text) !important;
-    font-weight: 650;
-}
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .vtmf-secondary-process-btn{
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
-        backdrop-filter: blur(18px) saturate(180%);
-    }
-}
-@media (min-width: 768px){
-    .vtmf-secondary-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
+  transition: transform .08s ease, filter .12s ease, box-shadow .12s ease !important;
 }
 
+/* Hover/active feel */
+button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
+.btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
+.dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover{
+  filter: brightness(1.02) !important;
+}
+button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
+.btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
+.dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active{
+  transform: translateY(1px) scale(.995) !important;
+}
+
+/* Neutralize Bootstrap variants so everything stays consistent */
+.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info,
+.btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info{
+  background: var(--aero-glass-strong) !important;
+  border-color: rgba(0,0,0,.08) !important;
+  color: var(--aero-text) !important;
+}
+
+/* Fix: inner caption/icon backgrounds causing blue patch */
+.dxbl-btn * ,
+.btn *{
+  background: transparent !important;
+}
+
+/* Icon-only buttons */
+.dxbl-btn-icon-only,
+.btn-icon-only{
+  width: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+}
+
+/* =========================================================
+   SEMANTIC UI CLASSES (DB stores these)
+========================================================= */
+.vtmf-process-btn{ width: 100% !important; margin: .55rem !important; }
+.vtmf-secondary-btn{ width: 100% !important; margin: .55rem !important; }
+.vtmf-secondary-process-btn{ width: 100% !important; margin: .55rem !important; }
+
+/* Keyboard buttons keep their distinct look */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl{
     width: 65% !important;
@@ -240,11 +220,10 @@ header button,
     padding: 1.4rem 1.2rem !important;
     border-radius: var(--aero-radius-lg) !important;
     font-size: 1.35rem !important;
-    font-weight: 800;
+    font-weight: 800 !important;
     box-shadow: var(--aero-shadow-soft) !important;
     border: 1px solid rgba(0,0,0,.06) !important;
 }
-
 .vtmf-kbd-num{
     background: linear-gradient(180deg, rgba(0,122,255,.18), rgba(0,122,255,.10)) !important;
     color: rgba(0,122,255,1) !important;
@@ -257,24 +236,16 @@ header button,
 .vtmf-kbd-start{
     top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
     z-index: 1050 !important;
-
     border-radius: 999px !important;
     padding: .55rem 1rem !important;
-    font-weight: 800;
+    font-weight: 800 !important;
     box-shadow: var(--aero-shadow-soft) !important;
-
     background: var(--aero-glass-strong) !important;
     border: 1px solid rgba(0,0,0,.06) !important;
     color: var(--aero-text) !important;
 }
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .vtmf-kbd-start{
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
-        backdrop-filter: blur(18px) saturate(180%);
-    }
-}
 
-/* Detail labels / values (new semantic replacements) */
+/* Detail labels / values */
 .vtmf-detail-label{
     font-weight: 700;
     padding-bottom: .35rem;
@@ -286,19 +257,15 @@ header button,
     border-bottom: 1px solid rgba(0,0,0,.08);
     color: var(--aero-text);
 }
-
 .vtmf-detail-label-lg{ font-weight: 750; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
 .vtmf-detail-value-lg{ text-align: left; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
-
 .vtmf-detail-label-xl{ font-weight: 800; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
 .vtmf-detail-value-xl{ text-align: left; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
 
-/* Detail action buttons (replacement for w-100) */
-.vtmf-detail-action{
-    width: 100% !important;
-}
+/* Detail action button */
+.vtmf-detail-action{ width: 100% !important; }
 
-/* Icon semantic classes (replacement for oi oi-*) */
+/* Icon semantic classes */
 .vtmf-icon-chevron-down,
 .vtmf-icon-map-marker{
     display: inline-block;
@@ -308,7 +275,7 @@ header button,
 }
 
 /* =========================================================
-   DEVEXPRESS / DXBL GLASS PASS
+   DEVEXPRESS / DXBL
 ========================================================= */
 .dxbl-modal-content,
 .dxbl-popup,
@@ -326,6 +293,7 @@ header button,
     border: 1px solid rgba(0,0,0,.06) !important;
     box-shadow: var(--aero-shadow) !important;
 }
+
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
     .dxbl-modal-content,
     .dxbl-popup-content{
@@ -334,31 +302,18 @@ header button,
     }
 }
 
-/* -------------------------
-   MODAL WIDTH FIX
-------------------------- */
+/* Modal width fix */
 .dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content {
     max-width: max-content;
 }
 
-/* -------------------------
-   HEADER SCANNER BUTTONS (your existing)
-------------------------- */
+/* Header scanner buttons (kept) */
 .vtmf-btn-xl { left: 30%; top: 0 !important; }
 .vtmfs-btn-xl { right: 30%; top: 0 !important; }
-
 .vtmf-btn-xl,
-.vtmfs-btn-xl {
-    font-size: 1rem;
-    padding: 8px 16px;
-    height: auto;
-    width: auto;
-    border-radius: 6px;
-}
+.vtmfs-btn-xl { font-size: 1rem; padding: 8px 16px; height: auto; width: auto; border-radius: 6px; }
 
-/* -------------------------
-   POPUP HEIGHT FIX ON SMALL SCREENS
-------------------------- */
+/* Popup height fix */
 @media screen and (max-height: 750px) {
     .dxbl-popup-portal .dxbl-popup-content::after {
         content: "";
@@ -367,129 +322,61 @@ header button,
     }
 }
 
-/* -------------------------
-   CUSTOM MODAL TITLE
-------------------------- */
-.dxbl-modal .dxbl-modal-title.dxbl-text {
-    visibility: hidden;
-    position: relative;
-}
-.dxbl-modal .dxbl-modal-title.dxbl-text::after {
-    content: "Muuda andmed";
-    visibility: visible;
-    position: absolute;
-}
+/* Custom modal title */
+.dxbl-modal .dxbl-modal-title.dxbl-text { visibility: hidden; position: relative; }
+.dxbl-modal .dxbl-modal-title.dxbl-text::after { content: "Muuda andmed"; visibility: visible; position: absolute; }
 
-/* -------------------------
-   GRID ROW + CELL SPACING
-------------------------- */
+/* Grid spacing */
 .dxbl-grid tr { height: 60px; }
-
 .dxbl-grid td,
 .dxbl-grid th { padding: 20px; }
+.dxbl-grid{ border-spacing: 0 20px; border-collapse: separate; }
 
-.dxbl-grid{
-    border-spacing: 0 20px;
-    border-collapse: separate;
-}
+/* Modal footer layout */
+.dxbl-modal-footer{ display: flex; flex-direction: row; align-items: center; gap: 15px; }
+.dxbl-modal-footer button:nth-of-type(2){ background-color: lightgray; color: black; }
 
-/* -------------------------
-   MODAL FOOTER LAYOUT
-------------------------- */
-.dxbl-modal-footer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-}
-.dxbl-modal-footer button:nth-of-type(2){
-    background-color: lightgray;
-    color: black;
-}
-
-/* -------------------------
-   BUTTON SIZE OVERRIDES (your existing)
-------------------------- */
+/* Button size overrides (kept) */
 .dxbl-btn-primary { font-size: x-large; }
-
-.dxbl-btn.dxbl-lg{
-    width: -webkit-fill-available;
-    font-size: x-large;
-}
-
+.dxbl-btn.dxbl-lg{ width: -webkit-fill-available; font-size: x-large; }
 .dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
-.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{
-    width: 99%;
-}
-
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{ width: 99%; }
 .dxbl-btn-caption{ display: inline-block; }
+.popupnupud{ width: 99%; margin-top: 15px; }
 
-.popupnupud{
-    width: 99%;
-    margin-top: 15px;
-}
+/* Header + footer buttons (kept) */
+.paisenupud{ font-weight: bold; width: 100px; padding: 10px 0; background-color: lightgray; transition: background-color 0.3s; }
+.jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
 
-/* -------------------------
-   HEADER + FOOTER BUTTONS (your existing)
-------------------------- */
-.paisenupud{
-    font-weight: bold;
-    width: 100px;
-    padding: 10px 0;
-    background-color: lightgray;
-    transition: background-color 0.3s;
-}
-
-.jalusenupud{
-    font-weight: bold;
-    width: 100px;
-    padding: 20px 0;
-}
-
-/* -------------------------
-   FIELD SIZE OVERRIDES (your existing)
-------------------------- */
+/* Field size overrides (duplicate selector removed) */
 div[data-fname="vatprice"] span,
 div[data-fname="state"] span,
 div[data-fname="datafield3"] span,
 div[data-fname="number"] span,
 div[data-fname="AN"] span,
-div[data-fname="SH"] span{
-    font-size: smaller;
-}
+div[data-fname="SH"] span{ font-size: smaller; }
 
 div[data-fname="AD"] span,
 div[data-fname="ALD"] span,
 div[data-fname="fromstock"] span,
-div[data-fname="fromstock"] span,
-div[data-fname="tostocktr"] span{
-    font-size: large;
-    font-weight: bold;
-}
+div[data-fname="tostocktr"] span{ font-size: large; font-weight: bold; }
 
 div[data-fname="suppliername"] span,
 div[data-fname="stock"] span,
-div[data-fname="customername"] span{
-    font-size: large;
-    font-weight: bold;
-}
+div[data-fname="customername"] span{ font-size: large; font-weight: bold; }
 
 div[data-fname="CAIC"] span{ font-weight: bold; }
 
-/* -------------------------
-   DOCUMENT GRID COMMAND CELL FIX (your existing)
-------------------------- */
+/* Document grid command cell fix */
 .vtmf-Document-grid td.dxbl-grid-command-cell,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
     position: relative !important;
     padding: 0 !important;
 }
-
 .vtmf-Document-grid .dxbl-grid-table tr,
 .vtmf-DocumentItems-grid .dxbl-grid-table tr{
     height: 48px !important;
 }
-
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
     position: absolute !important;
@@ -504,14 +391,12 @@ div[data-fname="CAIC"] span{ font-weight: bold; }
     border-radius: 0 !important;
     z-index: 1;
 }
-
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
     width: 100% !important;
     height: 100% !important;
     line-height: normal !important;
 }
-
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
     pointer-events: none !important;
