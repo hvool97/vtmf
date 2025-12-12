@@ -1,29 +1,214 @@
-.btn-softcard{
-  background:#fff !important;
-  color:#111 !important;
-
-  /* softer border */
-  border-color:#e6e9ef !important;
-
-  /* thin modern font */
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
-  font-weight:500 !important;
-  letter-spacing:0.2px;
-
-  /* stronger but soft blue glow, all sides */
-  box-shadow:
-    0 10px 26px rgba(80,140,255,.18),
-    0 2px 8px rgba(0,0,0,.08) !important;
+/* -------------------------
+   SMALL SCREEN TOGGLE BUTTON
+------------------------- */
+@media (max-width: 575px) {
+    .dxbs-toggle-cell .btn-toggle svg {
+        height: 30px;
+        width: 30px;
+    }
 }
 
-.btn-softcard:hover{
-  box-shadow:
-    0 14px 34px rgba(80,140,255,.22),
-    0 4px 12px rgba(0,0,0,.10) !important;
+.btn-primary {
+    font-size: x-large;
 }
 
-.btn-softcard:active{
-  box-shadow:
-    0 8px 18px rgba(80,140,255,.16),
-    0 2px 6px rgba(0,0,0,.10) !important;
+/* -------------------------
+   MODAL WIDTH FIX
+------------------------- */
+.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content {
+    max-width: max-content;
+}
+
+/* -------------------------
+   HEADER SCANNER BUTTONS
+------------------------- */
+.vtmf-btn-xl {
+    left: 30%;
+    top: 0 !important;
+}
+
+.vtmfs-btn-xl {
+    right: 30%;
+    top: 0 !important;
+}
+
+.vtmf-btn-xl,
+.vtmfs-btn-xl {
+    font-size: 1rem;
+    padding: 8px 16px;
+    height: auto;
+    width: auto;
+    border-radius: 6px;
+}
+
+/* -------------------------
+   POPUP HEIGHT FIX ON SMALL SCREENS
+------------------------- */
+@media screen and (max-height: 750px) {
+    .dxbl-popup-portal .dxbl-popup-content::after {
+        content: "";
+        display: block;
+        height: 150px;
+    }
+}
+
+/* -------------------------
+   CUSTOM MODAL TITLE
+------------------------- */
+.dxbl-modal .dxbl-modal-title.dxbl-text {
+    visibility: hidden;
+    position: relative;
+}
+
+.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+    content: "Muuda andmed";
+    visibility: visible;
+    position: absolute;
+}
+
+/* -------------------------
+   GRID ROW + CELL SPACING
+------------------------- */
+.dxbl-grid tr {
+    height: 60px;
+}
+
+.dxbl-grid td,
+.dxbl-grid th {
+    padding: 20px;
+}
+
+.dxbl-grid {
+    border-spacing: 0 20px;
+    border-collapse: separate;
+}
+
+/* -------------------------
+   MODAL FOOTER LAYOUT
+------------------------- */
+.dxbl-modal-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.dxbl-modal-footer button:nth-of-type(2) {
+    background-color: lightgray;
+    color: black;
+}
+
+/* -------------------------
+   BUTTON SIZE OVERRIDES
+------------------------- */
+.dxbl-btn-primary {
+    font-size: x-large;
+}
+
+.dxbl-btn.dxbl-lg {
+    width: -webkit-fill-available;
+    font-size: x-large;
+}
+
+.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg {
+    width: 99%;
+}
+
+.dxbl-btn-caption {
+    display: inline-block;
+}
+
+.popupnupud {
+    width: 99%;
+    margin-top: 15px;
+}
+
+/* -------------------------
+   HEADER + FOOTER BUTTONS
+------------------------- */
+.paisenupud {
+    font-weight: bold;
+    width: 100px;
+    padding: 10px 0;
+    background-color: lightgray;
+    transition: background-color 0.3s;
+}
+
+.jalusenupud {
+    font-weight: bold;
+    width: 100px;
+    padding: 20px 0;
+}
+
+/* -------------------------
+   FIELD SIZE OVERRIDES
+------------------------- */
+div[data-fname="vatprice"] span,
+div[data-fname="state"] span,
+div[data-fname="datafield3"] span,
+div[data-fname="number"] span,
+div[data-fname="AN"] span,
+div[data-fname="SH"] span {
+    font-size: smaller;
+}
+
+div[data-fname="AD"] span,
+div[data-fname="ALD"] span,
+div[data-fname="fromstock"] span,
+div[data-fname="tostocktr"] span {
+    font-size: large;
+    font-weight: bold;
+}
+
+div[data-fname="suppliername"] span,
+div[data-fname="stock"] span,
+div[data-fname="customername"] span {
+    font-size: large;
+    font-weight: bold;
+}
+
+div[data-fname="CAIC"] span {
+    font-weight: bold;
+}
+
+/* -------------------------
+   DOCUMENT GRID COMMAND CELL FIX
+------------------------- */
+.vtmf-Document-grid td.dxbl-grid-command-cell,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
+    position: relative !important;
+    padding: 0 !important;
+}
+
+.vtmf-Document-grid .dxbl-grid-table tr,
+.vtmf-DocumentItems-grid .dxbl-grid-table tr {
+    height: 48px !important;
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command {
+    position: absolute !important;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 !important;
+    z-index: 1;
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only {
+    width: 100% !important;
+    height: 100% !important;
+    line-height: normal !important;
+}
+
+.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon {
+    pointer-events: none !important;
 }
