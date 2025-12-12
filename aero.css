@@ -1,9 +1,10 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
-   Fixed: duplicates removed, sections ordered, toolbar strip
-   fix included, semantic alerts/states included.
+   Fixed: duplicates removed, ordered, toolbar strip fix,
+   semantic alerts/states included.
    Added: readable dropdowns, loading panel fix, dark alert pulse,
    stubborn dxbl-btn-toolbar background, iOS-like animations.
+   Update: slower motion + hamburger fixed (no black square).
 ========================================================= */
 
 /* ------------------------
@@ -30,11 +31,11 @@
 
   --aero-focus: rgba(0,122,255,.28);
 
-  /* iOS-ish motion */
+  /* iOS-ish motion (SLOWER) */
   --aero-ease: cubic-bezier(.2,.9,.2,1);
-  --aero-fast: 140ms;
-  --aero-med: 220ms;
-  --aero-slow: 360ms;
+  --aero-fast: 220ms;
+  --aero-med: 360ms;
+  --aero-slow: 520ms;
 }
 
 /* ------------------------
@@ -111,7 +112,9 @@ header,
   border-bottom: 1px solid rgba(0,0,0,.06) !important;
   box-shadow: var(--aero-shadow-soft) !important;
   color: var(--aero-text) !important;
-  transition: background var(--aero-med) var(--aero-ease), box-shadow var(--aero-med) var(--aero-ease) !important;
+  transition:
+    background var(--aero-med) var(--aero-ease),
+    box-shadow var(--aero-med) var(--aero-ease) !important;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -151,7 +154,9 @@ header button,
   background: rgba(255,255,255,.55) !important;
   border: 1px solid rgba(0,0,0,.06) !important;
   border-radius: 12px !important;
-  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
+  transition:
+    transform var(--aero-fast) var(--aero-ease),
+    filter var(--aero-fast) var(--aero-ease) !important;
 }
 
 header button:active,
@@ -159,7 +164,7 @@ header button:active,
 .dxbl-toolbar button:active,
 .dxbl-appbar button:active,
 .dxbs-topbar button:active{
-  transform: scale(.98) !important;
+  transform: scale(.985) !important;
 }
 
 header button svg,
@@ -187,42 +192,46 @@ header .bg-white,
   border: 0 !important;
 }
 
-/* FORCE hamburger stripes to black */
-header .navbar-toggler,
-header .navbar-toggler-icon,
-.navbar .navbar-toggler,
-.navbar .navbar-toggler-icon,
-.dxbs-topbar .navbar-toggler,
-.dxbs-topbar .navbar-toggler-icon{
-  color: #000 !important;
+/* =========================================================
+   HAMBURGER FIX (Bootstrap 5 .navbar-toggler-icon)
+   Fixes the black square by undoing "span background".
+========================================================= */
+
+/* NEVER paint the Bootstrap toggler icon span */
+header .navbar-toggler .navbar-toggler-icon,
+.navbar .navbar-toggler .navbar-toggler-icon,
+.dxbs-topbar .navbar-toggler .navbar-toggler-icon{
+  background-color: transparent !important;
+}
+
+/* Undo any global "span background" rule for this specific span */
+header .navbar-toggler span.navbar-toggler-icon,
+.navbar .navbar-toggler span.navbar-toggler-icon,
+.dxbs-topbar .navbar-toggler span.navbar-toggler-icon{
+  background: transparent !important;
+}
+
+/* Force black 3-line icon for Bootstrap toggler via CSS var */
+header,
+.navbar,
+.dxbs-topbar{
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0,0,0,0.90)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 header .navbar-toggler-icon,
 .navbar .navbar-toggler-icon,
 .dxbs-topbar .navbar-toggler-icon{
-  filter: none !important;
   background-image: var(--bs-navbar-toggler-icon-bg) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 24px 24px !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-header .navbar-toggler svg,
-.navbar .navbar-toggler svg,
-.dxbs-topbar .navbar-toggler svg{
-  fill: #000 !important;
-  stroke: #000 !important;
-}
-
-header .navbar-toggler span,
-.navbar .navbar-toggler span,
-.dxbs-topbar .navbar-toggler span,
+/* If you still use custom 3-line hamburgers elsewhere, keep them black */
 header .hamburger span,
-.navbar .hamburger span{
-  background: #000 !important;
-}
-
-header .navbar-toggler::before,
-header .navbar-toggler::after,
-.navbar .navbar-toggler::before,
-.navbar .navbar-toggler::after,
+.navbar .hamburger span,
 header .hamburger::before,
 header .hamburger::after,
 .navbar .hamburger::before,
@@ -470,7 +479,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   display: inline-block;
 }
 
-/* Dark alert slow pulse (div.alert-alert-dark etc.) */
+/* Dark alert slow pulse */
 @keyframes vtmf-alert-hue-breathe{
   0%   { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
   50%  { filter: hue-rotate(18deg);  box-shadow: 0 10px 26px rgba(0,0,0,.14); }
@@ -480,7 +489,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .alert.alert-dark,
 .alert-alert-dark,
 div.alert-alert-dark{
-  animation: vtmf-alert-hue-breathe 6.5s ease-in-out infinite !important;
+  animation: vtmf-alert-hue-breathe 10.5s ease-in-out infinite !important;
   border-radius: 16px !important;
 }
 
@@ -583,152 +592,18 @@ input, select, textarea,
 }
 
 /* =========================================================
-   DEVEXPRESS / DXBL POPUPS + LAYOUT
-========================================================= */
-.dxbl-modal-content,
-.dxbl-popup,
-.dxbl-popup-content,
-.dxbl-card,
-.dxbl-grid,
-.dxbl-form,
-.dxbl-layout-item{
-  border-radius: var(--aero-radius-lg);
-}
-
-.dxbl-modal-content,
-.dxbl-popup-content{
-  background: var(--aero-glass-strong) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  box-shadow: var(--aero-shadow) !important;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-modal-content,
-  .dxbl-popup-content{
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-  }
-}
-
-/* Modal width fix */
-.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content{
-  max-width: max-content;
-}
-
-/* Popup height fix */
-@media screen and (max-height: 750px){
-  .dxbl-popup-portal .dxbl-popup-content::after{
-    content: "";
-    display: block;
-    height: 150px;
-  }
-}
-
-/* Custom modal title */
-.dxbl-modal .dxbl-modal-title.dxbl-text{ visibility: hidden; position: relative; }
-.dxbl-modal .dxbl-modal-title.dxbl-text::after{ content: "Muuda andmed"; visibility: visible; position: absolute; }
-
-/* Grid spacing */
-.dxbl-grid tr{ height: 60px; }
-.dxbl-grid td,
-.dxbl-grid th{ padding: 20px; }
-.dxbl-grid{ border-spacing: 0 20px; border-collapse: separate; }
-
-/* Modal footer layout */
-.dxbl-modal-footer{ display: flex; flex-direction: row; align-items: center; gap: 15px; }
-.dxbl-modal-footer button:nth-of-type(2){ background-color: lightgray; color: black; }
-
-/* Button size overrides (kept) */
-.dxbl-btn-primary{ font-size: x-large; }
-.dxbl-btn.dxbl-lg{ width: -webkit-fill-available; font-size: x-large; }
-.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
-.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{ width: 99%; }
-.dxbl-btn-caption{ display: inline-block; }
-.popupnupud{ width: 99%; margin-top: 15px; }
-
-/* Header + footer buttons (kept) */
-.paisenupud{ font-weight: bold; width: 100px; padding: 10px 0; background-color: lightgray; transition: background-color var(--aero-med) var(--aero-ease); }
-.jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
-
-/* Field size overrides */
-div[data-fname="vatprice"] span,
-div[data-fname="state"] span,
-div[data-fname="datafield3"] span,
-div[data-fname="number"] span,
-div[data-fname="AN"] span,
-div[data-fname="SH"] span{ font-size: smaller; }
-
-div[data-fname="AD"] span,
-div[data-fname="ALD"] span,
-div[data-fname="fromstock"] span,
-div[data-fname="tostocktr"] span{ font-size: large; font-weight: bold; }
-
-div[data-fname="suppliername"] span,
-div[data-fname="stock"] span,
-div[data-fname="customername"] span{ font-size: large; font-weight: bold; }
-
-div[data-fname="CAIC"] span{ font-weight: bold; }
-
-/* Document grid command cell fix */
-.vtmf-Document-grid td.dxbl-grid-command-cell,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
-  position: relative !important;
-  padding: 0 !important;
-}
-
-.vtmf-Document-grid .dxbl-grid-table tr,
-.vtmf-DocumentItems-grid .dxbl-grid-table tr{
-  height: 48px !important;
-}
-
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
-  position: absolute !important;
-  top: 0; right: 0; bottom: 0; left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0 !important;
-  z-index: 1;
-}
-
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
-  width: 100% !important;
-  height: 100% !important;
-  line-height: normal !important;
-}
-
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
-  pointer-events: none !important;
-}
-
-/* Header scanner buttons (kept) */
-.vtmf-btn-xl{ left: 30%; top: 0 !important; }
-.vtmfs-btn-xl{ right: 30%; top: 0 !important; }
-.vtmf-btn-xl,
-.vtmfs-btn-xl{ font-size: 1rem; padding: 8px 16px; height: auto; width: auto; border-radius: 6px; }
-
-/* =========================================================
-   PAGE CHANGE / POPUP OPEN iOS-ish animations
-   (Best-effort. Works only if these containers exist.)
+   PAGE CHANGE / POPUP OPEN iOS-ish animations (slower)
 ========================================================= */
 @keyframes vtmf-fade-up{
-  from{ opacity: 0; transform: translateY(8px); }
+  from{ opacity: 0; transform: translateY(10px); }
   to{ opacity: 1; transform: translateY(0); }
 }
 
 @keyframes vtmf-pop{
-  from{ opacity: 0; transform: scale(.985); }
+  from{ opacity: 0; transform: scale(.98); }
   to{ opacity: 1; transform: scale(1); }
 }
 
-/* main content panels */
 main,
 .dxbl-layout,
 .dxbl-content,
@@ -737,7 +612,6 @@ main,
   animation: vtmf-fade-up var(--aero-slow) var(--aero-ease);
 }
 
-/* modals/popup content */
 .dxbl-modal-content,
 .dxbl-popup-content{
   animation: vtmf-pop var(--aero-med) var(--aero-ease);
