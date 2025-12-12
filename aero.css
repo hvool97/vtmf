@@ -1,11 +1,6 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
-   Fixed: ordered, no duplicates, toolbar strip fix,
-   readable dropdowns, loading panel fix, dark alert pulse,
-   stubborn dxbl-btn-toolbar background.
-   Update: hamburger fixed (no black square),
-   NO button transform animations (no jump),
-   keypad restyled to iOS calculator grayscale.
+   Update: quicker animations, dropdown opacity fix for dxbl-edit-dropdown.
 ========================================================= */
 
 /* ------------------------
@@ -32,16 +27,16 @@
 
   --aero-focus: rgba(0,122,255,.28);
 
-  /* motion (kept for page/popup only) */
+  /* faster motion */
   --aero-ease: cubic-bezier(.2,.9,.2,1);
-  --aero-fast: 180ms;
-  --aero-med: 320ms;
-  --aero-slow: 520ms;
+  --aero-fast: 90ms;
+  --aero-med: 150ms;
+  --aero-slow: 220ms;
 
   /* calculator grayscale */
   --calc-num-bg: #e5e5ea;
   --calc-ctrl-bg: #d1d1d6;
-  --calc-op-bg: #1c1c1e;      /* grayscale “accent” */
+  --calc-op-bg: #1c1c1e;
   --calc-op-fg: #ffffff;
 }
 
@@ -101,12 +96,6 @@ a{ color: inherit; }
    UTILITIES
 ------------------------- */
 .w-65{ width: 65% !important; }
-
-/* If your grid/table uses this class, it is the “white strip” source */
-.div-bg-white,
-.dxbl-grid .bg-white{
-  background: transparent !important;
-}
 
 /* =========================================================
    HEADER / TOP BAR
@@ -172,11 +161,6 @@ header button:active,
   filter: brightness(.96) !important;
 }
 
-header .oi, header i,
-.navbar .oi, .navbar i{
-  color: var(--aero-text) !important;
-}
-
 /* Remove Bootstrap bg-white strips in header/toolbars */
 header .bg-white,
 .navbar .bg-white,
@@ -190,17 +174,13 @@ header .bg-white,
 
 /* =========================================================
    HAMBURGER FIX (Bootstrap 5 .navbar-toggler-icon)
-   Avoids black square and forces black 3-line icon.
 ========================================================= */
-
-/* Force black 3-line SVG */
 header,
 .navbar,
 .dxbs-topbar{
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0,0,0,0.90)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Ensure the icon span is not being painted */
 header .navbar-toggler .navbar-toggler-icon,
 .navbar .navbar-toggler .navbar-toggler-icon,
 .dxbs-topbar .navbar-toggler .navbar-toggler-icon{
@@ -211,14 +191,6 @@ header .navbar-toggler .navbar-toggler-icon,
   background-size: 24px 24px !important;
   opacity: 1 !important;
   filter: none !important;
-}
-
-/* If toggler is SVG-based somewhere */
-header .navbar-toggler svg,
-.navbar .navbar-toggler svg,
-.dxbs-topbar .navbar-toggler svg{
-  fill: #000 !important;
-  stroke: #000 !important;
 }
 
 /* =========================================================
@@ -234,18 +206,6 @@ header .navbar-toggler svg,
   box-shadow: var(--aero-shadow-soft) !important;
 }
 
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-toolbar,
-  .dxbl-toolbar-root,
-  .dxbl-toolbar-items,
-  .dxbl-toolbar-content,
-  .dxbl-toolbar-container{
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-  }
-}
-
-/* Inner host that stays white on some builds */
 .dxbl-toolbar > .dxbl-btn-toolbar,
 .dxbl-toolbar .dxbl-btn-toolbar,
 .dxbl-btn-toolbar,
@@ -256,18 +216,10 @@ div.dxbl-btn-toolbar{
   box-shadow: var(--aero-shadow-soft) !important;
 }
 .dxbl-btn-toolbar::before,
-.dxbl-btn-toolbar::after{
-  background: var(--aero-bg-1) !important;
-}
-
-.dxbl-toolbar .dxbl-toolbar-group,
-.dxbl-toolbar .dxbl-toolbar-item{
-  background: transparent !important;
-}
+.dxbl-btn-toolbar::after{ background: var(--aero-bg-1) !important; }
 
 /* =========================================================
-   UNIFIED BUTTON SYSTEM
-   IMPORTANT: no transform animations (no jump).
+   UNIFIED BUTTON SYSTEM (no transform)
 ========================================================= */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
@@ -304,46 +256,17 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
     box-shadow var(--aero-fast) var(--aero-ease),
     background-color var(--aero-fast) var(--aero-ease) !important;
 }
-
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active{
   filter: brightness(.96) !important;
   box-shadow: 0 4px 12px rgba(0,0,0,.08) !important;
 }
-
-/* Neutralize Bootstrap variants */
-.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info,
-.btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info{
-  background: var(--aero-glass-strong) !important;
-  border-color: rgba(0,0,0,.08) !important;
-  color: var(--aero-text) !important;
-}
-
-/* Prevent inner spans from painting blocks */
 .dxbl-btn * ,
-.btn *{
-  background: transparent !important;
-}
-
-/* Icon-only buttons */
-.dxbl-btn-icon-only,
-.btn-icon-only{
-  width: 44px !important;
-  min-height: 44px !important;
-  padding: 0 !important;
-}
-
-/* =========================================================
-   SEMANTIC UI CLASSES (DB stores these)
-========================================================= */
-.vtmf-process-btn{ width: 100% !important; margin: .55rem !important; }
-.vtmf-secondary-btn{ width: 100% !important; margin: .55rem !important; }
-.vtmf-secondary-process-btn{ width: 100% !important; margin: .55rem !important; }
+.btn *{ background: transparent !important; }
 
 /* =========================================================
    KEYPAD: iOS calculator grayscale
-   (no blue/purple, no jump)
 ========================================================= */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl,
@@ -356,7 +279,6 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   border-radius: 999px !important;
   border: 0 !important;
 
-  /* responsive “calculator button” size */
   width: clamp(56px, 16vw, 74px) !important;
   height: clamp(56px, 16vw, 74px) !important;
   padding: 0 !important;
@@ -370,38 +292,18 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
     filter var(--aero-fast) var(--aero-ease),
     box-shadow var(--aero-fast) var(--aero-ease) !important;
 }
-
-/* Numbers */
-.vtmf-kbd-num{
-  background: var(--calc-num-bg) !important;
-  color: #000 !important;
-  font-size: 1.55rem !important;
-}
-
-/* Controls (backspace, clear, etc.) */
-.vtmf-kbd-ctrl{
-  background: var(--calc-ctrl-bg) !important;
-  color: #000 !important;
-  font-size: 1.35rem !important;
-}
-
-/* “Start/Enter/OK” style (grayscale accent) */
+.vtmf-kbd-num{ background: var(--calc-num-bg) !important; color: #000 !important; font-size: 1.55rem !important; }
+.vtmf-kbd-ctrl{ background: var(--calc-ctrl-bg) !important; color: #000 !important; font-size: 1.35rem !important; }
 .vtmf-kbd-start{
   background: var(--calc-op-bg) !important;
   color: var(--calc-op-fg) !important;
-
-  /* keep your positioning */
   top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
   z-index: 1050 !important;
-
-  /* let this one be pill if you want */
   width: auto !important;
   height: auto !important;
   padding: .55rem 1rem !important;
   margin: 0 !important;
 }
-
-/* Press feedback without movement */
 .vtmf-kbd-num:active,
 .vtmf-kbd-ctrl:active,
 .vtmf-kbd-start:active{
@@ -411,79 +313,37 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
     inset 0 1px 0 rgba(255,255,255,.75) !important;
 }
 
-/* If keypad icons exist */
-.vtmf-kbd-ctrl svg,
-.vtmf-kbd-start svg{
-  fill: currentColor !important;
-  stroke: currentColor !important;
-}
-
 /* =========================================================
-   DETAIL LABELS / VALUES
+   DROPDOWN NOT SEE-THROUGH FIX
+   Your suspect: .dxbl-edit-dropdown
 ========================================================= */
-.vtmf-detail-label{
-  font-weight: 700;
-  padding-bottom: .35rem;
-  border-bottom: 1px solid rgba(0,0,0,.08);
-}
-.vtmf-detail-value{
-  text-align: left;
-  padding-bottom: .35rem;
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  color: var(--aero-text);
-}
-.vtmf-detail-label-lg{ font-weight: 750; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
-.vtmf-detail-value-lg{ text-align: left; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
-.vtmf-detail-label-xl{ font-weight: 800; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
-.vtmf-detail-value-xl{ text-align: left; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
-.vtmf-detail-action{ width: 100% !important; }
-
-/* Icons */
-.vtmf-icon-chevron-down,
-.vtmf-icon-map-marker{
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  line-height: 1;
-}
-
-/* =========================================================
-   SEMANTIC STATUS + ALERTS
-========================================================= */
-.vtmf-alert-success{
-  width: 100%;
-  margin-top: 1rem;
-  padding: .9rem 1rem;
-  border-radius: 16px;
-
-  background: linear-gradient(180deg, rgba(52,199,89,.18), rgba(52,199,89,.10)) !important;
-  border: 1px solid rgba(52,199,89,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-
+.dxbl-edit-dropdown,
+.dxbl-edit-dropdown *,
+.dxbl-editor-dropdown,
+.dxbl-editor-dropdown-content,
+.dxbl-editor-popup,
+.dxbl-popup.dxbl-editor-popup,
+.dxbl-combobox-popup,
+.dxbl-dropdown-popup,
+.dxbl-listbox,
+.dxbl-listbox-list,
+.dxbl-listbox-container{
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+  opacity: 1 !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0,0,0,.08) !important;
   box-shadow: var(--aero-shadow-soft) !important;
 }
 
-.vtmf-state-working{
-  background: linear-gradient(180deg, rgba(52,199,89,.20), rgba(52,199,89,.12)) !important;
-  border: 1px solid rgba(52,199,89,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-  font-weight: 800 !important;
-  border-radius: 14px;
-  padding: .2rem .55rem;
-  display: inline-block;
-}
+.dxbl-listbox-item{ background: transparent !important; }
+.dxbl-listbox-item:hover{ background: rgba(0,0,0,.04) !important; }
+.dxbl-listbox-item.dxbl-selected,
+.dxbl-listbox-item[aria-selected="true"]{ background: rgba(0,0,0,.05) !important; }
 
-.vtmf-state-error{
-  background: linear-gradient(180deg, rgba(255,59,48,.18), rgba(255,59,48,.10)) !important;
-  border: 1px solid rgba(255,59,48,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-  font-weight: 800 !important;
-  border-radius: 14px;
-  padding: .2rem .55rem;
-  display: inline-block;
-}
-
-/* Dark alert slow hue pulse */
+/* =========================================================
+   DARK ALERT SLOW HUE PULSE
+========================================================= */
 @keyframes vtmf-alert-hue-breathe{
   0%   { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
   50%  { filter: hue-rotate(18deg);  box-shadow: 0 10px 26px rgba(0,0,0,.14); }
@@ -497,246 +357,14 @@ div.alert-alert-dark{
 }
 
 /* =========================================================
-   READABILITY FIXES (dropdowns, menus, inputs)
-========================================================= */
-.dxbl-editor-dropdown,
-.dxbl-editor-dropdown-content,
-.dxbl-editor-popup,
-.dxbl-popup.dxbl-editor-popup,
-.dxbl-combobox-popup,
-.dxbl-dropdown-popup,
-.dxbl-listbox,
-.dxbl-listbox-list,
-.dxbl-listbox-container,
-.dxbl-listbox-item{
-  background: rgba(255,255,255,.94) !important;
-  color: var(--aero-text) !important;
-  border: 1px solid rgba(0,0,0,.08) !important;
-  box-shadow: var(--aero-shadow-soft) !important;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-editor-dropdown,
-  .dxbl-editor-dropdown-content,
-  .dxbl-editor-popup,
-  .dxbl-popup.dxbl-editor-popup,
-  .dxbl-combobox-popup,
-  .dxbl-dropdown-popup,
-  .dxbl-listbox,
-  .dxbl-listbox-list,
-  .dxbl-listbox-container{
-    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-    backdrop-filter: blur(18px) saturate(180%) !important;
-  }
-}
-
-.dxbl-listbox-item{ background: transparent !important; }
-.dxbl-listbox-item:hover{ background: rgba(0,0,0,.04) !important; }
-.dxbl-listbox-item.dxbl-selected,
-.dxbl-listbox-item[aria-selected="true"]{
-  background: rgba(0,0,0,.05) !important; /* grayscale */
-  color: var(--aero-text) !important;
-}
-
-input, select, textarea,
-.form-control,
-.dxbl-edit,
-.dxbl-textbox,
-.dxbl-combobox,
-.dxbl-spin-edit,
-.dxbl-memo{
-  background: rgba(255,255,255,.90) !important;
-  color: var(--aero-text) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  transition: box-shadow var(--aero-fast) var(--aero-ease), border-color var(--aero-fast) var(--aero-ease) !important;
-}
-::placeholder{ color: rgba(10,14,20,.48) !important; }
-
-/* =========================================================
-   UGLY BLUE FIX (grid selection + loading panels)
-========================================================= */
-.dxbl-grid .bg-primary{ background: rgba(0,0,0,.05) !important; } /* grayscale */
-.dxbl-grid .text-white{ color: var(--aero-text) !important; }
-
-.dxbl-loadpanel,
-.dxbl-loadpanel-content,
-.dxbl-loading-panel,
-.dxbl-loading-panel-content,
-.dxbl-waiting-panel,
-.dxbl-overlay,
-.dxbl-overlay-content{
-  background: rgba(255,255,255,.90) !important;
-  color: var(--aero-text) !important;
-  border: 1px solid rgba(0,0,0,.08) !important;
-  box-shadow: var(--aero-shadow) !important;
-  border-radius: var(--aero-radius-lg) !important;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-loadpanel,
-  .dxbl-loadpanel-content,
-  .dxbl-loading-panel,
-  .dxbl-loading-panel-content,
-  .dxbl-waiting-panel,
-  .dxbl-overlay-content{
-    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
-    backdrop-filter: blur(18px) saturate(180%) !important;
-  }
-}
-
-/* =========================================================
-   DEVEXPRESS / DXBL POPUPS + LAYOUT
-========================================================= */
-.dxbl-modal-content,
-.dxbl-popup,
-.dxbl-popup-content,
-.dxbl-card,
-.dxbl-grid,
-.dxbl-form,
-.dxbl-layout-item{
-  border-radius: var(--aero-radius-lg);
-}
-
-.dxbl-modal-content,
-.dxbl-popup-content{
-  background: var(--aero-glass-strong) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  box-shadow: var(--aero-shadow) !important;
-}
-
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-modal-content,
-  .dxbl-popup-content{
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-  }
-}
-
-/* Modal width fix */
-.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content{
-  max-width: max-content;
-}
-
-/* Popup height fix */
-@media screen and (max-height: 750px){
-  .dxbl-popup-portal .dxbl-popup-content::after{
-    content: "";
-    display: block;
-    height: 150px;
-  }
-}
-
-/* Custom modal title */
-.dxbl-modal .dxbl-modal-title.dxbl-text{ visibility: hidden; position: relative; }
-.dxbl-modal .dxbl-modal-title.dxbl-text::after{
-  content: "Muuda andmed";
-  visibility: visible;
-  position: absolute;
-}
-
-/* Grid spacing */
-.dxbl-grid tr{ height: 60px; }
-.dxbl-grid td,
-.dxbl-grid th{ padding: 20px; }
-.dxbl-grid{ border-spacing: 0 20px; border-collapse: separate; }
-
-/* Modal footer layout */
-.dxbl-modal-footer{ display: flex; flex-direction: row; align-items: center; gap: 15px; }
-.dxbl-modal-footer button:nth-of-type(2){ background-color: lightgray; color: black; }
-
-/* Button size overrides (kept) */
-.dxbl-btn-primary{ font-size: x-large; }
-.dxbl-btn.dxbl-lg{ width: -webkit-fill-available; font-size: x-large; }
-.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
-.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{ width: 99%; }
-.dxbl-btn-caption{ display: inline-block; }
-.popupnupud{ width: 99%; margin-top: 15px; }
-
-/* Header + footer buttons (kept) */
-.paisenupud{
-  font-weight: bold;
-  width: 100px;
-  padding: 10px 0;
-  background-color: lightgray;
-  transition: background-color var(--aero-med) var(--aero-ease);
-}
-.jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
-
-/* Field size overrides */
-div[data-fname="vatprice"] span,
-div[data-fname="state"] span,
-div[data-fname="datafield3"] span,
-div[data-fname="number"] span,
-div[data-fname="AN"] span,
-div[data-fname="SH"] span{ font-size: smaller; }
-
-div[data-fname="AD"] span,
-div[data-fname="ALD"] span,
-div[data-fname="fromstock"] span,
-div[data-fname="tostocktr"] span{ font-size: large; font-weight: bold; }
-
-div[data-fname="suppliername"] span,
-div[data-fname="stock"] span,
-div[data-fname="customername"] span{ font-size: large; font-weight: bold; }
-
-div[data-fname="CAIC"] span{ font-weight: bold; }
-
-/* Document grid command cell fix */
-.vtmf-Document-grid td.dxbl-grid-command-cell,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
-  position: relative !important;
-  padding: 0 !important;
-}
-.vtmf-Document-grid .dxbl-grid-table tr,
-.vtmf-DocumentItems-grid .dxbl-grid-table tr{
-  height: 48px !important;
-}
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
-  position: absolute !important;
-  top: 0; right: 0; bottom: 0; left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0 !important;
-  z-index: 1;
-}
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
-  width: 100% !important;
-  height: 100% !important;
-  line-height: normal !important;
-}
-.vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
-  pointer-events: none !important;
-}
-
-/* Header scanner buttons (kept) */
-.vtmf-btn-xl{ left: 30%; top: 0 !important; }
-.vtmfs-btn-xl{ right: 30%; top: 0 !important; }
-.vtmf-btn-xl,
-.vtmfs-btn-xl{
-  font-size: 1rem;
-  padding: 8px 16px;
-  height: auto;
-  width: auto;
-  border-radius: 6px;
-}
-
-/* =========================================================
-   PAGE / POPUP ANIMATIONS (kept)
+   PAGE / POPUP ANIMATIONS (faster)
 ========================================================= */
 @keyframes vtmf-fade-up{
-  from{ opacity: 0; transform: translateY(10px); }
+  from{ opacity: 0; transform: translateY(8px); }
   to{ opacity: 1; transform: translateY(0); }
 }
 @keyframes vtmf-pop{
-  from{ opacity: 0; transform: scale(.98); }
+  from{ opacity: 0; transform: scale(.99); }
   to{ opacity: 1; transform: scale(1); }
 }
 
@@ -747,7 +375,6 @@ main,
 .dxbl-view{
   animation: vtmf-fade-up var(--aero-slow) var(--aero-ease);
 }
-
 .dxbl-modal-content,
 .dxbl-popup-content{
   animation: vtmf-pop var(--aero-med) var(--aero-ease);
