@@ -2,6 +2,8 @@
    iOS AERO LIGHT THEME (glassmorphism)
    Fixed: duplicates removed, sections ordered, toolbar strip
    fix included, semantic alerts/states included.
+   Added: readable dropdowns, loading panel fix, dark alert pulse,
+   stubborn dxbl-btn-toolbar background, iOS-like animations.
 ========================================================= */
 
 /* ------------------------
@@ -27,6 +29,12 @@
   --aero-radius-md: 14px;
 
   --aero-focus: rgba(0,122,255,.28);
+
+  /* iOS-ish motion */
+  --aero-ease: cubic-bezier(.2,.9,.2,1);
+  --aero-fast: 140ms;
+  --aero-med: 220ms;
+  --aero-slow: 360ms;
 }
 
 /* ------------------------
@@ -63,6 +71,18 @@ a{ color: inherit; }
 }
 
 /* -------------------------
+   MOTION PREFERENCES
+------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -------------------------
    SMALL SCREEN TOGGLE BUTTON
 ------------------------- */
 @media (max-width: 575px){
@@ -91,6 +111,7 @@ header,
   border-bottom: 1px solid rgba(0,0,0,.06) !important;
   box-shadow: var(--aero-shadow-soft) !important;
   color: var(--aero-text) !important;
+  transition: background var(--aero-med) var(--aero-ease), box-shadow var(--aero-med) var(--aero-ease) !important;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -130,6 +151,15 @@ header button,
   background: rgba(255,255,255,.55) !important;
   border: 1px solid rgba(0,0,0,.06) !important;
   border-radius: 12px !important;
+  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
+}
+
+header button:active,
+.navbar button:active,
+.dxbl-toolbar button:active,
+.dxbl-appbar button:active,
+.dxbs-topbar button:active{
+  transform: scale(.98) !important;
 }
 
 header button svg,
@@ -157,7 +187,7 @@ header .bg-white,
   border: 0 !important;
 }
 
-/* FORCE hamburger stripes to black (covers Bootstrap toggler + SVG + spans + pseudo-elements) */
+/* FORCE hamburger stripes to black */
 header .navbar-toggler,
 header .navbar-toggler-icon,
 .navbar .navbar-toggler,
@@ -171,10 +201,9 @@ header .navbar-toggler-icon,
 .navbar .navbar-toggler-icon,
 .dxbs-topbar .navbar-toggler-icon{
   filter: none !important;
-  background-image: var(--bs-navbar-toggler-icon-bg) !important; /* Bootstrap */
+  background-image: var(--bs-navbar-toggler-icon-bg) !important;
 }
 
-/* If the hamburger is an SVG */
 header .navbar-toggler svg,
 .navbar .navbar-toggler svg,
 .dxbs-topbar .navbar-toggler svg{
@@ -182,7 +211,6 @@ header .navbar-toggler svg,
   stroke: #000 !important;
 }
 
-/* If it is 3 lines made with spans/divs */
 header .navbar-toggler span,
 .navbar .navbar-toggler span,
 .dxbs-topbar .navbar-toggler span,
@@ -191,7 +219,6 @@ header .hamburger span,
   background: #000 !important;
 }
 
-/* If it is drawn with ::before/::after */
 header .navbar-toggler::before,
 header .navbar-toggler::after,
 .navbar .navbar-toggler::before,
@@ -228,11 +255,20 @@ header .hamburger::after,
   }
 }
 
+/* Inner host that was staying white */
 .dxbl-toolbar > .dxbl-btn-toolbar,
-.dxbl-toolbar .dxbl-btn-toolbar{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+.dxbl-toolbar .dxbl-btn-toolbar,
+.dxbl-btn-toolbar,
+div.dxbl-btn-toolbar{
+  background: var(--aero-bg-1) !important;
+  background-color: var(--aero-bg-1) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.dxbl-btn-toolbar::before,
+.dxbl-btn-toolbar::after{
+  background: var(--aero-bg-1) !important;
 }
 
 .dxbl-toolbar .dxbl-toolbar-group,
@@ -274,19 +310,29 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
   box-shadow: var(--aero-shadow-soft) !important;
   text-decoration: none !important;
 
-  transition: transform .08s ease, filter .12s ease, box-shadow .12s ease !important;
+  transition:
+    transform var(--aero-fast) var(--aero-ease),
+    filter var(--aero-fast) var(--aero-ease),
+    box-shadow var(--aero-med) var(--aero-ease) !important;
 }
 
-button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
-.btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
-.dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover{
-  filter: brightness(1.02) !important;
-}
-
+/* iOS-ish press */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active{
-  transform: translateY(1px) scale(.995) !important;
+  transform: translateY(1px) scale(.985) !important;
+  filter: brightness(.99) !important;
+}
+
+/* Optional subtle “lift” on hover for desktop */
+@media (hover: hover){
+  button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
+  .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
+  .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover{
+    filter: brightness(1.02) !important;
+    box-shadow: 0 10px 22px rgba(0,0,0,.10) !important;
+    transform: translateY(-1px) !important;
+  }
 }
 
 /* Neutralize Bootstrap variants */
@@ -329,6 +375,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   font-weight: 800 !important;
   box-shadow: var(--aero-shadow-soft) !important;
   border: 1px solid rgba(0,0,0,.06) !important;
+  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
 }
 
 .vtmf-kbd-num{
@@ -341,6 +388,9 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   color: rgba(88,86,214,1) !important;
 }
 
+.vtmf-kbd-num:active,
+.vtmf-kbd-ctrl:active{ transform: scale(.985) !important; }
+
 .vtmf-kbd-start{
   top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
   z-index: 1050 !important;
@@ -351,7 +401,10 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   background: var(--aero-glass-strong) !important;
   border: 1px solid rgba(0,0,0,.06) !important;
   color: var(--aero-text) !important;
+  transition: transform var(--aero-fast) var(--aero-ease), filter var(--aero-fast) var(--aero-ease) !important;
 }
+
+.vtmf-kbd-start:active{ transform: translateY(1px) scale(.985) !important; }
 
 /* Detail labels / values */
 .vtmf-detail-label{
@@ -415,6 +468,118 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   border-radius: 14px;
   padding: .2rem .55rem;
   display: inline-block;
+}
+
+/* Dark alert slow pulse (div.alert-alert-dark etc.) */
+@keyframes vtmf-alert-hue-breathe{
+  0%   { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+  50%  { filter: hue-rotate(18deg);  box-shadow: 0 10px 26px rgba(0,0,0,.14); }
+  100% { filter: hue-rotate(0deg);   box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+}
+
+.alert.alert-dark,
+.alert-alert-dark,
+div.alert-alert-dark{
+  animation: vtmf-alert-hue-breathe 6.5s ease-in-out infinite !important;
+  border-radius: 16px !important;
+}
+
+/* =========================================================
+   READABILITY FIXES (dropdowns, menus, inputs)
+========================================================= */
+.dxbl-editor-dropdown,
+.dxbl-editor-dropdown-content,
+.dxbl-editor-popup,
+.dxbl-popup.dxbl-editor-popup,
+.dxbl-combobox-popup,
+.dxbl-dropdown-popup,
+.dxbl-listbox,
+.dxbl-listbox-list,
+.dxbl-listbox-container,
+.dxbl-listbox-item{
+  background: rgba(255,255,255,.94) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0,0,0,.08) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .dxbl-editor-dropdown,
+  .dxbl-editor-dropdown-content,
+  .dxbl-editor-popup,
+  .dxbl-popup.dxbl-editor-popup,
+  .dxbl-combobox-popup,
+  .dxbl-dropdown-popup,
+  .dxbl-listbox,
+  .dxbl-listbox-list,
+  .dxbl-listbox-container{
+    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
+  }
+}
+
+.dxbl-listbox-item{ background: transparent !important; }
+.dxbl-listbox-item:hover{ background: rgba(0,0,0,.04) !important; }
+.dxbl-listbox-item.dxbl-selected,
+.dxbl-listbox-item[aria-selected="true"]{
+  background: rgba(0,122,255,.10) !important;
+  color: var(--aero-text) !important;
+}
+
+input, select, textarea,
+.form-control,
+.dxbl-edit,
+.dxbl-textbox,
+.dxbl-combobox,
+.dxbl-spin-edit,
+.dxbl-memo{
+  background: rgba(255,255,255,.90) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  transition: box-shadow var(--aero-fast) var(--aero-ease), border-color var(--aero-fast) var(--aero-ease) !important;
+}
+
+::placeholder{ color: rgba(10,14,20,.48) !important; }
+
+/* =========================================================
+   UGLY BLUE FIX (grid selection + loading cards/panels)
+========================================================= */
+.dxbl-grid .bg-primary{ background: rgba(0,122,255,.10) !important; }
+.dxbl-grid .text-white{ color: var(--aero-text) !important; }
+
+.dxbl-loadpanel,
+.dxbl-loadpanel-content,
+.dxbl-loading-panel,
+.dxbl-loading-panel-content,
+.dxbl-waiting-panel,
+.dxbl-overlay,
+.dxbl-overlay-content{
+  background: rgba(255,255,255,.90) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0,0,0,.08) !important;
+  box-shadow: var(--aero-shadow) !important;
+  border-radius: var(--aero-radius-lg) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .dxbl-loadpanel,
+  .dxbl-loadpanel-content,
+  .dxbl-loading-panel,
+  .dxbl-loading-panel-content,
+  .dxbl-waiting-panel,
+  .dxbl-overlay-content{
+    -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+    backdrop-filter: blur(18px) saturate(180%) !important;
+  }
+}
+
+.dxbl-loadpanel .bg-primary,
+.dxbl-loading-panel .bg-primary{
+  background: rgba(0,122,255,.10) !important;
+}
+.dxbl-loadpanel .text-white,
+.dxbl-loading-panel .text-white{
+  color: var(--aero-text) !important;
 }
 
 /* =========================================================
@@ -482,7 +647,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .popupnupud{ width: 99%; margin-top: 15px; }
 
 /* Header + footer buttons (kept) */
-.paisenupud{ font-weight: bold; width: 100px; padding: 10px 0; background-color: lightgray; transition: background-color 0.3s; }
+.paisenupud{ font-weight: bold; width: 100px; padding: 10px 0; background-color: lightgray; transition: background-color var(--aero-med) var(--aero-ease); }
 .jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
 
 /* Field size overrides */
@@ -548,3 +713,32 @@ div[data-fname="CAIC"] span{ font-weight: bold; }
 .vtmfs-btn-xl{ right: 30%; top: 0 !important; }
 .vtmf-btn-xl,
 .vtmfs-btn-xl{ font-size: 1rem; padding: 8px 16px; height: auto; width: auto; border-radius: 6px; }
+
+/* =========================================================
+   PAGE CHANGE / POPUP OPEN iOS-ish animations
+   (Best-effort. Works only if these containers exist.)
+========================================================= */
+@keyframes vtmf-fade-up{
+  from{ opacity: 0; transform: translateY(8px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vtmf-pop{
+  from{ opacity: 0; transform: scale(.985); }
+  to{ opacity: 1; transform: scale(1); }
+}
+
+/* main content panels */
+main,
+.dxbl-layout,
+.dxbl-content,
+.dxbl-page,
+.dxbl-view{
+  animation: vtmf-fade-up var(--aero-slow) var(--aero-ease);
+}
+
+/* modals/popup content */
+.dxbl-modal-content,
+.dxbl-popup-content{
+  animation: vtmf-pop var(--aero-med) var(--aero-ease);
+}
