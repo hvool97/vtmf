@@ -21,36 +21,113 @@
 ------------------------- */
 .w-65 { width: 65% !important; }
 
-/* -------------------------
-   BUTTON STYLE HELPERS
-------------------------- */
-.btn-softcard{
-    border: 1px solid rgba(0,0,0,.08) !important;
+/* =========================================================
+   VTMF SEMANTIC BUTTONS (DB now stores only these classes)
+   DB examples:
+   - btn vtmf-process-btn
+   - btn vtmf-secondary-btn
+   - btn vtmf-secondary-process-btn
+   - btn vtmf-kbd-num
+   - btn vtmf-kbd-ctrl
+   - btn vtmf-kbd-start position-fixed top-0 start-50 translate-middle-x mt-2
+========================================================= */
+
+/* Primary process buttons (was: btn-light w-100 m-2 py-3 py-md-2 rounded-3 fs-5 border + softcard) */
+.vtmf-process-btn{
+    width: 100% !important;
+    margin: .5rem !important;                 /* m-2 */
+    padding-top: 1rem !important;             /* py-3 */
+    padding-bottom: 1rem !important;
+    border-radius: .5rem !important;          /* rounded-3 */
+    font-size: 1.25rem !important;            /* fs-5 */
+    border: 1px solid rgba(0,0,0,.10) !important;
+    background: var(--bs-light, #f8f9fa) !important;
+    color: var(--bs-dark, #212529) !important;
     box-shadow: 0 6px 18px rgba(0,0,0,.08);
 }
+@media (min-width: 768px){
+    .vtmf-process-btn{
+        padding-top: .5rem !important;         /* py-md-2 */
+        padding-bottom: .5rem !important;
+    }
+}
 
-.btn-black-press{
+/* Secondary big button (was: w-100 m-2 py-3 py-md-2 rounded-3 fw-semibold shadow + black press) */
+.vtmf-secondary-btn{
+    width: 100% !important;
+    margin: .5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-radius: .5rem !important;
+    font-weight: 600 !important;              /* fw-semibold */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;  /* shadow */
     background: #111 !important;
     color: #fff !important;
     border: 1px solid rgba(255,255,255,.12) !important;
 }
-.btn-black-press:hover{
-    filter: brightness(1.06);
+@media (min-width: 768px){
+    .vtmf-secondary-btn{
+        padding-top: .5rem !important;
+        padding-bottom: .5rem !important;
+    }
 }
-.btn-black-press:active{
-    transform: translateY(1px);
+.vtmf-secondary-btn:hover{ filter: brightness(1.06); }
+.vtmf-secondary-btn:active{ transform: translateY(1px); }
+
+/* Secondary process list button (was: btn-outline-dark w-100 m-2 py-3 py-md-2 rounded-pill fw-semibold) */
+.vtmf-secondary-process-btn{
+    width: 100% !important;
+    margin: .5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-radius: 50rem !important;          /* rounded-pill */
+    font-weight: 600 !important;
+    background: transparent !important;
+    border: 1px solid var(--bs-dark, #212529) !important;
+    color: var(--bs-dark, #212529) !important;
+}
+@media (min-width: 768px){
+    .vtmf-secondary-process-btn{
+        padding-top: .5rem !important;
+        padding-bottom: .5rem !important;
+    }
+}
+.vtmf-secondary-process-btn:hover{
+    background: rgba(33,37,41,.06) !important;
 }
 
-/* Keep primary buttons sane globally.
-   If you still want huge primary buttons everywhere, delete this section. */
-.btn-primary{
-    font-size: 1rem;
+/* Barcode keyboard buttons (was: vtmf-btn-rg + btn-primary/secondary + w-65 m-2 py-4) */
+.vtmf-kbd-num,
+.vtmf-kbd-ctrl{
+    width: 65% !important;
+    margin: .5rem !important;
+    padding-top: 1.5rem !important;           /* py-4 */
+    padding-bottom: 1.5rem !important;
+    font-size: x-large !important;
+    border-radius: .5rem !important;
 }
 
-/* Your keyboard-specific big buttons */
-.vtmf-btn-rg.btn-primary,
-.vtmf-btn-rg.btn-secondary{
-    font-size: x-large;
+.vtmf-kbd-num{
+    background: var(--bs-primary, #0d6efd) !important;
+    border: 1px solid var(--bs-primary, #0d6efd) !important;
+    color: var(--bs-white, #fff) !important;
+}
+.vtmf-kbd-num:hover{ filter: brightness(1.06); }
+
+.vtmf-kbd-ctrl{
+    background: var(--bs-secondary, #6c757d) !important;
+    border: 1px solid var(--bs-secondary, #6c757d) !important;
+    color: var(--bs-white, #fff) !important;
+}
+.vtmf-kbd-ctrl:hover{ filter: brightness(1.06); }
+
+/* Start button (DB keeps fixed positioning classes; CSS controls final top offset + look) */
+.vtmf-kbd-start{
+    top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
+    z-index: 1050 !important;
+    background: var(--bs-info, #0dcaf0) !important;
+    border: 1px solid var(--bs-info, #0dcaf0) !important;
+    color: var(--bs-dark, #212529) !important; /* like Bootstrap btn-info */
 }
 
 /* -------------------------
@@ -80,12 +157,6 @@
     height: auto;
     width: auto;
     border-radius: 6px;
-}
-
-/* Fixed start button: push it down into the header area */
-.vtmf-start-btn{
-    top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
-    z-index: 1050;
 }
 
 /* -------------------------
