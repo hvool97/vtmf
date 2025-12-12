@@ -1,12 +1,119 @@
+/* =========================================================
+   iOS AERO THEME (glassmorphism)
+========================================================= */
+
 /* ------------------------
    GLOBAL VARS
 ------------------------- */
 :root{
-    /* Adjust if your header is taller/shorter */
     --vtmf-header-offset: 56px;
+
+    /* Light (default) */
+    --aero-bg-1: #f3f6ff;
+    --aero-bg-2: #f7f2ff;
+    --aero-bg-3: #eef7ff;
+
+    --aero-text: rgba(10, 14, 20, .92);
+    --aero-muted: rgba(10, 14, 20, .62);
+
+    --aero-glass: rgba(255,255,255,.62);
+    --aero-glass-strong: rgba(255,255,255,.78);
+    --aero-border: rgba(255,255,255,.65);
+
+    --aero-shadow: 0 10px 30px rgba(0,0,0,.10);
+    --aero-shadow-soft: 0 6px 18px rgba(0,0,0,.08);
+
+    --aero-radius-lg: 18px;
+    --aero-radius-md: 14px;
+
+    --aero-accent: rgba(0,122,255,1);         /* iOS blue */
+    --aero-accent-2: rgba(88,86,214,1);       /* iOS purple */
+    --aero-focus: rgba(0,122,255,.28);
+}
+
+/* Optional: dark mode auto */
+@media (prefers-color-scheme: dark){
+    :root{
+        --aero-bg-1: #0b0f16;
+        --aero-bg-2: #0b1220;
+        --aero-bg-3: #08131a;
+
+        --aero-text: rgba(255,255,255,.92);
+        --aero-muted: rgba(255,255,255,.65);
+
+        --aero-glass: rgba(18,22,32,.58);
+        --aero-glass-strong: rgba(18,22,32,.72);
+        --aero-border: rgba(255,255,255,.10);
+
+        --aero-shadow: 0 12px 34px rgba(0,0,0,.45);
+        --aero-shadow-soft: 0 8px 22px rgba(0,0,0,.35);
+
+        --aero-focus: rgba(10,132,255,.35);   /* iOS dark blue focus */
+    }
 }
 
 /* ------------------------
+   BASE APP LOOK
+------------------------- */
+html, body{
+    height: 100%;
+}
+body{
+    color: var(--aero-text);
+    background:
+        radial-gradient(1200px 900px at 15% 5%, var(--aero-bg-3), transparent 60%),
+        radial-gradient(1200px 900px at 85% 15%, var(--aero-bg-2), transparent 62%),
+        linear-gradient(180deg, var(--aero-bg-1), var(--aero-bg-1));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a{ color: inherit; }
+
+:focus-visible{
+    outline: none !important;
+    box-shadow: 0 0 0 4px var(--aero-focus) !important;
+    border-radius: 10px;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    .aero-glass{
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        backdrop-filter: blur(18px) saturate(180%);
+    }
+}
+
+/* Try to glassify common top bars without HTML changes */
+header,
+.navbar,
+.dxbl-toolbar,
+.dxbl-appbar,
+.dxbl-top-panel{
+    background: var(--aero-glass) !important;
+    border-bottom: 1px solid var(--aero-border) !important;
+    box-shadow: var(--aero-shadow-soft) !important;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    header,
+    .navbar,
+    .dxbl-toolbar,
+    .dxbl-appbar,
+    .dxbl-top-panel{
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        backdrop-filter: blur(18px) saturate(180%);
+    }
+}
+
+/* Make default Bootstrap buttons feel more iOS (still overridable by your semantic classes) */
+.btn{
+    border-radius: var(--aero-radius-md);
+    transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
+}
+.btn:active{
+    transform: translateY(1px);
+}
+
+/* -------------------------
    SMALL SCREEN TOGGLE BUTTON
 ------------------------- */
 @media (max-width: 575px) {
@@ -22,112 +129,158 @@
 .w-65 { width: 65% !important; }
 
 /* =========================================================
-   VTMF SEMANTIC BUTTONS (DB now stores only these classes)
-   DB examples:
-   - btn vtmf-process-btn
-   - btn vtmf-secondary-btn
-   - btn vtmf-secondary-process-btn
-   - btn vtmf-kbd-num
-   - btn vtmf-kbd-ctrl
-   - btn vtmf-kbd-start position-fixed top-0 start-50 translate-middle-x mt-2
+   SEMANTIC BUTTONS (DB now stores only these)
 ========================================================= */
 
-/* Primary process buttons (was: btn-light w-100 m-2 py-3 py-md-2 rounded-3 fs-5 border + softcard) */
+/* Big “process” list buttons (the white cards in your screenshot) */
 .vtmf-process-btn{
     width: 100% !important;
-    margin: .5rem !important;                 /* m-2 */
-    padding-top: 1rem !important;             /* py-3 */
-    padding-bottom: 1rem !important;
-    border-radius: .5rem !important;          /* rounded-3 */
-    font-size: 1.25rem !important;            /* fs-5 */
-    border: 1px solid rgba(0,0,0,.10) !important;
-    background: var(--bs-light, #f8f9fa) !important;
-    color: var(--bs-dark, #212529) !important;
-    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    margin: .55rem !important;                 /* m-2 feel */
+    padding: 1.05rem 1.1rem !important;        /* py-3 */
+    border-radius: var(--aero-radius-lg) !important;
+
+    background: var(--aero-glass-strong) !important;
+    border: 1px solid var(--aero-border) !important;
+    box-shadow: var(--aero-shadow-soft) !important;
+
+    color: var(--aero-text) !important;
+    font-weight: 600;
+    letter-spacing: .2px;
 }
-@media (min-width: 768px){
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
     .vtmf-process-btn{
-        padding-top: .5rem !important;         /* py-md-2 */
-        padding-bottom: .5rem !important;
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        backdrop-filter: blur(18px) saturate(180%);
     }
 }
+@media (min-width: 768px){
+    .vtmf-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; } /* py-md-2 */
+}
+.vtmf-process-btn:hover{ filter: brightness(1.03); }
+.vtmf-process-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Secondary big button (was: w-100 m-2 py-3 py-md-2 rounded-3 fw-semibold shadow + black press) */
+/* Bottom “Lisavalikud …” style (dark glass pill/card) */
 .vtmf-secondary-btn{
     width: 100% !important;
-    margin: .5rem !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    border-radius: .5rem !important;
-    font-weight: 600 !important;              /* fw-semibold */
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;  /* shadow */
-    background: #111 !important;
-    color: #fff !important;
+    margin: .55rem !important;
+    padding: 1.05rem 1.1rem !important;
+    border-radius: var(--aero-radius-lg) !important;
+
+    background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.58)) !important;
     border: 1px solid rgba(255,255,255,.12) !important;
+    box-shadow: var(--aero-shadow) !important;
+
+    color: rgba(255,255,255,.94) !important;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    .vtmf-secondary-btn{
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+    }
 }
 @media (min-width: 768px){
-    .vtmf-secondary-btn{
-        padding-top: .5rem !important;
-        padding-bottom: .5rem !important;
-    }
+    .vtmf-secondary-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
 .vtmf-secondary-btn:hover{ filter: brightness(1.06); }
-.vtmf-secondary-btn:active{ transform: translateY(1px); }
+.vtmf-secondary-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Secondary process list button (was: btn-outline-dark w-100 m-2 py-3 py-md-2 rounded-pill fw-semibold) */
+/* Secondary process list buttons (outline look, but still glassy) */
 .vtmf-secondary-process-btn{
     width: 100% !important;
-    margin: .5rem !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    border-radius: 50rem !important;          /* rounded-pill */
-    font-weight: 600 !important;
-    background: transparent !important;
-    border: 1px solid var(--bs-dark, #212529) !important;
-    color: var(--bs-dark, #212529) !important;
+    margin: .55rem !important;
+    padding: 1.05rem 1.1rem !important;
+    border-radius: 999px !important;
+
+    background: var(--aero-glass) !important;
+    border: 1px solid rgba(0,0,0,.14) !important;
+    color: var(--aero-text) !important;
+    font-weight: 650;
 }
-@media (min-width: 768px){
+@media (prefers-color-scheme: dark){
     .vtmf-secondary-process-btn{
-        padding-top: .5rem !important;
-        padding-bottom: .5rem !important;
+        border: 1px solid rgba(255,255,255,.14) !important;
     }
 }
-.vtmf-secondary-process-btn:hover{
-    background: rgba(33,37,41,.06) !important;
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    .vtmf-secondary-process-btn{
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        backdrop-filter: blur(18px) saturate(180%);
+    }
+}
+@media (min-width: 768px){
+    .vtmf-secondary-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
 
-/* Barcode keyboard buttons (was: vtmf-btn-rg + btn-primary/secondary + w-65 m-2 py-4) */
+/* Barcode keyboard buttons */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl{
     width: 65% !important;
     margin: .5rem !important;
-    padding-top: 1.5rem !important;           /* py-4 */
-    padding-bottom: 1.5rem !important;
-    font-size: x-large !important;
-    border-radius: .5rem !important;
+    padding: 1.4rem 1.2rem !important;         /* py-4 feel */
+    border-radius: var(--aero-radius-lg) !important;
+    font-size: 1.35rem !important;
+    font-weight: 700;
+    box-shadow: var(--aero-shadow-soft) !important;
 }
-
 .vtmf-kbd-num{
-    background: var(--bs-primary, #0d6efd) !important;
-    border: 1px solid var(--bs-primary, #0d6efd) !important;
-    color: var(--bs-white, #fff) !important;
+    background: linear-gradient(180deg, rgba(0,122,255,.92), rgba(0,122,255,.78)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    color: rgba(255,255,255,.96) !important;
 }
-.vtmf-kbd-num:hover{ filter: brightness(1.06); }
-
 .vtmf-kbd-ctrl{
-    background: var(--bs-secondary, #6c757d) !important;
-    border: 1px solid var(--bs-secondary, #6c757d) !important;
-    color: var(--bs-white, #fff) !important;
+    background: linear-gradient(180deg, rgba(88,86,214,.92), rgba(88,86,214,.78)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    color: rgba(255,255,255,.96) !important;
 }
-.vtmf-kbd-ctrl:hover{ filter: brightness(1.06); }
 
-/* Start button (DB keeps fixed positioning classes; CSS controls final top offset + look) */
+/* Start button: DB keeps fixed positioning, CSS controls final top */
 .vtmf-kbd-start{
     top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
     z-index: 1050 !important;
-    background: var(--bs-info, #0dcaf0) !important;
-    border: 1px solid var(--bs-info, #0dcaf0) !important;
-    color: var(--bs-dark, #212529) !important; /* like Bootstrap btn-info */
+
+    border-radius: 999px !important;
+    padding: .55rem 1rem !important;
+    font-weight: 700;
+    box-shadow: var(--aero-shadow-soft) !important;
+
+    background: var(--aero-glass-strong) !important;
+    border: 1px solid var(--aero-border) !important;
+    color: var(--aero-text) !important;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    .vtmf-kbd-start{
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        backdrop-filter: blur(18px) saturate(180%);
+    }
+}
+
+/* =========================================================
+   DEVEXPRESS / DXBL GLASS PASS (broad but safe)
+========================================================= */
+.dxbl-modal-content,
+.dxbl-popup,
+.dxbl-popup-content,
+.dxbl-card,
+.dxbl-grid,
+.dxbl-form,
+.dxbl-layout-item{
+    border-radius: var(--aero-radius-lg);
+}
+
+.dxbl-modal-content,
+.dxbl-popup-content{
+    background: var(--aero-glass-strong) !important;
+    border: 1px solid var(--aero-border) !important;
+    box-shadow: var(--aero-shadow) !important;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+    .dxbl-modal-content,
+    .dxbl-popup-content{
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
+    }
 }
 
 /* -------------------------
@@ -138,18 +291,16 @@
 }
 
 /* -------------------------
-   HEADER SCANNER BUTTONS
+   HEADER SCANNER BUTTONS (your existing)
 ------------------------- */
 .vtmf-btn-xl {
     left: 30%;
     top: 0 !important;
 }
-
 .vtmfs-btn-xl {
     right: 30%;
     top: 0 !important;
 }
-
 .vtmf-btn-xl,
 .vtmfs-btn-xl {
     font-size: 1rem;
@@ -177,7 +328,6 @@
     visibility: hidden;
     position: relative;
 }
-
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
     content: "Muuda andmed";
     visibility: visible;
@@ -190,12 +340,10 @@
 .dxbl-grid tr {
     height: 60px;
 }
-
 .dxbl-grid td,
 .dxbl-grid th {
     padding: 20px;
 }
-
 .dxbl-grid {
     border-spacing: 0 20px;
     border-collapse: separate;
@@ -210,40 +358,35 @@
     align-items: center;
     gap: 15px;
 }
-
 .dxbl-modal-footer button:nth-of-type(2) {
     background-color: lightgray;
     color: black;
 }
 
 /* -------------------------
-   BUTTON SIZE OVERRIDES
+   BUTTON SIZE OVERRIDES (your existing)
 ------------------------- */
 .dxbl-btn-primary {
     font-size: x-large;
 }
-
 .dxbl-btn.dxbl-lg {
     width: -webkit-fill-available;
     font-size: x-large;
 }
-
 .dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
 .dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg {
     width: 99%;
 }
-
 .dxbl-btn-caption {
     display: inline-block;
 }
-
 .popupnupud {
     width: 99%;
     margin-top: 15px;
 }
 
 /* -------------------------
-   HEADER + FOOTER BUTTONS
+   HEADER + FOOTER BUTTONS (your existing)
 ------------------------- */
 .paisenupud {
     font-weight: bold;
@@ -252,7 +395,6 @@
     background-color: lightgray;
     transition: background-color 0.3s;
 }
-
 .jalusenupud {
     font-weight: bold;
     width: 100px;
@@ -260,7 +402,7 @@
 }
 
 /* -------------------------
-   FIELD SIZE OVERRIDES
+   FIELD SIZE OVERRIDES (your existing)
 ------------------------- */
 div[data-fname="vatprice"] span,
 div[data-fname="state"] span,
@@ -291,7 +433,7 @@ div[data-fname="CAIC"] span {
 }
 
 /* -------------------------
-   DOCUMENT GRID COMMAND CELL FIX
+   DOCUMENT GRID COMMAND CELL FIX (your existing)
 ------------------------- */
 .vtmf-Document-grid td.dxbl-grid-command-cell,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
