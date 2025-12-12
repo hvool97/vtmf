@@ -438,3 +438,41 @@ div[data-fname="CAIC"] span{ font-weight: bold; }
 .dxbl-toolbar .dxbl-toolbar-item{
   background: transparent !important;
 }
+/* =========================================================
+   SEMANTIC STATUS + ALERTS (from DB replacements)
+========================================================= */
+
+/* Guides / alerts */
+.vtmf-alert-success{
+  width: 100%;
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-radius: 16px;
+
+  background: linear-gradient(180deg, rgba(52,199,89,.18), rgba(52,199,89,.10)) !important;
+  border: 1px solid rgba(52,199,89,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+/* Document state styles */
+.vtmf-state-working{
+  background: linear-gradient(180deg, rgba(52,199,89,.20), rgba(52,199,89,.12)) !important;
+  border: 1px solid rgba(52,199,89,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+  font-weight: 800 !important;
+  border-radius: 14px;
+  padding: .2rem .55rem;
+  display: inline-block;
+}
+
+.vtmf-state-error{
+  background: linear-gradient(180deg, rgba(255,59,48,.18), rgba(255,59,48,.10)) !important;
+  border: 1px solid rgba(255,59,48,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+  font-weight: 800 !important;
+  border-radius: 14px;
+  padding: .2rem .55rem;
+  display: inline-block;
+}
