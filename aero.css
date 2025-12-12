@@ -1,4 +1,12 @@
 /* ------------------------
+   GLOBAL VARS
+------------------------- */
+:root{
+    /* Adjust if your header is taller/shorter */
+    --vtmf-header-offset: 56px;
+}
+
+/* ------------------------
    SMALL SCREEN TOGGLE BUTTON
 ------------------------- */
 @media (max-width: 575px) {
@@ -8,7 +16,40 @@
     }
 }
 
-.btn-primary {
+/* -------------------------
+   CUSTOM UTILITIES (missing in Bootstrap)
+------------------------- */
+.w-65 { width: 65% !important; }
+
+/* -------------------------
+   BUTTON STYLE HELPERS
+------------------------- */
+.btn-softcard{
+    border: 1px solid rgba(0,0,0,.08) !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+.btn-black-press{
+    background: #111 !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,.12) !important;
+}
+.btn-black-press:hover{
+    filter: brightness(1.06);
+}
+.btn-black-press:active{
+    transform: translateY(1px);
+}
+
+/* Keep primary buttons sane globally.
+   If you still want huge primary buttons everywhere, delete this section. */
+.btn-primary{
+    font-size: 1rem;
+}
+
+/* Your keyboard-specific big buttons */
+.vtmf-btn-rg.btn-primary,
+.vtmf-btn-rg.btn-secondary{
     font-size: x-large;
 }
 
@@ -39,6 +80,12 @@
     height: auto;
     width: auto;
     border-radius: 6px;
+}
+
+/* Fixed start button: push it down into the header area */
+.vtmf-start-btn{
+    top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
+    z-index: 1050;
 }
 
 /* -------------------------
