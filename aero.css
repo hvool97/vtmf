@@ -783,3 +783,49 @@ main,
   background: rgba(0, 0, 255, 0.92) !important;
   background-color: rgba(0, 0, 255, 0.92) !important;
 }
+/* =========================================================
+   DROPDOWN NOT SEE-THROUGH (dxbl-dropdown-body variant)
+   Put at END of file.
+========================================================= */
+
+.dxbl-dropdown-body,
+div.dxbl-dropdown-body{
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+  color: rgba(10, 14, 20, .92) !important;
+}
+
+/* Keep the scroll content solid too (some builds use both) */
+.dxbl-scroll-viewer-content,
+div.dxbl-scroll-viewer-content{
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+}
+/* =========================================================
+   DROPDOWN NOT SEE-THROUGH (likely dxbl-scroll-viewer-content)
+   Put at END of file.
+========================================================= */
+
+/* The scrolling content area inside dropdown popups */
+.dxbl-scroll-viewer-content,
+div.dxbl-scroll-viewer-content{
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+  color: rgba(10, 14, 20, .92) !important;
+}
+
+/* If the transparency comes from the immediate popup shells */
+.dxbl-editor-dropdown,
+.dxbl-editor-dropdown-content,
+.dxbl-editor-popup,
+.dxbl-popup.dxbl-editor-popup,
+.dxbl-combobox-popup,
+.dxbl-dropdown-popup{
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+}
+
+/* Kill accidental transparency */
+.dxbl-scroll-viewer-content *{
+  background-color: transparent;
+}
