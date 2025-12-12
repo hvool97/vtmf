@@ -120,7 +120,7 @@ header svg,
   fill: currentColor !important;
 }
 
-/* Menu/hamburger visibility */
+/* Menu button surface (keeps it visible on light header) */
 header button,
 .navbar button,
 .dxbl-toolbar button,
@@ -155,6 +155,53 @@ header .bg-white,
   background: transparent !important;
   box-shadow: none !important;
   border: 0 !important;
+}
+
+/* FORCE hamburger stripes to black (covers Bootstrap toggler + SVG + spans + pseudo-elements) */
+header .navbar-toggler,
+header .navbar-toggler-icon,
+.navbar .navbar-toggler,
+.navbar .navbar-toggler-icon,
+.dxbs-topbar .navbar-toggler,
+.dxbs-topbar .navbar-toggler-icon{
+  color: #000 !important;
+}
+
+header .navbar-toggler-icon,
+.navbar .navbar-toggler-icon,
+.dxbs-topbar .navbar-toggler-icon{
+  filter: none !important;
+  background-image: var(--bs-navbar-toggler-icon-bg) !important; /* Bootstrap */
+}
+
+/* If the hamburger is an SVG */
+header .navbar-toggler svg,
+.navbar .navbar-toggler svg,
+.dxbs-topbar .navbar-toggler svg{
+  fill: #000 !important;
+  stroke: #000 !important;
+}
+
+/* If it is 3 lines made with spans/divs */
+header .navbar-toggler span,
+.navbar .navbar-toggler span,
+.dxbs-topbar .navbar-toggler span,
+header .hamburger span,
+.navbar .hamburger span{
+  background: #000 !important;
+}
+
+/* If it is drawn with ::before/::after */
+header .navbar-toggler::before,
+header .navbar-toggler::after,
+.navbar .navbar-toggler::before,
+.navbar .navbar-toggler::after,
+header .hamburger::before,
+header .hamburger::after,
+.navbar .hamburger::before,
+.navbar .hamburger::after{
+  background: #000 !important;
+  border-color: #000 !important;
 }
 
 /* =========================================================
