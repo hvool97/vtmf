@@ -1,5 +1,12 @@
 /* =========================================================
-   iOS AERO THEME (glassmorphism)
+   iOS AERO LIGHT THEME (glassmorphism)
+   Use with DB semantic classes:
+   - btn vtmf-process-btn
+   - btn vtmf-secondary-btn
+   - btn vtmf-secondary-process-btn
+   - btn vtmf-kbd-num
+   - btn vtmf-kbd-ctrl
+   - btn vtmf-kbd-start position-fixed top-0 start-50 translate-middle-x mt-2
 ========================================================= */
 
 /* ------------------------
@@ -8,7 +15,6 @@
 :root{
     --vtmf-header-offset: 56px;
 
-    /* Light (default) */
     --aero-bg-1: #f3f6ff;
     --aero-bg-2: #f7f2ff;
     --aero-bg-3: #eef7ff;
@@ -18,7 +24,7 @@
 
     --aero-glass: rgba(255,255,255,.62);
     --aero-glass-strong: rgba(255,255,255,.78);
-    --aero-border: rgba(255,255,255,.65);
+    --aero-border: rgba(255,255,255,.70);
 
     --aero-shadow: 0 10px 30px rgba(0,0,0,.10);
     --aero-shadow-soft: 0 6px 18px rgba(0,0,0,.08);
@@ -26,38 +32,16 @@
     --aero-radius-lg: 18px;
     --aero-radius-md: 14px;
 
-    --aero-accent: rgba(0,122,255,1);         /* iOS blue */
-    --aero-accent-2: rgba(88,86,214,1);       /* iOS purple */
+    --aero-accent: rgba(0,122,255,1);
+    --aero-accent-2: rgba(88,86,214,1);
     --aero-focus: rgba(0,122,255,.28);
-}
-
-/* Optional: dark mode auto */
-@media (prefers-color-scheme: dark){
-    :root{
-        --aero-bg-1: #0b0f16;
-        --aero-bg-2: #0b1220;
-        --aero-bg-3: #08131a;
-
-        --aero-text: rgba(255,255,255,.92);
-        --aero-muted: rgba(255,255,255,.65);
-
-        --aero-glass: rgba(18,22,32,.58);
-        --aero-glass-strong: rgba(18,22,32,.72);
-        --aero-border: rgba(255,255,255,.10);
-
-        --aero-shadow: 0 12px 34px rgba(0,0,0,.45);
-        --aero-shadow-soft: 0 8px 22px rgba(0,0,0,.35);
-
-        --aero-focus: rgba(10,132,255,.35);   /* iOS dark blue focus */
-    }
 }
 
 /* ------------------------
    BASE APP LOOK
 ------------------------- */
-html, body{
-    height: 100%;
-}
+html, body{ height: 100%; }
+
 body{
     color: var(--aero-text);
     background:
@@ -83,35 +67,58 @@ a{ color: inherit; }
     }
 }
 
-/* Try to glassify common top bars without HTML changes */
+/* -------------------------
+   HEADER / TOP BAR LIGHT THEME
+------------------------- */
+/* Broad targets to catch most frameworks */
 header,
 .navbar,
 .dxbl-toolbar,
 .dxbl-appbar,
-.dxbl-top-panel{
-    background: var(--aero-glass) !important;
-    border-bottom: 1px solid var(--aero-border) !important;
+.dxbl-top-panel,
+.dxbs-header,
+.dxbs-topbar{
+    background: var(--aero-glass-strong) !important;
+    border-bottom: 1px solid rgba(0,0,0,.06) !important;
     box-shadow: var(--aero-shadow-soft) !important;
+    color: var(--aero-text) !important;
 }
+
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
     header,
     .navbar,
     .dxbl-toolbar,
     .dxbl-appbar,
-    .dxbl-top-panel{
-        -webkit-backdrop-filter: blur(18px) saturate(180%);
-        backdrop-filter: blur(18px) saturate(180%);
+    .dxbl-top-panel,
+    .dxbs-header,
+    .dxbs-topbar{
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
     }
 }
 
-/* Make default Bootstrap buttons feel more iOS (still overridable by your semantic classes) */
+/* If header contains links/icons, keep them dark */
+header a,
+.navbar a,
+.dxbl-toolbar a,
+.dxbl-appbar a{
+    color: var(--aero-text) !important;
+}
+header svg,
+.navbar svg,
+.dxbl-toolbar svg,
+.dxbl-appbar svg{
+    fill: currentColor !important;
+}
+
+/* -------------------------
+   BOOTSTRAP BUTTON BASE (gentle)
+------------------------- */
 .btn{
     border-radius: var(--aero-radius-md);
     transition: transform .08s ease, filter .12s ease, box-shadow .12s ease;
 }
-.btn:active{
-    transform: translateY(1px);
-}
+.btn:active{ transform: translateY(1px); }
 
 /* -------------------------
    SMALL SCREEN TOGGLE BUTTON
@@ -124,27 +131,27 @@ header,
 }
 
 /* -------------------------
-   CUSTOM UTILITIES (missing in Bootstrap)
+   CUSTOM UTILITIES
 ------------------------- */
 .w-65 { width: 65% !important; }
 
 /* =========================================================
-   SEMANTIC BUTTONS (DB now stores only these)
+   SEMANTIC BUTTONS (DB stores only these)
 ========================================================= */
 
-/* Big “process” list buttons (the white cards in your screenshot) */
+/* Process list buttons (white glass cards) */
 .vtmf-process-btn{
     width: 100% !important;
-    margin: .55rem !important;                 /* m-2 feel */
-    padding: 1.05rem 1.1rem !important;        /* py-3 */
+    margin: .55rem !important;
+    padding: 1.05rem 1.1rem !important;
     border-radius: var(--aero-radius-lg) !important;
 
     background: var(--aero-glass-strong) !important;
-    border: 1px solid var(--aero-border) !important;
+    border: 1px solid rgba(0,0,0,.06) !important;
     box-shadow: var(--aero-shadow-soft) !important;
 
     color: var(--aero-text) !important;
-    font-weight: 600;
+    font-weight: 650;
     letter-spacing: .2px;
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -154,39 +161,39 @@ header,
     }
 }
 @media (min-width: 768px){
-    .vtmf-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; } /* py-md-2 */
+    .vtmf-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
-.vtmf-process-btn:hover{ filter: brightness(1.03); }
+.vtmf-process-btn:hover{ filter: brightness(1.02); }
 .vtmf-process-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Bottom “Lisavalikud …” style (dark glass pill/card) */
+/* Secondary big button (make it also LIGHT, not black) */
 .vtmf-secondary-btn{
     width: 100% !important;
     margin: .55rem !important;
     padding: 1.05rem 1.1rem !important;
     border-radius: var(--aero-radius-lg) !important;
 
-    background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.58)) !important;
-    border: 1px solid rgba(255,255,255,.12) !important;
+    background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.72)) !important;
+    border: 1px solid rgba(0,0,0,.06) !important;
     box-shadow: var(--aero-shadow) !important;
 
-    color: rgba(255,255,255,.94) !important;
-    font-weight: 700;
+    color: var(--aero-text) !important;
+    font-weight: 750;
     letter-spacing: .3px;
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
     .vtmf-secondary-btn{
-        -webkit-backdrop-filter: blur(18px) saturate(160%);
-        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
     }
 }
 @media (min-width: 768px){
     .vtmf-secondary-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
-.vtmf-secondary-btn:hover{ filter: brightness(1.06); }
+.vtmf-secondary-btn:hover{ filter: brightness(1.02); }
 .vtmf-secondary-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Secondary process list buttons (outline look, but still glassy) */
+/* Secondary process list buttons (pill glass outline) */
 .vtmf-secondary-process-btn{
     width: 100% !important;
     margin: .55rem !important;
@@ -194,14 +201,9 @@ header,
     border-radius: 999px !important;
 
     background: var(--aero-glass) !important;
-    border: 1px solid rgba(0,0,0,.14) !important;
+    border: 1px solid rgba(0,0,0,.10) !important;
     color: var(--aero-text) !important;
     font-weight: 650;
-}
-@media (prefers-color-scheme: dark){
-    .vtmf-secondary-process-btn{
-        border: 1px solid rgba(255,255,255,.14) !important;
-    }
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
     .vtmf-secondary-process-btn{
@@ -213,40 +215,40 @@ header,
     .vtmf-secondary-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
 
-/* Barcode keyboard buttons */
+/* Barcode keyboard buttons (light theme, iOS-like) */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl{
     width: 65% !important;
     margin: .5rem !important;
-    padding: 1.4rem 1.2rem !important;         /* py-4 feel */
+    padding: 1.4rem 1.2rem !important;
     border-radius: var(--aero-radius-lg) !important;
     font-size: 1.35rem !important;
-    font-weight: 700;
+    font-weight: 800;
     box-shadow: var(--aero-shadow-soft) !important;
-}
-.vtmf-kbd-num{
-    background: linear-gradient(180deg, rgba(0,122,255,.92), rgba(0,122,255,.78)) !important;
-    border: 1px solid rgba(255,255,255,.20) !important;
-    color: rgba(255,255,255,.96) !important;
-}
-.vtmf-kbd-ctrl{
-    background: linear-gradient(180deg, rgba(88,86,214,.92), rgba(88,86,214,.78)) !important;
-    border: 1px solid rgba(255,255,255,.20) !important;
-    color: rgba(255,255,255,.96) !important;
+    border: 1px solid rgba(0,0,0,.06) !important;
 }
 
-/* Start button: DB keeps fixed positioning, CSS controls final top */
+.vtmf-kbd-num{
+    background: linear-gradient(180deg, rgba(0,122,255,.18), rgba(0,122,255,.10)) !important;
+    color: rgba(0,122,255,1) !important;
+}
+.vtmf-kbd-ctrl{
+    background: linear-gradient(180deg, rgba(88,86,214,.18), rgba(88,86,214,.10)) !important;
+    color: rgba(88,86,214,1) !important;
+}
+
+/* Start button (light glass pill) */
 .vtmf-kbd-start{
     top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
     z-index: 1050 !important;
 
     border-radius: 999px !important;
     padding: .55rem 1rem !important;
-    font-weight: 700;
+    font-weight: 800;
     box-shadow: var(--aero-shadow-soft) !important;
 
     background: var(--aero-glass-strong) !important;
-    border: 1px solid var(--aero-border) !important;
+    border: 1px solid rgba(0,0,0,.06) !important;
     color: var(--aero-text) !important;
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -257,7 +259,7 @@ header,
 }
 
 /* =========================================================
-   DEVEXPRESS / DXBL GLASS PASS (broad but safe)
+   DEVEXPRESS / DXBL GLASS PASS
 ========================================================= */
 .dxbl-modal-content,
 .dxbl-popup,
@@ -272,7 +274,7 @@ header,
 .dxbl-modal-content,
 .dxbl-popup-content{
     background: var(--aero-glass-strong) !important;
-    border: 1px solid var(--aero-border) !important;
+    border: 1px solid rgba(0,0,0,.06) !important;
     box-shadow: var(--aero-shadow) !important;
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
@@ -337,14 +339,12 @@ header,
 /* -------------------------
    GRID ROW + CELL SPACING
 ------------------------- */
-.dxbl-grid tr {
-    height: 60px;
-}
+.dxbl-grid tr { height: 60px; }
+
 .dxbl-grid td,
-.dxbl-grid th {
-    padding: 20px;
-}
-.dxbl-grid {
+.dxbl-grid th { padding: 20px; }
+
+.dxbl-grid{
     border-spacing: 0 20px;
     border-collapse: separate;
 }
@@ -352,13 +352,13 @@ header,
 /* -------------------------
    MODAL FOOTER LAYOUT
 ------------------------- */
-.dxbl-modal-footer {
+.dxbl-modal-footer{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 15px;
 }
-.dxbl-modal-footer button:nth-of-type(2) {
+.dxbl-modal-footer button:nth-of-type(2){
     background-color: lightgray;
     color: black;
 }
@@ -366,21 +366,21 @@ header,
 /* -------------------------
    BUTTON SIZE OVERRIDES (your existing)
 ------------------------- */
-.dxbl-btn-primary {
-    font-size: x-large;
-}
-.dxbl-btn.dxbl-lg {
+.dxbl-btn-primary { font-size: x-large; }
+
+.dxbl-btn.dxbl-lg{
     width: -webkit-fill-available;
     font-size: x-large;
 }
+
 .dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
-.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg {
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{
     width: 99%;
 }
-.dxbl-btn-caption {
-    display: inline-block;
-}
-.popupnupud {
+
+.dxbl-btn-caption{ display: inline-block; }
+
+.popupnupud{
     width: 99%;
     margin-top: 15px;
 }
@@ -388,14 +388,15 @@ header,
 /* -------------------------
    HEADER + FOOTER BUTTONS (your existing)
 ------------------------- */
-.paisenupud {
+.paisenupud{
     font-weight: bold;
     width: 100px;
     padding: 10px 0;
     background-color: lightgray;
     transition: background-color 0.3s;
 }
-.jalusenupud {
+
+.jalusenupud{
     font-weight: bold;
     width: 100px;
     padding: 20px 0;
@@ -409,45 +410,43 @@ div[data-fname="state"] span,
 div[data-fname="datafield3"] span,
 div[data-fname="number"] span,
 div[data-fname="AN"] span,
-div[data-fname="SH"] span {
+div[data-fname="SH"] span{
     font-size: smaller;
 }
 
 div[data-fname="AD"] span,
 div[data-fname="ALD"] span,
 div[data-fname="fromstock"] span,
-div[data-fname="tostocktr"] span {
+div[data-fname="tostocktr"] span{
     font-size: large;
     font-weight: bold;
 }
 
 div[data-fname="suppliername"] span,
 div[data-fname="stock"] span,
-div[data-fname="customername"] span {
+div[data-fname="customername"] span{
     font-size: large;
     font-weight: bold;
 }
 
-div[data-fname="CAIC"] span {
-    font-weight: bold;
-}
+div[data-fname="CAIC"] span{ font-weight: bold; }
 
 /* -------------------------
    DOCUMENT GRID COMMAND CELL FIX (your existing)
 ------------------------- */
 .vtmf-Document-grid td.dxbl-grid-command-cell,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell {
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
     position: relative !important;
     padding: 0 !important;
 }
 
 .vtmf-Document-grid .dxbl-grid-table tr,
-.vtmf-DocumentItems-grid .dxbl-grid-table tr {
+.vtmf-DocumentItems-grid .dxbl-grid-table tr{
     height: 48px !important;
 }
 
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command {
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
     position: absolute !important;
     top: 0; right: 0; bottom: 0; left: 0;
     width: 100% !important;
@@ -462,13 +461,13 @@ div[data-fname="CAIC"] span {
 }
 
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only {
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
     width: 100% !important;
     height: 100% !important;
     line-height: normal !important;
 }
 
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
-.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon {
+.vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
     pointer-events: none !important;
 }
