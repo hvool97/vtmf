@@ -1,32 +1,32 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
-   Cleaned: duplicates removed, unified buttons integrated,
-   keyboard colors preserved, blue patch fix included.
+   Fixed: duplicates removed, sections ordered, toolbar strip
+   fix included, semantic alerts/states included.
 ========================================================= */
 
 /* ------------------------
    GLOBAL VARS
 ------------------------- */
 :root{
-    --vtmf-header-offset: 56px;
+  --vtmf-header-offset: 56px;
 
-    --aero-bg-1: #f3f6ff;
-    --aero-bg-2: #f7f2ff;
-    --aero-bg-3: #eef7ff;
+  --aero-bg-1: #f3f6ff;
+  --aero-bg-2: #f7f2ff;
+  --aero-bg-3: #eef7ff;
 
-    --aero-text: rgba(10, 14, 20, .92);
-    --aero-muted: rgba(10, 14, 20, .62);
+  --aero-text: rgba(10, 14, 20, .92);
+  --aero-muted: rgba(10, 14, 20, .62);
 
-    --aero-glass: rgba(255,255,255,.62);
-    --aero-glass-strong: rgba(255,255,255,.78);
+  --aero-glass: rgba(255,255,255,.62);
+  --aero-glass-strong: rgba(255,255,255,.78);
 
-    --aero-shadow: 0 10px 30px rgba(0,0,0,.10);
-    --aero-shadow-soft: 0 6px 18px rgba(0,0,0,.08);
+  --aero-shadow: 0 10px 30px rgba(0,0,0,.10);
+  --aero-shadow-soft: 0 6px 18px rgba(0,0,0,.08);
 
-    --aero-radius-lg: 18px;
-    --aero-radius-md: 14px;
+  --aero-radius-lg: 18px;
+  --aero-radius-md: 14px;
 
-    --aero-focus: rgba(0,122,255,.28);
+  --aero-focus: rgba(0,122,255,.28);
 }
 
 /* ------------------------
@@ -35,26 +35,51 @@
 html, body{ height: 100%; }
 
 body{
-    color: var(--aero-text);
-    background:
-        radial-gradient(1200px 900px at 15% 5%, var(--aero-bg-3), transparent 60%),
-        radial-gradient(1200px 900px at 85% 15%, var(--aero-bg-2), transparent 62%),
-        linear-gradient(180deg, var(--aero-bg-1), var(--aero-bg-1));
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  color: var(--aero-text);
+  background:
+    radial-gradient(1200px 900px at 15% 5%, var(--aero-bg-3), transparent 60%),
+    radial-gradient(1200px 900px at 85% 15%, var(--aero-bg-2), transparent 62%),
+    linear-gradient(180deg, var(--aero-bg-1), var(--aero-bg-1));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a{ color: inherit; }
 
 :focus-visible{
-    outline: none !important;
-    box-shadow: 0 0 0 4px var(--aero-focus) !important;
-    border-radius: 10px;
+  outline: none !important;
+  box-shadow: 0 0 0 4px var(--aero-focus) !important;
+  border-radius: 10px;
 }
 
 /* -------------------------
-   HEADER / TOP BAR LIGHT THEME
+   GLASS SUPPORT
 ------------------------- */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .aero-glass{
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+  }
+}
+
+/* -------------------------
+   SMALL SCREEN TOGGLE BUTTON
+------------------------- */
+@media (max-width: 575px){
+  .dxbs-toggle-cell .btn-toggle svg{
+    height: 30px;
+    width: 30px;
+  }
+}
+
+/* -------------------------
+   CUSTOM UTILITIES
+------------------------- */
+.w-65{ width: 65% !important; }
+
+/* =========================================================
+   HEADER / TOP BAR LIGHT THEME
+========================================================= */
 header,
 .navbar,
 .dxbl-toolbar,
@@ -62,37 +87,37 @@ header,
 .dxbl-top-panel,
 .dxbs-header,
 .dxbs-topbar{
-    background: var(--aero-glass-strong) !important;
-    border-bottom: 1px solid rgba(0,0,0,.06) !important;
-    box-shadow: var(--aero-shadow-soft) !important;
-    color: var(--aero-text) !important;
+  background: var(--aero-glass-strong) !important;
+  border-bottom: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+  color: var(--aero-text) !important;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    header,
-    .navbar,
-    .dxbl-toolbar,
-    .dxbl-appbar,
-    .dxbl-top-panel,
-    .dxbs-header,
-    .dxbs-topbar{
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        backdrop-filter: blur(20px) saturate(180%);
-    }
+  header,
+  .navbar,
+  .dxbl-toolbar,
+  .dxbl-appbar,
+  .dxbl-top-panel,
+  .dxbs-header,
+  .dxbs-topbar{
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
 }
 
 header a,
 .navbar a,
 .dxbl-toolbar a,
 .dxbl-appbar a{
-    color: var(--aero-text) !important;
+  color: var(--aero-text) !important;
 }
 
 header svg,
 .navbar svg,
 .dxbl-toolbar svg,
 .dxbl-appbar svg{
-    fill: currentColor !important;
+  fill: currentColor !important;
 }
 
 /* Menu/hamburger visibility */
@@ -106,6 +131,7 @@ header button,
   border: 1px solid rgba(0,0,0,.06) !important;
   border-radius: 12px !important;
 }
+
 header button svg,
 .navbar button svg,
 .dxbl-toolbar button svg,
@@ -114,29 +140,62 @@ header button svg,
   fill: currentColor !important;
   stroke: currentColor !important;
 }
+
 header .oi, header i,
 .navbar .oi, .navbar i{
   color: var(--aero-text) !important;
 }
 
-/* -------------------------
-   SMALL SCREEN TOGGLE BUTTON
-------------------------- */
-@media (max-width: 575px) {
-    .dxbs-toggle-cell .btn-toggle svg {
-        height: 30px;
-        width: 30px;
-    }
+/* Remove Bootstrap bg-white strips in header/toolbars */
+header .bg-white,
+.navbar .bg-white,
+.dxbl-toolbar .bg-white,
+.dxbl-top-panel .bg-white,
+.dxbs-topbar .bg-white{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 
-/* -------------------------
-   CUSTOM UTILITIES
-------------------------- */
-.w-65 { width: 65% !important; }
+/* =========================================================
+   DXBL TOOLBAR: remove white background strip
+========================================================= */
+.dxbl-toolbar,
+.dxbl-toolbar-root,
+.dxbl-toolbar-items,
+.dxbl-toolbar-content,
+.dxbl-toolbar-container{
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
+  .dxbl-toolbar,
+  .dxbl-toolbar-root,
+  .dxbl-toolbar-items,
+  .dxbl-toolbar-content,
+  .dxbl-toolbar-container{
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+  }
+}
+
+.dxbl-toolbar > .dxbl-btn-toolbar,
+.dxbl-toolbar .dxbl-btn-toolbar{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.dxbl-toolbar .dxbl-toolbar-group,
+.dxbl-toolbar .dxbl-toolbar-item{
+  background: transparent !important;
+}
 
 /* =========================================================
    UNIFIED BUTTON SYSTEM (Bootstrap + DevExpress)
-   Applies to normal buttons. Keyboard buttons are excluded.
+   Applies to normal buttons. Keyboard buttons excluded.
 ========================================================= */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
@@ -171,19 +230,19 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start),
   transition: transform .08s ease, filter .12s ease, box-shadow .12s ease !important;
 }
 
-/* Hover/active feel */
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover,
 .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):hover{
   filter: brightness(1.02) !important;
 }
+
 button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-btn:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active{
   transform: translateY(1px) scale(.995) !important;
 }
 
-/* Neutralize Bootstrap variants so everything stays consistent */
+/* Neutralize Bootstrap variants */
 .btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info,
 .btn-outline-primary, .btn-outline-secondary, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-info{
   background: var(--aero-glass-strong) !important;
@@ -191,7 +250,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
   color: var(--aero-text) !important;
 }
 
-/* Fix: inner caption/icon backgrounds causing blue patch */
+/* Fix: inner caption/icon backgrounds causing colored blocks */
 .dxbl-btn * ,
 .btn *{
   background: transparent !important;
@@ -212,70 +271,107 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .vtmf-secondary-btn{ width: 100% !important; margin: .55rem !important; }
 .vtmf-secondary-process-btn{ width: 100% !important; margin: .55rem !important; }
 
-/* Keyboard buttons keep their distinct look */
+/* Keyboard buttons */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl{
-    width: 65% !important;
-    margin: .5rem !important;
-    padding: 1.4rem 1.2rem !important;
-    border-radius: var(--aero-radius-lg) !important;
-    font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    box-shadow: var(--aero-shadow-soft) !important;
-    border: 1px solid rgba(0,0,0,.06) !important;
+  width: 65% !important;
+  margin: .5rem !important;
+  padding: 1.4rem 1.2rem !important;
+  border-radius: var(--aero-radius-lg) !important;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
 }
+
 .vtmf-kbd-num{
-    background: linear-gradient(180deg, rgba(0,122,255,.18), rgba(0,122,255,.10)) !important;
-    color: rgba(0,122,255,1) !important;
+  background: linear-gradient(180deg, rgba(0,122,255,.18), rgba(0,122,255,.10)) !important;
+  color: rgba(0,122,255,1) !important;
 }
+
 .vtmf-kbd-ctrl{
-    background: linear-gradient(180deg, rgba(88,86,214,.18), rgba(88,86,214,.10)) !important;
-    color: rgba(88,86,214,1) !important;
+  background: linear-gradient(180deg, rgba(88,86,214,.18), rgba(88,86,214,.10)) !important;
+  color: rgba(88,86,214,1) !important;
 }
 
 .vtmf-kbd-start{
-    top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
-    z-index: 1050 !important;
-    border-radius: 999px !important;
-    padding: .55rem 1rem !important;
-    font-weight: 800 !important;
-    box-shadow: var(--aero-shadow-soft) !important;
-    background: var(--aero-glass-strong) !important;
-    border: 1px solid rgba(0,0,0,.06) !important;
-    color: var(--aero-text) !important;
+  top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
+  z-index: 1050 !important;
+  border-radius: 999px !important;
+  padding: .55rem 1rem !important;
+  font-weight: 800 !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  color: var(--aero-text) !important;
 }
 
 /* Detail labels / values */
 .vtmf-detail-label{
-    font-weight: 700;
-    padding-bottom: .35rem;
-    border-bottom: 1px solid rgba(0,0,0,.08);
+  font-weight: 700;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
 }
 .vtmf-detail-value{
-    text-align: left;
-    padding-bottom: .35rem;
-    border-bottom: 1px solid rgba(0,0,0,.08);
-    color: var(--aero-text);
+  text-align: left;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  color: var(--aero-text);
 }
 .vtmf-detail-label-lg{ font-weight: 750; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
 .vtmf-detail-value-lg{ text-align: left; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
 .vtmf-detail-label-xl{ font-weight: 800; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
 .vtmf-detail-value-xl{ text-align: left; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
 
-/* Detail action button */
 .vtmf-detail-action{ width: 100% !important; }
 
-/* Icon semantic classes */
+/* Icons */
 .vtmf-icon-chevron-down,
 .vtmf-icon-map-marker{
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    line-height: 1;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
 }
 
 /* =========================================================
-   DEVEXPRESS / DXBL
+   SEMANTIC STATUS + ALERTS (DB replacements)
+========================================================= */
+.vtmf-alert-success{
+  width: 100%;
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-radius: 16px;
+
+  background: linear-gradient(180deg, rgba(52,199,89,.18), rgba(52,199,89,.10)) !important;
+  border: 1px solid rgba(52,199,89,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.vtmf-state-working{
+  background: linear-gradient(180deg, rgba(52,199,89,.20), rgba(52,199,89,.12)) !important;
+  border: 1px solid rgba(52,199,89,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+  font-weight: 800 !important;
+  border-radius: 14px;
+  padding: .2rem .55rem;
+  display: inline-block;
+}
+
+.vtmf-state-error{
+  background: linear-gradient(180deg, rgba(255,59,48,.18), rgba(255,59,48,.10)) !important;
+  border: 1px solid rgba(255,59,48,.22) !important;
+  color: rgba(10,14,20,.92) !important;
+  font-weight: 800 !important;
+  border-radius: 14px;
+  padding: .2rem .55rem;
+  display: inline-block;
+}
+
+/* =========================================================
+   DEVEXPRESS / DXBL POPUPS + LAYOUT
 ========================================================= */
 .dxbl-modal-content,
 .dxbl-popup,
@@ -284,52 +380,46 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-grid,
 .dxbl-form,
 .dxbl-layout-item{
-    border-radius: var(--aero-radius-lg);
+  border-radius: var(--aero-radius-lg);
 }
 
 .dxbl-modal-content,
 .dxbl-popup-content{
-    background: var(--aero-glass-strong) !important;
-    border: 1px solid rgba(0,0,0,.06) !important;
-    box-shadow: var(--aero-shadow) !important;
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  box-shadow: var(--aero-shadow) !important;
 }
 
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-    .dxbl-modal-content,
-    .dxbl-popup-content{
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        backdrop-filter: blur(20px) saturate(180%);
-    }
+  .dxbl-modal-content,
+  .dxbl-popup-content{
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+  }
 }
 
 /* Modal width fix */
-.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content {
-    max-width: max-content;
+.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content{
+  max-width: max-content;
 }
 
-/* Header scanner buttons (kept) */
-.vtmf-btn-xl { left: 30%; top: 0 !important; }
-.vtmfs-btn-xl { right: 30%; top: 0 !important; }
-.vtmf-btn-xl,
-.vtmfs-btn-xl { font-size: 1rem; padding: 8px 16px; height: auto; width: auto; border-radius: 6px; }
-
 /* Popup height fix */
-@media screen and (max-height: 750px) {
-    .dxbl-popup-portal .dxbl-popup-content::after {
-        content: "";
-        display: block;
-        height: 150px;
-    }
+@media screen and (max-height: 750px){
+  .dxbl-popup-portal .dxbl-popup-content::after{
+    content: "";
+    display: block;
+    height: 150px;
+  }
 }
 
 /* Custom modal title */
-.dxbl-modal .dxbl-modal-title.dxbl-text { visibility: hidden; position: relative; }
-.dxbl-modal .dxbl-modal-title.dxbl-text::after { content: "Muuda andmed"; visibility: visible; position: absolute; }
+.dxbl-modal .dxbl-modal-title.dxbl-text{ visibility: hidden; position: relative; }
+.dxbl-modal .dxbl-modal-title.dxbl-text::after{ content: "Muuda andmed"; visibility: visible; position: absolute; }
 
 /* Grid spacing */
-.dxbl-grid tr { height: 60px; }
+.dxbl-grid tr{ height: 60px; }
 .dxbl-grid td,
-.dxbl-grid th { padding: 20px; }
+.dxbl-grid th{ padding: 20px; }
 .dxbl-grid{ border-spacing: 0 20px; border-collapse: separate; }
 
 /* Modal footer layout */
@@ -337,7 +427,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .dxbl-modal-footer button:nth-of-type(2){ background-color: lightgray; color: black; }
 
 /* Button size overrides (kept) */
-.dxbl-btn-primary { font-size: x-large; }
+.dxbl-btn-primary{ font-size: x-large; }
 .dxbl-btn.dxbl-lg{ width: -webkit-fill-available; font-size: x-large; }
 .dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
 .dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg{ width: 99%; }
@@ -348,7 +438,7 @@ button:not(.vtmf-kbd-num):not(.vtmf-kbd-ctrl):not(.vtmf-kbd-start):active,
 .paisenupud{ font-weight: bold; width: 100px; padding: 10px 0; background-color: lightgray; transition: background-color 0.3s; }
 .jalusenupud{ font-weight: bold; width: 100px; padding: 20px 0; }
 
-/* Field size overrides (duplicate selector removed) */
+/* Field size overrides */
 div[data-fname="vatprice"] span,
 div[data-fname="state"] span,
 div[data-fname="datafield3"] span,
@@ -370,109 +460,44 @@ div[data-fname="CAIC"] span{ font-weight: bold; }
 /* Document grid command cell fix */
 .vtmf-Document-grid td.dxbl-grid-command-cell,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell{
-    position: relative !important;
-    padding: 0 !important;
+  position: relative !important;
+  padding: 0 !important;
 }
+
 .vtmf-Document-grid .dxbl-grid-table tr,
 .vtmf-DocumentItems-grid .dxbl-grid-table tr{
-    height: 48px !important;
+  height: 48px !important;
 }
+
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command{
-    position: absolute !important;
-    top: 0; right: 0; bottom: 0; left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0 !important;
-    z-index: 1;
+  position: absolute !important;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  z-index: 1;
 }
+
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only{
-    width: 100% !important;
-    height: 100% !important;
-    line-height: normal !important;
+  width: 100% !important;
+  height: 100% !important;
+  line-height: normal !important;
 }
+
 .vtmf-Document-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon,
 .vtmf-DocumentItems-grid td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon{
-    pointer-events: none !important;
-}
-/* =========================================================
-   DXBL TOOLBAR: remove white background strip
-========================================================= */
-.dxbl-toolbar,
-.dxbl-toolbar-root,
-.dxbl-toolbar-items,
-.dxbl-toolbar-content,
-.dxbl-toolbar-container{
-  background: var(--aero-glass-strong) !important;
-  border: 1px solid rgba(0,0,0,.06) !important;
-  box-shadow: var(--aero-shadow-soft) !important;
+  pointer-events: none !important;
 }
 
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))){
-  .dxbl-toolbar,
-  .dxbl-toolbar-root,
-  .dxbl-toolbar-items,
-  .dxbl-toolbar-content,
-  .dxbl-toolbar-container{
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-  }
-}
-
-/* The inner toolbar button host that often stays white */
-.dxbl-toolbar > .dxbl-btn-toolbar,
-.dxbl-toolbar .dxbl-btn-toolbar{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-/* If the toolbar uses groups/wrappers */
-.dxbl-toolbar .dxbl-toolbar-group,
-.dxbl-toolbar .dxbl-toolbar-item{
-  background: transparent !important;
-}
-/* =========================================================
-   SEMANTIC STATUS + ALERTS (from DB replacements)
-========================================================= */
-
-/* Guides / alerts */
-.vtmf-alert-success{
-  width: 100%;
-  margin-top: 1rem;
-  padding: .9rem 1rem;
-  border-radius: 16px;
-
-  background: linear-gradient(180deg, rgba(52,199,89,.18), rgba(52,199,89,.10)) !important;
-  border: 1px solid rgba(52,199,89,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-
-  box-shadow: var(--aero-shadow-soft) !important;
-}
-
-/* Document state styles */
-.vtmf-state-working{
-  background: linear-gradient(180deg, rgba(52,199,89,.20), rgba(52,199,89,.12)) !important;
-  border: 1px solid rgba(52,199,89,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-  font-weight: 800 !important;
-  border-radius: 14px;
-  padding: .2rem .55rem;
-  display: inline-block;
-}
-
-.vtmf-state-error{
-  background: linear-gradient(180deg, rgba(255,59,48,.18), rgba(255,59,48,.10)) !important;
-  border: 1px solid rgba(255,59,48,.22) !important;
-  color: rgba(10,14,20,.92) !important;
-  font-weight: 800 !important;
-  border-radius: 14px;
-  padding: .2rem .55rem;
-  display: inline-block;
-}
+/* Header scanner buttons (kept) */
+.vtmf-btn-xl{ left: 30%; top: 0 !important; }
+.vtmfs-btn-xl{ right: 30%; top: 0 !important; }
+.vtmf-btn-xl,
+.vtmfs-btn-xl{ font-size: 1rem; padding: 8px 16px; height: auto; width: auto; border-radius: 6px; }
