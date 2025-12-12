@@ -1,12 +1,5 @@
 /* =========================================================
    iOS AERO LIGHT THEME (glassmorphism)
-   Use with DB semantic classes:
-   - btn vtmf-process-btn
-   - btn vtmf-secondary-btn
-   - btn vtmf-secondary-process-btn
-   - btn vtmf-kbd-num
-   - btn vtmf-kbd-ctrl
-   - btn vtmf-kbd-start position-fixed top-0 start-50 translate-middle-x mt-2
 ========================================================= */
 
 /* ------------------------
@@ -70,7 +63,6 @@ a{ color: inherit; }
 /* -------------------------
    HEADER / TOP BAR LIGHT THEME
 ------------------------- */
-/* Broad targets to catch most frameworks */
 header,
 .navbar,
 .dxbl-toolbar,
@@ -97,7 +89,6 @@ header,
     }
 }
 
-/* If header contains links/icons, keep them dark */
 header a,
 .navbar a,
 .dxbl-toolbar a,
@@ -109,6 +100,36 @@ header svg,
 .dxbl-toolbar svg,
 .dxbl-appbar svg{
     fill: currentColor !important;
+}
+
+/* Make menu/hamburger visible on light header */
+header button,
+.navbar button,
+.dxbl-toolbar button,
+.dxbl-appbar button,
+.dxbs-topbar button{
+  color: var(--aero-text) !important;
+}
+header button svg,
+.navbar button svg,
+.dxbl-toolbar button svg,
+.dxbl-appbar button svg,
+.dxbs-topbar button svg{
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+header .oi, header i,
+.navbar .oi, .navbar i{
+  color: var(--aero-text) !important;
+}
+header button,
+.navbar button,
+.dxbl-toolbar button,
+.dxbl-appbar button,
+.dxbs-topbar button{
+  background: rgba(255,255,255,.55) !important;
+  border: 1px solid rgba(0,0,0,.06) !important;
+  border-radius: 12px !important;
 }
 
 /* -------------------------
@@ -139,7 +160,6 @@ header svg,
    SEMANTIC BUTTONS (DB stores only these)
 ========================================================= */
 
-/* Process list buttons (white glass cards) */
 .vtmf-process-btn{
     width: 100% !important;
     margin: .55rem !important;
@@ -166,7 +186,6 @@ header svg,
 .vtmf-process-btn:hover{ filter: brightness(1.02); }
 .vtmf-process-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Secondary big button (make it also LIGHT, not black) */
 .vtmf-secondary-btn{
     width: 100% !important;
     margin: .55rem !important;
@@ -193,7 +212,6 @@ header svg,
 .vtmf-secondary-btn:hover{ filter: brightness(1.02); }
 .vtmf-secondary-btn:active{ transform: translateY(1px) scale(.995); }
 
-/* Secondary process list buttons (pill glass outline) */
 .vtmf-secondary-process-btn{
     width: 100% !important;
     margin: .55rem !important;
@@ -215,7 +233,6 @@ header svg,
     .vtmf-secondary-process-btn{ padding-top: .75rem !important; padding-bottom: .75rem !important; }
 }
 
-/* Barcode keyboard buttons (light theme, iOS-like) */
 .vtmf-kbd-num,
 .vtmf-kbd-ctrl{
     width: 65% !important;
@@ -237,7 +254,6 @@ header svg,
     color: rgba(88,86,214,1) !important;
 }
 
-/* Start button (light glass pill) */
 .vtmf-kbd-start{
     top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
     z-index: 1050 !important;
@@ -256,6 +272,39 @@ header svg,
         -webkit-backdrop-filter: blur(18px) saturate(180%);
         backdrop-filter: blur(18px) saturate(180%);
     }
+}
+
+/* Detail labels / values (new semantic replacements) */
+.vtmf-detail-label{
+    font-weight: 700;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.vtmf-detail-value{
+    text-align: left;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    color: var(--aero-text);
+}
+
+.vtmf-detail-label-lg{ font-weight: 750; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
+.vtmf-detail-value-lg{ text-align: left; padding-bottom: .45rem; border-bottom: 1px solid rgba(0,0,0,.10); }
+
+.vtmf-detail-label-xl{ font-weight: 800; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
+.vtmf-detail-value-xl{ text-align: left; padding-bottom: .55rem; border-bottom: 1px solid rgba(0,0,0,.12); }
+
+/* Detail action buttons (replacement for w-100) */
+.vtmf-detail-action{
+    width: 100% !important;
+}
+
+/* Icon semantic classes (replacement for oi oi-*) */
+.vtmf-icon-chevron-down,
+.vtmf-icon-map-marker{
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
 }
 
 /* =========================================================
@@ -295,14 +344,9 @@ header svg,
 /* -------------------------
    HEADER SCANNER BUTTONS (your existing)
 ------------------------- */
-.vtmf-btn-xl {
-    left: 30%;
-    top: 0 !important;
-}
-.vtmfs-btn-xl {
-    right: 30%;
-    top: 0 !important;
-}
+.vtmf-btn-xl { left: 30%; top: 0 !important; }
+.vtmfs-btn-xl { right: 30%; top: 0 !important; }
+
 .vtmf-btn-xl,
 .vtmfs-btn-xl {
     font-size: 1rem;
@@ -416,6 +460,7 @@ div[data-fname="SH"] span{
 
 div[data-fname="AD"] span,
 div[data-fname="ALD"] span,
+div[data-fname="fromstock"] span,
 div[data-fname="fromstock"] span,
 div[data-fname="tostocktr"] span{
     font-size: large;
