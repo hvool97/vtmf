@@ -1,1 +1,795 @@
+/* =========================================================
+   VTMF iOS AERO LIGHT THEME (glassmorphism)
+   -----------------------------------------------------------
+   Refactor notes (vs previous version):
+   - Consolidated duplicate @supports (backdrop-filter) blocks
+     into 2 groups via --aero-blur-med / --aero-blur-strong.
+   - Replaced long `:not().:not().:not()` chains with modern
+     `:not(a, b, c)` Selectors Level 4 syntax (widely supported).
+   - Grouped header / navbar / toolbar selectors with :is().
+   - Kept all !important declarations (needed to override DXBL).
+   - Kept every selector from the previous file — nothing dropped.
+   - Kept Estonian modal title hack ("Muuda andmed").
+   - Added: color-scheme, accent-color, thin scrollbars.
+========================================================= */
 
+/* =========================================================
+   1. DESIGN TOKENS
+========================================================= */
+:root {
+  color-scheme: light;
+  accent-color: #1c1c1e;
+
+  /* layout */
+  --vtmf-header-offset: 56px;
+
+  /* surface colors */
+  --aero-bg-1: #f3f6ff;
+  --aero-bg-2: #f7f2ff;
+  --aero-bg-3: #eef7ff;
+
+  /* text */
+  --aero-text:  rgba(10, 14, 20, .92);
+  --aero-muted: rgba(10, 14, 20, .62);
+
+  /* glass */
+  --aero-glass:        rgba(255, 255, 255, .62);
+  --aero-glass-strong: rgba(255, 255, 255, .78);
+  --aero-glass-opaque: rgba(255, 255, 255, .94);
+  --aero-blur-med:     18px;  /* dropdowns, loading panels, .aero-glass */
+  --aero-blur-strong:  20px;  /* top chrome + modals */
+
+  /* shadows */
+  --aero-shadow:      0 10px 30px rgba(0, 0, 0, .10);
+  --aero-shadow-soft: 0 6px  18px rgba(0, 0, 0, .08);
+
+  /* radii */
+  --aero-radius-lg: 18px;
+  --aero-radius-md: 14px;
+  --aero-radius-sm: 12px;
+
+  /* focus */
+  --aero-focus: rgba(0, 122, 255, .28);
+
+  /* motion (page/popup only — NOT on buttons) */
+  --aero-ease: cubic-bezier(.2, .9, .2, 1);
+  --aero-fast: 180ms;
+  --aero-med:  320ms;
+  --aero-slow: 520ms;
+
+  /* keypad (iOS calculator grayscale) */
+  --calc-num-bg:  #e5e5ea;
+  --calc-ctrl-bg: #d1d1d6;
+  --calc-op-bg:   #1c1c1e;
+  --calc-op-fg:   #ffffff;
+}
+
+/* =========================================================
+   2. BASE
+========================================================= */
+html, body { height: 100%; }
+
+body {
+  color: var(--aero-text);
+  background:
+    radial-gradient(1200px 900px at 15%  5%, var(--aero-bg-3), transparent 60%),
+    radial-gradient(1200px 900px at 85% 15%, var(--aero-bg-2), transparent 62%),
+    linear-gradient(180deg, var(--aero-bg-1), var(--aero-bg-1));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, .25) transparent;
+}
+
+::-webkit-scrollbar        { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb  { background: rgba(0, 0, 0, .22); border-radius: 10px; }
+::-webkit-scrollbar-track  { background: transparent; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 4px var(--aero-focus) !important;
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   3. UTILITIES
+========================================================= */
+.w-65 { width: 65% !important; }
+
+.div-bg-white,
+.dxbl-grid .bg-white {
+  background: transparent !important;
+}
+
+:is(header, .navbar, .dxbl-toolbar, .dxbl-top-panel, .dxbs-topbar) .bg-white {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+@media (max-width: 575px) {
+  .dxbs-toggle-cell .btn-toggle svg { height: 30px; width: 30px; }
+}
+
+/* =========================================================
+   4. CHROME — HEADER / NAVBAR / DXBL TOP PANELS
+========================================================= */
+:is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbl-top-panel, .dxbs-header, .dxbs-topbar) {
+  background: var(--aero-glass-strong) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+  color: var(--aero-text) !important;
+  transition:
+    background var(--aero-med) var(--aero-ease),
+    box-shadow var(--aero-med) var(--aero-ease) !important;
+}
+
+:is(header, .navbar, .dxbl-toolbar, .dxbl-appbar) a {
+  color: var(--aero-text) !important;
+}
+
+:is(header, .navbar, .dxbl-toolbar, .dxbl-appbar) svg {
+  fill: currentColor !important;
+}
+
+:is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button {
+  color: var(--aero-text) !important;
+  background: rgba(255, 255, 255, .55) !important;
+  border: 1px solid rgba(0, 0, 0, .06) !important;
+  border-radius: var(--aero-radius-sm) !important;
+  transition: filter var(--aero-fast) var(--aero-ease) !important;
+}
+
+:is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button:active {
+  filter: brightness(.96) !important;
+}
+
+:is(header, .navbar) :is(.oi, i) {
+  color: var(--aero-text) !important;
+}
+
+/* =========================================================
+   5. HAMBURGER FIX (Bootstrap 5 .navbar-toggler-icon)
+========================================================= */
+:is(header, .navbar, .dxbs-topbar) {
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0,0,0,0.90)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+:is(header, .navbar, .dxbs-topbar) .navbar-toggler .navbar-toggler-icon {
+  background-color: transparent !important;
+  background-image: var(--bs-navbar-toggler-icon-bg) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 24px 24px !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+:is(header, .navbar, .dxbs-topbar) .navbar-toggler svg {
+  fill: #000 !important;
+  stroke: #000 !important;
+}
+
+/* =========================================================
+   6. DXBL TOOLBAR — inner white-strip fix
+========================================================= */
+:is(.dxbl-toolbar, .dxbl-toolbar-root, .dxbl-toolbar-items, .dxbl-toolbar-content, .dxbl-toolbar-container) {
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0, 0, 0, .06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.dxbl-btn-toolbar,
+div.dxbl-btn-toolbar,
+.dxbl-toolbar > .dxbl-btn-toolbar,
+.dxbl-toolbar   .dxbl-btn-toolbar {
+  background: var(--aero-bg-1) !important;
+  background-color: var(--aero-bg-1) !important;
+  border: 1px solid rgba(0, 0, 0, .06) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.dxbl-btn-toolbar::before,
+.dxbl-btn-toolbar::after {
+  background: var(--aero-bg-1) !important;
+}
+
+.dxbl-toolbar :is(.dxbl-toolbar-group, .dxbl-toolbar-item) {
+  background: transparent !important;
+}
+
+/* =========================================================
+   7. UNIFIED BUTTON SYSTEM (excludes keypad)
+========================================================= */
+:is(button, .btn, .dxbl-btn, .dxbl-btn-standalone,
+    .dxbl-btn-primary, .dxbl-btn-secondary, .dxbl-btn-danger,
+    .dxbl-btn-success, .dxbl-btn-info, .dxbl-btn-warning
+   ):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .5rem !important;
+
+  min-height: 44px !important;
+  padding: .65rem 1rem !important;
+
+  border-radius: 16px !important;
+  font-weight: 750 !important;
+  font-size: 1rem !important;
+  line-height: 1.1 !important;
+
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0, 0, 0, .08) !important;
+  color: var(--aero-text) !important;
+
+  box-shadow: var(--aero-shadow-soft) !important;
+  text-decoration: none !important;
+
+  transition:
+    filter var(--aero-fast) var(--aero-ease),
+    box-shadow var(--aero-fast) var(--aero-ease),
+    background-color var(--aero-fast) var(--aero-ease) !important;
+}
+
+:is(button, .btn, .dxbl-btn):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):active {
+  filter: brightness(.96) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08) !important;
+}
+
+:is(.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-info,
+    .btn-outline-primary, .btn-outline-secondary, .btn-outline-success,
+    .btn-outline-danger, .btn-outline-warning, .btn-outline-info) {
+  background: var(--aero-glass-strong) !important;
+  border-color: rgba(0, 0, 0, .08) !important;
+  color: var(--aero-text) !important;
+}
+
+:is(.dxbl-btn, .btn) * {
+  background: transparent !important;
+}
+
+:is(.dxbl-btn-icon-only, .btn-icon-only) {
+  width: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+}
+
+/* =========================================================
+   8. SEMANTIC VTMF CLASSES
+========================================================= */
+.vtmf-process-btn,
+.vtmf-secondary-btn,
+.vtmf-secondary-process-btn {
+  width: 100% !important;
+  margin: .55rem !important;
+}
+
+.vtmf-state-success,
+.vtmf-state-warning,
+.vtmf-state-secondary,
+.vtmf-state-primary,
+.vtmf-state-info {
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  padding: .2rem .6rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .35rem !important;
+}
+
+.vtmf-state-success {
+  background: rgba(52, 199, 89, .18) !important;
+  border: 1px solid rgba(52, 199, 89, .28) !important;
+  color: var(--aero-text) !important;
+}
+
+.vtmf-state-warning {
+  background: rgba(255, 204, 0, .22) !important;
+  border: 1px solid rgba(255, 204, 0, .32) !important;
+  color: var(--aero-text) !important;
+}
+
+.vtmf-state-secondary {
+  background: rgba(142, 142, 147, .20) !important;
+  border: 1px solid rgba(142, 142, 147, .30) !important;
+  color: var(--aero-text) !important;
+}
+
+.vtmf-state-primary {
+  background: rgba(0, 0, 0, .82) !important;
+  border: 1px solid rgba(0, 0, 0, .28) !important;
+  color: #fff !important;
+}
+
+.vtmf-state-info {
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0, 0, 0, .10) !important;
+  color: var(--aero-text) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.vtmf-detail-label-col3 {
+  font-weight: 800 !important;
+  width: 25% !important;
+  flex: 0 0 auto !important;
+}
+
+.vtmf-detail-value-start {
+  text-align: left !important;
+}
+
+.vtmf-border-b2 { border-bottom: 2px solid rgba(0, 0, 0, .12) !important; }
+.vtmf-border-b3 { border-bottom: 3px solid rgba(0, 0, 0, .12) !important; }
+.vtmf-border-b4 { border-bottom: 4px solid rgba(0, 0, 0, .12) !important; }
+.vtmf-border-b5 { border-bottom: 5px solid rgba(0, 0, 0, .12) !important; }
+.vtmf-border-b6 { border-bottom: 6px solid rgba(0, 0, 0, .12) !important; }
+
+.vtmf-nav-btn {
+  min-width: 150px !important;
+  padding: .75rem 1rem !important;
+  border-radius: var(--aero-radius-md) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .5rem !important;
+  font-weight: 800 !important;
+}
+
+.vtmf-nav-back { }
+.vtmf-nav-done { }
+
+.vtmf-open-details-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: .5rem !important;
+  padding: .55rem .9rem !important;
+  border-radius: var(--aero-radius-md) !important;
+  font-weight: 750 !important;
+}
+
+.oi {
+  line-height: 1 !important;
+  vertical-align: -0.125em !important;
+}
+
+/* =========================================================
+   9. KEYPAD — iOS calculator grayscale (no jump)
+========================================================= */
+:is(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+
+  width:  clamp(56px, 16vw, 74px) !important;
+  height: clamp(56px, 16vw, 74px) !important;
+  padding: 0 !important;
+  margin: .55rem !important;
+
+  box-shadow:
+    0 10px 18px rgba(0, 0, 0, .10),
+    inset 0 1px 0 rgba(255, 255, 255, .85) !important;
+
+  transition:
+    filter     var(--aero-fast) var(--aero-ease),
+    box-shadow var(--aero-fast) var(--aero-ease) !important;
+}
+
+.vtmf-kbd-num {
+  background: var(--calc-num-bg) !important;
+  color: #000 !important;
+  font-size: 1.55rem !important;
+}
+
+.vtmf-kbd-ctrl {
+  background: var(--calc-ctrl-bg) !important;
+  color: #000 !important;
+  font-size: 1.35rem !important;
+}
+
+.vtmf-kbd-start {
+  background: var(--calc-op-bg) !important;
+  color: var(--calc-op-fg) !important;
+
+  top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
+  z-index: 1050 !important;
+
+  width: auto !important;
+  height: auto !important;
+  padding: .55rem 1rem !important;
+  margin: 0 !important;
+}
+
+:is(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):active {
+  filter: brightness(.92) !important;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, .10),
+    inset 0 1px 0 rgba(255, 255, 255, .75) !important;
+}
+
+:is(.vtmf-kbd-ctrl, .vtmf-kbd-start) svg {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* =========================================================
+   10. DETAIL LABELS / VALUES
+========================================================= */
+.vtmf-detail-label,
+.vtmf-detail-value {
+  padding-bottom: .35rem;
+  border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+.vtmf-detail-label { font-weight: 700; }
+.vtmf-detail-value { text-align: left; color: var(--aero-text); }
+
+.vtmf-detail-label-lg,
+.vtmf-detail-value-lg {
+  padding-bottom: .45rem;
+  border-bottom: 1px solid rgba(0, 0, 0, .10);
+}
+.vtmf-detail-label-lg { font-weight: 750; }
+.vtmf-detail-value-lg { text-align: left; }
+
+.vtmf-detail-label-xl,
+.vtmf-detail-value-xl {
+  padding-bottom: .55rem;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+.vtmf-detail-label-xl { font-weight: 800; }
+.vtmf-detail-value-xl { text-align: left; }
+
+.vtmf-detail-action { width: 100% !important; }
+
+.vtmf-icon-chevron-down,
+.vtmf-icon-map-marker {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+}
+
+/* =========================================================
+   11. ALERTS + WORKING/ERROR STATES
+========================================================= */
+.vtmf-alert-success {
+  width: 100%;
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(52, 199, 89, .18), rgba(52, 199, 89, .10)) !important;
+  border: 1px solid rgba(52, 199, 89, .22) !important;
+  color: var(--aero-text) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.vtmf-state-working,
+.vtmf-state-error {
+  font-weight: 800 !important;
+  border-radius: 14px;
+  padding: .2rem .55rem;
+  display: inline-block;
+  color: var(--aero-text) !important;
+}
+
+.vtmf-state-working {
+  background: linear-gradient(180deg, rgba(52, 199, 89, .20), rgba(52, 199, 89, .12)) !important;
+  border: 1px solid rgba(52, 199, 89, .22) !important;
+}
+
+.vtmf-state-error {
+  background: linear-gradient(180deg, rgba(255, 59, 48, .18), rgba(255, 59, 48, .10)) !important;
+  border: 1px solid rgba(255, 59, 48, .22) !important;
+}
+
+@keyframes vtmf-alert-hue-breathe {
+  0%,
+  100% { filter: hue-rotate(0deg);  box-shadow: 0 6px 18px rgba(0, 0, 0, .10); }
+  50%  { filter: hue-rotate(18deg); box-shadow: 0 10px 26px rgba(0, 0, 0, .14); }
+}
+
+.alert.alert-dark,
+.alert-alert-dark,
+div.alert-alert-dark {
+  animation: vtmf-alert-hue-breathe 10.5s ease-in-out infinite !important;
+  border-radius: 16px !important;
+}
+
+/* =========================================================
+   12. FORMS + DROPDOWNS + LISTBOXES
+========================================================= */
+:is(.dxbl-editor-dropdown, .dxbl-editor-dropdown-content,
+    .dxbl-editor-popup, .dxbl-popup.dxbl-editor-popup,
+    .dxbl-combobox-popup, .dxbl-dropdown-popup,
+    .dxbl-listbox, .dxbl-listbox-list, .dxbl-listbox-container,
+    .dxbl-listbox-item) {
+  background: var(--aero-glass-opaque) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0, 0, 0, .08) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+.dxbl-listbox-item { background: transparent !important; }
+.dxbl-listbox-item:hover { background: rgba(0, 0, 0, .04) !important; }
+
+.dxbl-listbox-item.dxbl-selected,
+.dxbl-listbox-item[aria-selected="true"] {
+  background: rgba(0, 0, 0, .05) !important;
+  color: var(--aero-text) !important;
+}
+
+:is(input, select, textarea,
+    .form-control, .dxbl-edit, .dxbl-textbox,
+    .dxbl-combobox, .dxbl-spin-edit, .dxbl-memo) {
+  background: rgba(255, 255, 255, .90) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0, 0, 0, .10) !important;
+  transition:
+    box-shadow   var(--aero-fast) var(--aero-ease),
+    border-color var(--aero-fast) var(--aero-ease) !important;
+}
+
+::placeholder { color: var(--aero-muted) !important; }
+
+/* =========================================================
+   13. GRID UGLY-BLUE FIX + LOADING PANELS
+========================================================= */
+.dxbl-grid .bg-primary { background: rgba(0, 0, 0, .05) !important; }
+.dxbl-grid .text-white { color: var(--aero-text) !important; }
+
+:is(.dxbl-loadpanel, .dxbl-loadpanel-content,
+    .dxbl-loading-panel, .dxbl-loading-panel-content,
+    .dxbl-waiting-panel, .dxbl-overlay, .dxbl-overlay-content) {
+  background: rgba(255, 255, 255, .90) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0, 0, 0, .08) !important;
+  box-shadow: var(--aero-shadow) !important;
+  border-radius: var(--aero-radius-lg) !important;
+}
+
+/* =========================================================
+   14. MODALS / POPUPS / CARDS / LAYOUT
+========================================================= */
+:is(.dxbl-modal-content, .dxbl-popup, .dxbl-popup-content,
+    .dxbl-card, .dxbl-grid, .dxbl-form, .dxbl-layout-item) {
+  border-radius: var(--aero-radius-lg);
+}
+
+:is(.dxbl-modal-content, .dxbl-popup-content) {
+  background: var(--aero-glass-strong) !important;
+  border: 1px solid rgba(0, 0, 0, .06) !important;
+  box-shadow: var(--aero-shadow) !important;
+}
+
+.dxbl-modal > .dxbl-modal-root > .dxbl-popup.dxbl-popup-scrollable > .dxbl-modal-content {
+  max-width: max-content;
+}
+
+@media screen and (max-height: 750px) {
+  .dxbl-popup-portal .dxbl-popup-content::after {
+    content: "";
+    display: block;
+    height: 150px;
+  }
+}
+
+/* Custom modal title override ("Muuda andmed") */
+.dxbl-modal .dxbl-modal-title.dxbl-text {
+  visibility: hidden;
+  position: relative;
+}
+.dxbl-modal .dxbl-modal-title.dxbl-text::after {
+  content: "Muuda andmed";
+  visibility: visible;
+  position: absolute;
+}
+
+.dxbl-grid tr          { height: 60px; }
+.dxbl-grid :is(td, th) { padding: 20px; }
+.dxbl-grid             { border-spacing: 0 20px; border-collapse: separate; }
+
+.dxbl-modal-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+.dxbl-modal-footer button:nth-of-type(2) {
+  background-color: lightgray;
+  color: black;
+}
+
+.dxbl-btn-primary { font-size: x-large; }
+
+.dxbl-btn.dxbl-lg {
+  width: -webkit-fill-available;
+  font-size: x-large;
+}
+
+.dxbl-btn-standalone.dxbl-btn-primary.dxbl-lg,
+.dxbl-btn-standalone.dxbl-btn-secondary.dxbl-lg {
+  width: 99%;
+}
+
+.dxbl-btn-caption { display: inline-block; }
+
+.popupnupud {
+  width: 99%;
+  margin-top: 15px;
+}
+
+.paisenupud {
+  font-weight: bold;
+  width: 100px;
+  padding: 10px 0;
+  background-color: lightgray;
+  transition: background-color var(--aero-med) var(--aero-ease);
+}
+
+.jalusenupud {
+  font-weight: bold;
+  width: 100px;
+  padding: 20px 0;
+}
+
+/* Field-specific size overrides */
+div[data-fname="vatprice"]   span,
+div[data-fname="state"]      span,
+div[data-fname="datafield3"] span,
+div[data-fname="number"]     span,
+div[data-fname="AN"]         span,
+div[data-fname="SH"]         span { font-size: smaller; }
+
+div[data-fname="AD"]           span,
+div[data-fname="ALD"]          span,
+div[data-fname="fromstock"]    span,
+div[data-fname="tostocktr"]    span,
+div[data-fname="suppliername"] span,
+div[data-fname="stock"]        span,
+div[data-fname="customername"] span { font-size: large; font-weight: bold; }
+
+div[data-fname="CAIC"] span { font-weight: bold; }
+
+/* Document grid command cell */
+:is(.vtmf-Document-grid, .vtmf-DocumentItems-grid) td.dxbl-grid-command-cell {
+  position: relative !important;
+  padding: 0 !important;
+}
+
+:is(.vtmf-Document-grid, .vtmf-DocumentItems-grid) .dxbl-grid-table tr {
+  height: 48px !important;
+}
+
+:is(.vtmf-Document-grid, .vtmf-DocumentItems-grid) td.dxbl-grid-command-cell > button.grid-command {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  z-index: 1;
+}
+
+:is(.vtmf-Document-grid, .vtmf-DocumentItems-grid) td.dxbl-grid-command-cell > button.grid-command.dxbl-btn-icon-only {
+  width: 100% !important;
+  height: 100% !important;
+  line-height: normal !important;
+}
+
+:is(.vtmf-Document-grid, .vtmf-DocumentItems-grid) td.dxbl-grid-command-cell > button.grid-command .dxbl-btn-icon {
+  pointer-events: none !important;
+}
+
+/* Header scanner buttons */
+.vtmf-btn-xl,
+.vtmfs-btn-xl {
+  font-size: 1rem;
+  padding: 8px 16px;
+  height: auto;
+  width: auto;
+  border-radius: 6px;
+  top: 0 !important;
+}
+
+.vtmf-btn-xl  { left: 30%; }
+.vtmfs-btn-xl { right: 30%; }
+
+/* =========================================================
+   15. ANIMATIONS
+========================================================= */
+@keyframes vtmf-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vtmf-pop {
+  from { opacity: 0; transform: scale(.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+:is(main, .dxbl-layout, .dxbl-content, .dxbl-page, .dxbl-view) {
+  animation: vtmf-fade-up var(--aero-slow) var(--aero-ease);
+}
+
+:is(.dxbl-modal-content, .dxbl-popup-content) {
+  animation: vtmf-pop var(--aero-med) var(--aero-ease);
+}
+
+/* =========================================================
+   16. DROPDOWN OPACITY (.dxbl-edit-dropdown — SEPARATE class
+   from .dxbl-editor-dropdown; confirmed distinct in DX)
+========================================================= */
+.dxbl-edit-dropdown,
+div.dxbl-edit-dropdown,
+.dxbl-edit-dropdown .dxbl-dropdown-body,
+.dxbl-edit-dropdown .dxbl-scroll-viewer-content {
+  background: var(--aero-glass-opaque) !important;
+  background-color: var(--aero-glass-opaque) !important;
+  color: var(--aero-text) !important;
+  border: 1px solid rgba(0, 0, 0, .08) !important;
+  box-shadow: var(--aero-shadow-soft) !important;
+}
+
+/* =========================================================
+   17. BACKDROP-FILTER (all glass surfaces, consolidated)
+========================================================= */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+
+  /* Medium blur */
+  .aero-glass,
+  .dxbl-editor-dropdown,
+  .dxbl-editor-dropdown-content,
+  .dxbl-editor-popup,
+  .dxbl-popup.dxbl-editor-popup,
+  .dxbl-combobox-popup,
+  .dxbl-dropdown-popup,
+  .dxbl-listbox,
+  .dxbl-listbox-list,
+  .dxbl-listbox-container,
+  .dxbl-loadpanel,
+  .dxbl-loadpanel-content,
+  .dxbl-loading-panel,
+  .dxbl-loading-panel-content,
+  .dxbl-waiting-panel,
+  .dxbl-overlay-content {
+    -webkit-backdrop-filter: blur(var(--aero-blur-med)) saturate(180%) !important;
+            backdrop-filter: blur(var(--aero-blur-med)) saturate(180%) !important;
+  }
+
+  /* Strong blur */
+  header,
+  .navbar,
+  .dxbl-toolbar,
+  .dxbl-appbar,
+  .dxbl-top-panel,
+  .dxbs-header,
+  .dxbs-topbar,
+  .dxbl-toolbar-root,
+  .dxbl-toolbar-items,
+  .dxbl-toolbar-content,
+  .dxbl-toolbar-container,
+  .dxbl-modal-content,
+  .dxbl-popup-content {
+    -webkit-backdrop-filter: blur(var(--aero-blur-strong)) saturate(180%) !important;
+            backdrop-filter: blur(var(--aero-blur-strong)) saturate(180%) !important;
+  }
+}
