@@ -1,10 +1,9 @@
 /* =========================================================
-   VTMF — INDUSTRIAL COMMAND THEME
+   VTMF — INDUSTRIAL DAYLIGHT THEME
    -----------------------------------------------------------
-   Direction: near-black dark surfaces, amber signal accent,
-   sharp geometry, monospace numerals. Reads like a warehouse
-   HMI / aviation console. High legibility under fluorescent
-   lighting, fast visual scanning, blocky flat state pills.
+   Direction: light industrial surfaces, amber signal accent,
+   sharp geometry, monospace numerals. Keeps the warehouse
+   HMI / aviation console feel, but in a bright daylight UI.
 
    Preserved from prior file:
    - Every DXBL selector and every vtmf-* class
@@ -18,56 +17,56 @@
    1. DESIGN TOKENS
 ========================================================= */
 :root {
-  color-scheme: dark;
-  accent-color: #ffb020;
+  color-scheme: light;
+  accent-color: #c98300;
 
   /* layout */
   --vtmf-header-offset: 56px;
 
-  /* surfaces (layered near-black) */
-  --ink-0: #0a0b0e;   /* body */
-  --ink-1: #14171d;   /* surface (cards, inputs, toolbar) */
-  --ink-2: #1d222b;   /* elevated (modals, dropdowns) */
-  --ink-3: #262c38;   /* hover raise */
+  /* surfaces (layered light) */
+  --ink-0: #f4f6f8;   /* body */
+  --ink-1: #ffffff;   /* surface (cards, inputs, toolbar) */
+  --ink-2: #f7f8fa;   /* elevated (modals, dropdowns) */
+  --ink-3: #edf1f5;   /* hover raise */
 
   /* hairlines */
-  --line:        #2a3039;
-  --line-strong: #3a4251;
+  --line:        #d7dde5;
+  --line-strong: #c3ccd7;
 
   /* text */
-  --fg:        #f2f4f8;
-  --fg-muted:  #8a92a0;
-  --fg-faint:  #5c6472;
+  --fg:        #1c2430;
+  --fg-muted:  #5d6979;
+  --fg-faint:  #8a96a6;
 
   /* signal accent (amber) */
-  --amber:        #ffb020;
-  --amber-hot:    #ffc94a;
-  --amber-dim:    #8a5c0f;
-  --amber-ghost:  rgba(255, 176, 32, .12);
-  --amber-ring:   rgba(255, 176, 32, .40);
+  --amber:        #c98300;
+  --amber-hot:    #e39a12;
+  --amber-dim:    rgba(201, 131, 0, .22);
+  --amber-ghost:  rgba(201, 131, 0, .10);
+  --amber-ring:   rgba(201, 131, 0, .24);
 
-  /* status palette (flat, not gradients) */
-  --ok:    #30d158;
-  --warn:  #ffd60a;
-  --err:   #ff453a;
-  --info:  #64b5ff;
+  /* status palette */
+  --ok:    #1f9d47;
+  --warn:  #b78600;
+  --err:   #c53b32;
+  --info:  #2a78c9;
 
-  /* status surfaces (dark tints) */
-  --ok-bg:    rgba(48,  209, 88, .14);
-  --warn-bg:  rgba(255, 214, 10, .14);
-  --err-bg:   rgba(255, 69,  58, .14);
-  --info-bg:  rgba(100, 181, 255, .14);
+  /* status surfaces (light tints) */
+  --ok-bg:    rgba(31, 157, 71, .10);
+  --warn-bg:  rgba(183, 134, 0, .10);
+  --err-bg:   rgba(197, 59, 50, .10);
+  --info-bg:  rgba(42, 120, 201, .10);
 
-  /* shadows — sharper, less blur, darker */
-  --shadow-sm: 0 1px 0 rgba(0, 0, 0, .6), 0 2px 6px rgba(0, 0, 0, .35);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, .55);
-  --shadow-lg: 0 18px 40px rgba(0, 0, 0, .65);
+  /* shadows — lighter and cleaner */
+  --shadow-sm: 0 1px 0 rgba(17, 24, 39, .04), 0 2px 8px rgba(17, 24, 39, .06);
+  --shadow-md: 0 8px 20px rgba(17, 24, 39, .08);
+  --shadow-lg: 0 18px 40px rgba(17, 24, 39, .12);
 
   /* radii — tight, geometric */
   --r-sm: 4px;
   --r-md: 6px;
   --r-lg: 8px;
-  --r-pill: 2px;    /* pills are nearly square-cornered */
+  --r-pill: 2px;
 
   /* motion — crisp, short */
   --ease: cubic-bezier(.2, .8, .2, 1);
@@ -83,11 +82,11 @@
     ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
 
   /* keypad */
-  --kbd-bg:        #1c2029;
-  --kbd-bg-hot:    #242a36;
-  --kbd-ctrl:      #2a3140;
-  --kbd-primary:   var(--amber);
-  --kbd-primary-fg: #120a00;
+  --kbd-bg:         #ffffff;
+  --kbd-bg-hot:     #f1f4f8;
+  --kbd-ctrl:       #e8edf3;
+  --kbd-primary:    var(--amber);
+  --kbd-primary-fg: #ffffff;
 }
 
 /* =========================================================
@@ -100,10 +99,8 @@ body {
   font-feature-settings: "ss01", "cv11";
   color: var(--fg);
   background:
-    /* faint vignette */
-    radial-gradient(1400px 900px at 50% -10%, rgba(255, 176, 32, .04), transparent 60%),
-    /* hairline grid — extremely subtle */
-    linear-gradient(transparent 0, transparent calc(100% - 1px), rgba(255, 255, 255, .015) 100%),
+    radial-gradient(1400px 900px at 50% -10%, rgba(201, 131, 0, .05), transparent 60%),
+    linear-gradient(transparent 0, transparent calc(100% - 1px), rgba(0, 0, 0, .02) 100%),
     var(--ink-0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -133,7 +130,7 @@ input[type="number"],
 :focus-visible {
   outline: none !important;
   box-shadow:
-    0 0 0 2px var(--ink-0),
+    0 0 0 2px var(--ink-1),
     0 0 0 4px var(--amber-ring) !important;
   border-radius: var(--r-sm);
 }
@@ -170,7 +167,6 @@ input[type="number"],
 
 /* =========================================================
    4. CHROME — HEADER / NAVBAR / DXBL TOP PANELS
-   Thin amber underline signals the active "command bar".
 ========================================================= */
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbl-top-panel, .dxbs-header, .dxbs-topbar) {
   background: var(--ink-1) !important;
@@ -209,7 +205,7 @@ input[type="number"],
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button:active {
-  filter: brightness(.92) !important;
+  filter: brightness(.98) !important;
 }
 
 :is(header, .navbar) :is(.oi, i) {
@@ -217,10 +213,10 @@ input[type="number"],
 }
 
 /* =========================================================
-   5. HAMBURGER (white 3-line SVG on dark)
+   5. HAMBURGER (dark 3-line SVG on light)
 ========================================================= */
 :is(header, .navbar, .dxbs-topbar) {
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(242,244,248,0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(28,36,48,0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler .navbar-toggler-icon {
@@ -239,7 +235,7 @@ input[type="number"],
 }
 
 /* =========================================================
-   6. DXBL TOOLBAR — clean dark strip
+   6. DXBL TOOLBAR — clean light strip
 ========================================================= */
 :is(.dxbl-toolbar, .dxbl-toolbar-root, .dxbl-toolbar-items, .dxbl-toolbar-content, .dxbl-toolbar-container) {
   background: var(--ink-1) !important;
@@ -268,8 +264,6 @@ div.dxbl-btn-toolbar,
 
 /* =========================================================
    7. UNIFIED BUTTON SYSTEM (excludes keypad)
-   - Default: dark surface, subtle border, bold label
-   - .dxbl-btn-primary / .btn-primary: solid amber
 ========================================================= */
 :is(button, .btn, .dxbl-btn, .dxbl-btn-standalone,
     .dxbl-btn-primary, .dxbl-btn-secondary, .dxbl-btn-danger,
@@ -289,7 +283,7 @@ div.dxbl-btn-toolbar,
   letter-spacing: .01em !important;
   line-height: 1.1 !important;
 
-  background: var(--ink-2) !important;
+  background: var(--ink-1) !important;
   border: 1px solid var(--line) !important;
   border-radius: var(--r-md) !important;
   color: var(--fg) !important;
@@ -310,16 +304,16 @@ div.dxbl-btn-toolbar,
 }
 
 :is(button, .btn, .dxbl-btn):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):active {
-  filter: brightness(.92) !important;
-  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .4) !important;
+  filter: brightness(.99) !important;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .04) !important;
 }
 
-/* Primary → solid amber. Strongest visual weight on the page. */
+/* Primary */
 :is(.btn-primary, .dxbl-btn-primary):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start) {
   background: var(--amber) !important;
   border-color: var(--amber) !important;
-  color: #1a0f00 !important;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, .3), 0 6px 18px rgba(255, 176, 32, .22) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .04), 0 6px 18px rgba(201, 131, 0, .18) !important;
 }
 
 :is(.btn-primary, .dxbl-btn-primary):hover {
@@ -327,29 +321,29 @@ div.dxbl-btn-toolbar,
   border-color: var(--amber-hot) !important;
 }
 
-/* Danger → red outline, not filled (less alarming on idle) */
+/* Danger */
 :is(.btn-danger, .dxbl-btn-danger) {
   background: var(--err-bg) !important;
   border-color: var(--err) !important;
   color: var(--err) !important;
 }
 
-/* Success / Info / Warning → subtle tinted surface with matching text */
+/* Success / Info / Warning */
 :is(.btn-success, .dxbl-btn-success) {
   background: var(--ok-bg) !important;
-  border-color: rgba(48, 209, 88, .45) !important;
+  border-color: rgba(31, 157, 71, .35) !important;
   color: var(--ok) !important;
 }
 
 :is(.btn-info, .dxbl-btn-info) {
   background: var(--info-bg) !important;
-  border-color: rgba(100, 181, 255, .45) !important;
+  border-color: rgba(42, 120, 201, .35) !important;
   color: var(--info) !important;
 }
 
 :is(.btn-warning, .dxbl-btn-warning) {
   background: var(--warn-bg) !important;
-  border-color: rgba(255, 214, 10, .45) !important;
+  border-color: rgba(183, 134, 0, .35) !important;
   color: var(--warn) !important;
 }
 
@@ -374,7 +368,6 @@ div.dxbl-btn-toolbar,
 
 /* =========================================================
    8. SEMANTIC VTMF CLASSES
-   Flat blocky pills, monospace labels, uppercase tracking.
 ========================================================= */
 .vtmf-process-btn,
 .vtmf-secondary-btn,
@@ -404,18 +397,18 @@ div.dxbl-btn-toolbar,
 
 .vtmf-state-success {
   background: var(--ok-bg) !important;
-  border: 1px solid rgba(48, 209, 88, .45) !important;
+  border: 1px solid rgba(31, 157, 71, .35) !important;
   color: var(--ok) !important;
 }
 
 .vtmf-state-warning {
   background: var(--warn-bg) !important;
-  border: 1px solid rgba(255, 214, 10, .45) !important;
+  border: 1px solid rgba(183, 134, 0, .35) !important;
   color: var(--warn) !important;
 }
 
 .vtmf-state-secondary {
-  background: rgba(138, 146, 160, .12) !important;
+  background: rgba(93, 105, 121, .08) !important;
   border: 1px solid var(--line-strong) !important;
   color: var(--fg-muted) !important;
 }
@@ -423,12 +416,12 @@ div.dxbl-btn-toolbar,
 .vtmf-state-primary {
   background: var(--amber) !important;
   border: 1px solid var(--amber) !important;
-  color: #120a00 !important;
+  color: #ffffff !important;
 }
 
 .vtmf-state-info {
   background: var(--info-bg) !important;
-  border: 1px solid rgba(100, 181, 255, .45) !important;
+  border: 1px solid rgba(42, 120, 201, .35) !important;
   color: var(--info) !important;
 }
 
@@ -482,9 +475,7 @@ div.dxbl-btn-toolbar,
 }
 
 /* =========================================================
-   9. KEYPAD — industrial tactile blocks
-   Numeric pad reads like a heavy equipment console.
-   Slight squared corners, inset depth, amber OK key.
+   9. KEYPAD
 ========================================================= */
 :is(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start) {
   display: inline-flex !important;
@@ -502,9 +493,9 @@ div.dxbl-btn-toolbar,
   margin: .45rem !important;
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .04),
-    0 1px 0 rgba(0, 0, 0, .6),
-    0 4px 10px rgba(0, 0, 0, .45) !important;
+    inset 0 1px 0 rgba(255, 255, 255, .85),
+    0 1px 0 rgba(17, 24, 39, .04),
+    0 4px 10px rgba(17, 24, 39, .08) !important;
 
   transition:
     background var(--t-fast) var(--ease),
@@ -528,7 +519,7 @@ div.dxbl-btn-toolbar,
   font-size: 1.35rem !important;
 }
 .vtmf-kbd-ctrl:hover {
-  background: #323a4c !important;
+  background: #dde5ee !important;
 }
 
 .vtmf-kbd-start {
@@ -536,9 +527,9 @@ div.dxbl-btn-toolbar,
   color: var(--kbd-primary-fg) !important;
   border-color: var(--amber-hot) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .25),
-    0 1px 0 rgba(0, 0, 0, .5),
-    0 6px 16px rgba(255, 176, 32, .35) !important;
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    0 1px 0 rgba(17, 24, 39, .04),
+    0 6px 16px rgba(201, 131, 0, .22) !important;
 
   top: calc(var(--vtmf-header-offset) + env(safe-area-inset-top, 0px)) !important;
   z-index: 1050 !important;
@@ -557,9 +548,9 @@ div.dxbl-btn-toolbar,
 :is(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):active {
   transform: translateY(1px) !important;
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, .45),
+    inset 0 2px 4px rgba(0, 0, 0, .08),
     0 0 0 rgba(0, 0, 0, 0) !important;
-  filter: brightness(.95) !important;
+  filter: brightness(.99) !important;
 }
 
 :is(.vtmf-kbd-ctrl, .vtmf-kbd-start) svg {
@@ -569,7 +560,6 @@ div.dxbl-btn-toolbar,
 
 /* =========================================================
    10. DETAIL LABELS / VALUES
-   Labels: tiny all-caps muted. Values: bold monospace.
 ========================================================= */
 .vtmf-detail-label,
 .vtmf-detail-label-lg,
@@ -611,7 +601,6 @@ div.dxbl-btn-toolbar,
 
 /* =========================================================
    11. ALERTS + WORKING/ERROR STATES
-   Flat solid-color blocks, amber left-edge accent.
 ========================================================= */
 .vtmf-alert-success {
   width: 100%;
@@ -619,7 +608,7 @@ div.dxbl-btn-toolbar,
   padding: .95rem 1.1rem;
   border-radius: var(--r-md);
   background: var(--ok-bg) !important;
-  border: 1px solid rgba(48, 209, 88, .45) !important;
+  border: 1px solid rgba(31, 157, 71, .35) !important;
   border-left: 4px solid var(--ok) !important;
   color: var(--ok) !important;
   font-weight: 600;
@@ -642,7 +631,7 @@ div.dxbl-btn-toolbar,
 
 .vtmf-state-working {
   background: var(--ok-bg) !important;
-  border: 1px solid rgba(48, 209, 88, .45) !important;
+  border: 1px solid rgba(31, 157, 71, .35) !important;
   color: var(--ok) !important;
 }
 .vtmf-state-working::before {
@@ -650,13 +639,13 @@ div.dxbl-btn-toolbar,
   width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--ok);
-  box-shadow: 0 0 8px var(--ok);
+  box-shadow: 0 0 8px rgba(31, 157, 71, .25);
   animation: vtmf-pulse 1.4s ease-in-out infinite;
 }
 
 .vtmf-state-error {
   background: var(--err-bg) !important;
-  border: 1px solid rgba(255, 69, 58, .45) !important;
+  border: 1px solid rgba(197, 59, 50, .35) !important;
   color: var(--err) !important;
 }
 .vtmf-state-error::before {
@@ -664,7 +653,7 @@ div.dxbl-btn-toolbar,
   width: 8px; height: 8px;
   border-radius: 1px;
   background: var(--err);
-  box-shadow: 0 0 10px rgba(255, 69, 58, .6);
+  box-shadow: 0 0 10px rgba(197, 59, 50, .2);
   animation: vtmf-blink 1s steps(2, end) infinite;
 }
 
@@ -691,7 +680,6 @@ div.alert-alert-dark {
 
 /* =========================================================
    12. FORMS + DROPDOWNS + LISTBOXES
-   Dark inputs. Amber focus outline + underline.
 ========================================================= */
 :is(.dxbl-editor-dropdown, .dxbl-editor-dropdown-content,
     .dxbl-editor-popup, .dxbl-popup.dxbl-editor-popup,
@@ -710,7 +698,7 @@ div.alert-alert-dark {
 .dxbl-listbox-item.dxbl-selected,
 .dxbl-listbox-item[aria-selected="true"] {
   background: var(--amber-ghost) !important;
-  color: var(--amber-hot) !important;
+  color: var(--amber) !important;
   box-shadow: inset 3px 0 0 var(--amber) !important;
 }
 
@@ -730,7 +718,7 @@ div.alert-alert-dark {
 
 :is(input, select, textarea, .form-control):focus,
 :is(.dxbl-edit, .dxbl-textbox, .dxbl-combobox, .dxbl-spin-edit, .dxbl-memo):focus-within {
-  background: var(--ink-2) !important;
+  background: var(--ink-1) !important;
   border-color: var(--amber) !important;
   box-shadow: 0 0 0 3px var(--amber-ring) !important;
   outline: none !important;
@@ -787,13 +775,14 @@ div.alert-alert-dark {
   position: relative;
 }
 .dxbl-modal .dxbl-modal-title.dxbl-text::after {
-  content: "MUUDA ANDMED";
+  content: "Muuda andmed";
   visibility: visible;
   position: absolute;
   color: var(--fg);
   font-weight: 800;
   letter-spacing: .08em;
   font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .dxbl-grid tr          { height: 56px; }
@@ -801,7 +790,7 @@ div.alert-alert-dark {
 .dxbl-grid             { border-spacing: 0; border-collapse: separate; }
 
 .dxbl-grid tbody tr:hover td {
-  background: var(--ink-2) !important;
+  background: var(--ink-3) !important;
 }
 
 .dxbl-grid thead th {
@@ -955,7 +944,7 @@ div[data-fname="CAIC"] span {
 .vtmfs-btn-xl { right: 30%; }
 
 /* =========================================================
-   15. ANIMATIONS — subtle, short, no bouncy easing
+   15. ANIMATIONS
 ========================================================= */
 @keyframes vtmf-fade-up {
   from { opacity: 0; transform: translateY(6px); }
@@ -995,5 +984,5 @@ div.dxbl-edit-dropdown,
 ========================================================= */
 ::selection {
   background: var(--amber);
-  color: #120a00;
+  color: #ffffff;
 }
