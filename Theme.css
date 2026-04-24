@@ -21,7 +21,7 @@
   color-scheme: light;
   accent-color: #e08600;
 
-  --vtmf-header-offset: 36px;
+  --vtmf-header-offset: 46px;
 
   /* surfaces */
   --white:  #ffffff;
@@ -172,17 +172,17 @@ input[type="number"],
    Clean white bar with a strong bottom border.
 ========================================================= */
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbl-top-panel, .dxbs-header, .dxbs-topbar) {
-  background: var(--s-1) !important;
+  background: var(--fg) !important;
   border: 0 !important;
-  border-bottom: 1px solid var(--line) !important;
-  box-shadow: var(--shadow-sm) !important;
-  color: var(--fg) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12) !important;
+  color: var(--white) !important;
   transition: box-shadow var(--t-med) var(--ease) !important;
   animation: vtmf-fade-down 250ms var(--ease) both;
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar) a {
-  color: var(--fg) !important;
+  color: var(--white) !important;
   text-decoration: none !important;
 }
 
@@ -191,12 +191,12 @@ input[type="number"],
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button {
-  color: var(--fg) !important;
-  background: var(--s-0) !important;
-  border: 1px solid var(--line) !important;
+  color: var(--white) !important;
+  background: rgba(255, 255, 255, .12) !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
   border-radius: var(--r-sm) !important;
-  min-height: 40px !important;
-  min-width: 40px !important;
+  min-height: 38px !important;
+  min-width: 38px !important;
   padding: .3rem .6rem !important;
   touch-action: manipulation !important;
   -webkit-tap-highlight-color: transparent !important;
@@ -205,41 +205,44 @@ input[type="number"],
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button:hover {
-  background: var(--s-2) !important;
+  background: rgba(255, 255, 255, .20) !important;
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbs-topbar) button:active {
-  background: var(--s-3) !important;
+  background: rgba(255, 255, 255, .08) !important;
   transition: none !important;
 }
 
 :is(header, .navbar) :is(.oi, i) {
-  color: var(--fg) !important;
+  color: var(--white) !important;
 }
 
 /* --- Compact navbar height --- */
 .navbar {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: .25rem !important;
+  padding-bottom: .25rem !important;
   min-height: 0 !important;
-  height: 36px !important;
-  max-height: 36px !important;
+  height: 46px !important;
+  max-height: 46px !important;
   overflow: visible !important;
 }
 
 .navbar .navbar-brand,
 .navbar .navbar-brand img {
-  max-height: 24px !important;
+  max-height: 28px !important;
   padding: 0 !important;
   margin: 0 !important;
-  font-size: .95rem !important;
-  line-height: 36px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  line-height: 46px !important;
+  color: var(--white) !important;
 }
 
 .navbar .navbar-nav .nav-link {
-  padding-top: .15rem !important;
-  padding-bottom: .15rem !important;
-  font-size: .85rem !important;
+  padding-top: .25rem !important;
+  padding-bottom: .25rem !important;
+  font-size: .9rem !important;
+  color: rgba(255, 255, 255, .85) !important;
 }
 
 .navbar > .container,
@@ -247,7 +250,7 @@ input[type="number"],
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   min-height: 0 !important;
-  height: 36px !important;
+  height: 46px !important;
 }
 
 /* Override unified button system INSIDE navbar */
@@ -255,27 +258,29 @@ input[type="number"],
 .navbar .btn,
 .navbar .dxbl-btn,
 .navbar .navbar-toggler {
-  min-height: 30px !important;
-  max-height: 30px !important;
-  min-width: 30px !important;
-  padding: .1rem .4rem !important;
-  font-size: .8rem !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  min-width: 34px !important;
+  padding: .2rem .5rem !important;
+  font-size: .85rem !important;
   border-radius: var(--r-sm) !important;
   box-shadow: none !important;
-  border-width: 1px !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  background: rgba(255, 255, 255, .12) !important;
+  color: var(--white) !important;
 }
 
 .navbar .navbar-toggler .navbar-toggler-icon {
-  width: 24px !important;
-  height: 24px !important;
-  background-size: 18px 18px !important;
+  width: 28px !important;
+  height: 28px !important;
+  background-size: 20px 20px !important;
 }
 
 /* =========================================================
    5. HAMBURGER
 ========================================================= */
 :is(header, .navbar, .dxbs-topbar) {
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(26,29,36,0.90)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler .navbar-toggler-icon {
@@ -297,8 +302,8 @@ input[type="number"],
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler svg {
-  fill: var(--fg) !important;
-  stroke: var(--fg) !important;
+  fill: var(--white) !important;
+  stroke: var(--white) !important;
 }
 
 /* =========================================================
@@ -1319,6 +1324,64 @@ div[data-fname="CAIC"] span {
   animation: vtmf-fade-up 250ms var(--ease) both;
 }
 
+/* --- Ambient body gradient drift (very slow, barely noticeable) --- */
+@keyframes vtmf-ambient {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+body {
+  background-size: 200% 200%;
+  animation: vtmf-ambient 30s ease-in-out infinite;
+}
+
+/* --- Dark header underline sweep on load --- */
+@keyframes vtmf-header-sweep {
+  from { background-size: 0% 2px; }
+  to   { background-size: 100% 2px; }
+}
+
+:is(header, .navbar) {
+  background-image: linear-gradient(var(--accent), var(--accent)) !important;
+  background-repeat: no-repeat !important;
+  background-position: bottom left !important;
+  background-size: 100% 2px !important;
+  animation:
+    vtmf-fade-down 250ms var(--ease) both,
+    vtmf-header-sweep 600ms var(--ease) 200ms both !important;
+}
+
+/* --- VTMF process/secondary buttons — staggered entrance --- */
+.vtmf-process-btn,
+.vtmf-secondary-btn,
+.vtmf-secondary-process-btn {
+  animation: vtmf-slide-up 300ms var(--ease) both;
+}
+.vtmf-process-btn         { animation-delay: 0ms; }
+.vtmf-secondary-btn       { animation-delay: 80ms; }
+.vtmf-secondary-process-btn { animation-delay: 160ms; }
+
+/* --- Keypad staggered pop-in (by row) --- */
+.vtmf-kbd-num:nth-child(1),
+.vtmf-kbd-num:nth-child(2),
+.vtmf-kbd-num:nth-child(3) { animation-delay: 0ms; }
+.vtmf-kbd-num:nth-child(4),
+.vtmf-kbd-num:nth-child(5),
+.vtmf-kbd-num:nth-child(6) { animation-delay: 50ms; }
+.vtmf-kbd-num:nth-child(7),
+.vtmf-kbd-num:nth-child(8),
+.vtmf-kbd-num:nth-child(9) { animation-delay: 100ms; }
+.vtmf-kbd-num:nth-child(10) { animation-delay: 150ms; }
+
+/* --- Scrollbar thumb glow on scroll interaction --- */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--fg-mid);
+}
+
 /* =========================================================
    16. DROPDOWN OPACITY (.dxbl-edit-dropdown)
 ========================================================= */
@@ -1386,8 +1449,8 @@ div.dxbl-edit-dropdown,
   .vtmf-detail-value-xl { font-size: 1.3rem; }
 
   :is(header, .navbar, .dxbs-topbar) button {
-    min-height: 28px !important;
-    min-width: 28px !important;
-    padding: .1rem .35rem !important;
+    min-height: 30px !important;
+    min-width: 30px !important;
+    padding: .15rem .4rem !important;
   }
 }
