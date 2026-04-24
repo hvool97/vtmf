@@ -21,7 +21,7 @@
   color-scheme: light;
   accent-color: #e08600;
 
-  --vtmf-header-offset: 44px;
+  --vtmf-header-offset: 36px;
 
   /* surfaces */
   --white:  #ffffff;
@@ -219,22 +219,27 @@ input[type="number"],
 
 /* --- Compact navbar height --- */
 .navbar {
-  padding-top: .15rem !important;
-  padding-bottom: .15rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   min-height: 0 !important;
-  max-height: 44px !important;
+  height: 36px !important;
+  max-height: 36px !important;
+  overflow: visible !important;
 }
 
 .navbar .navbar-brand,
 .navbar .navbar-brand img {
-  max-height: 28px !important;
+  max-height: 24px !important;
   padding: 0 !important;
+  margin: 0 !important;
+  font-size: .95rem !important;
+  line-height: 36px !important;
 }
 
 .navbar .navbar-nav .nav-link {
-  padding-top: .25rem !important;
-  padding-bottom: .25rem !important;
-  font-size: .9rem !important;
+  padding-top: .15rem !important;
+  padding-bottom: .15rem !important;
+  font-size: .85rem !important;
 }
 
 .navbar > .container,
@@ -242,14 +247,28 @@ input[type="number"],
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   min-height: 0 !important;
+  height: 36px !important;
 }
 
+/* Override unified button system INSIDE navbar */
 .navbar button,
-.navbar .btn {
-  min-height: 34px !important;
-  min-width: 34px !important;
-  padding: .2rem .5rem !important;
-  font-size: .85rem !important;
+.navbar .btn,
+.navbar .dxbl-btn,
+.navbar .navbar-toggler {
+  min-height: 30px !important;
+  max-height: 30px !important;
+  min-width: 30px !important;
+  padding: .1rem .4rem !important;
+  font-size: .8rem !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: none !important;
+  border-width: 1px !important;
+}
+
+.navbar .navbar-toggler .navbar-toggler-icon {
+  width: 24px !important;
+  height: 24px !important;
+  background-size: 18px 18px !important;
 }
 
 /* =========================================================
@@ -1367,8 +1386,8 @@ div.dxbl-edit-dropdown,
   .vtmf-detail-value-xl { font-size: 1.3rem; }
 
   :is(header, .navbar, .dxbs-topbar) button {
-    min-height: 36px !important;
-    min-width: 36px !important;
-    padding: .25rem .5rem !important;
+    min-height: 28px !important;
+    min-width: 28px !important;
+    padding: .1rem .35rem !important;
   }
 }
