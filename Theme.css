@@ -21,7 +21,7 @@
   color-scheme: light;
   accent-color: #e08600;
 
-  --vtmf-header-offset: 56px;
+  --vtmf-header-offset: 44px;
 
   /* surfaces */
   --white:  #ffffff;
@@ -113,6 +113,7 @@ body {
 
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar       { width: 10px; height: 10px; }
@@ -173,10 +174,11 @@ input[type="number"],
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar, .dxbl-top-panel, .dxbs-header, .dxbs-topbar) {
   background: var(--s-1) !important;
   border: 0 !important;
-  border-bottom: 2px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
   box-shadow: var(--shadow-sm) !important;
   color: var(--fg) !important;
   transition: box-shadow var(--t-med) var(--ease) !important;
+  animation: vtmf-fade-down 250ms var(--ease) both;
 }
 
 :is(header, .navbar, .dxbl-toolbar, .dxbl-appbar) a {
@@ -193,9 +195,9 @@ input[type="number"],
   background: var(--s-0) !important;
   border: 1px solid var(--line) !important;
   border-radius: var(--r-sm) !important;
-  min-height: 48px !important;
-  min-width: 48px !important;
-  padding: .5rem .8rem !important;
+  min-height: 40px !important;
+  min-width: 40px !important;
+  padding: .3rem .6rem !important;
   touch-action: manipulation !important;
   -webkit-tap-highlight-color: transparent !important;
   user-select: none !important;
@@ -227,16 +229,16 @@ input[type="number"],
   background-image: var(--bs-navbar-toggler-icon-bg) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-size: 28px 28px !important;
+  background-size: 22px 22px !important;
   opacity: 1 !important;
   filter: none !important;
-  width: 44px !important;
-  height: 44px !important;
+  width: 36px !important;
+  height: 36px !important;
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler {
-  min-width: 48px !important;
-  min-height: 48px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler svg {
@@ -311,7 +313,8 @@ div.dxbl-btn-toolbar,
   transition:
     background var(--t-fast) var(--ease),
     border-color var(--t-fast) var(--ease),
-    box-shadow var(--t-fast) var(--ease) !important;
+    box-shadow var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease) !important;
 }
 
 :is(button, .btn, .dxbl-btn):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):hover {
@@ -562,13 +565,18 @@ div.dxbl-btn-toolbar,
 
   transition:
     background var(--t-fast) var(--ease),
-    border-color var(--t-fast) var(--ease) !important;
+    border-color var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease) !important;
 }
 
 .vtmf-kbd-num {
   background: var(--kbd-bg) !important;
   color: var(--fg) !important;
   font-size: 1.9rem !important;
+}
+.vtmf-kbd-num:hover {
+  background: #dfe1e8 !important;
+  transform: scale(1.04);
 }
 .vtmf-kbd-num:active {
   background: var(--kbd-press) !important;
@@ -581,6 +589,10 @@ div.dxbl-btn-toolbar,
   background: var(--kbd-ctrl) !important;
   color: var(--fg) !important;
   font-size: 1.4rem !important;
+}
+.vtmf-kbd-ctrl:hover {
+  background: #d0d3da !important;
+  transform: scale(1.04);
 }
 .vtmf-kbd-ctrl:active {
   background: var(--kbd-ctrl-press) !important;
@@ -607,6 +619,10 @@ div.dxbl-btn-toolbar,
   font-size: 1.05rem !important;
   letter-spacing: .06em !important;
   text-transform: uppercase !important;
+}
+.vtmf-kbd-start:hover {
+  background: var(--fg-mid) !important;
+  transform: scale(1.03);
 }
 .vtmf-kbd-start:active {
   background: #000 !important;
@@ -1040,24 +1056,212 @@ div[data-fname="CAIC"] span {
 .vtmfs-btn-xl { right: 30%; }
 
 /* =========================================================
-   15. ANIMATIONS
+   15. ANIMATIONS + MICRO-INTERACTIONS
+   Every element that moves gets a purpose-built animation.
 ========================================================= */
+
+/* --- Keyframes library --- */
+
 @keyframes vtmf-fade-up {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vtmf-fade-down {
+  from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes vtmf-pop {
-  from { opacity: 0; transform: scale(.99); }
+  0%   { opacity: 0; transform: scale(.94); }
+  60%  { opacity: 1; transform: scale(1.01); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vtmf-slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vtmf-slide-in-right {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes vtmf-scale-in {
+  from { opacity: 0; transform: scale(.92); }
   to   { opacity: 1; transform: scale(1); }
 }
 
-:is(main, .dxbl-layout, .dxbl-content, .dxbl-page, .dxbl-view) {
-  animation: vtmf-fade-up var(--t-slow) var(--ease);
+@keyframes vtmf-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
+@keyframes vtmf-border-draw {
+  from { border-color: transparent; }
+  to   { border-color: var(--line-strong); }
+}
+
+@keyframes vtmf-glow-in {
+  from { box-shadow: 0 0 0 0 transparent; }
+  to   { box-shadow: var(--shadow-sm); }
+}
+
+/* --- Page / layout entrance --- */
+:is(main, .dxbl-layout, .dxbl-content, .dxbl-page, .dxbl-view) {
+  animation: vtmf-fade-up 320ms var(--ease) both;
+}
+
+/* --- Modal / popup entrance — bouncy pop --- */
 :is(.dxbl-modal-content, .dxbl-popup-content) {
-  animation: vtmf-pop var(--t-med) var(--ease);
+  animation: vtmf-pop 280ms var(--ease) both;
+}
+
+/* --- Dropdown / listbox — slide down from trigger --- */
+:is(.dxbl-editor-dropdown, .dxbl-edit-dropdown,
+    .dxbl-combobox-popup, .dxbl-dropdown-popup,
+    .dxbl-editor-popup, .dxbl-popup.dxbl-editor-popup) {
+  animation: vtmf-fade-down 180ms var(--ease) both;
+}
+
+/* --- Listbox items — staggered cascade (first 8) --- */
+.dxbl-listbox-item { animation: vtmf-slide-up 200ms var(--ease) both; }
+.dxbl-listbox-item:nth-child(1) { animation-delay: 0ms; }
+.dxbl-listbox-item:nth-child(2) { animation-delay: 25ms; }
+.dxbl-listbox-item:nth-child(3) { animation-delay: 50ms; }
+.dxbl-listbox-item:nth-child(4) { animation-delay: 75ms; }
+.dxbl-listbox-item:nth-child(5) { animation-delay: 100ms; }
+.dxbl-listbox-item:nth-child(6) { animation-delay: 125ms; }
+.dxbl-listbox-item:nth-child(7) { animation-delay: 150ms; }
+.dxbl-listbox-item:nth-child(8) { animation-delay: 175ms; }
+
+/* --- Buttons — hover lift + shadow grow --- */
+:is(button, .btn, .dxbl-btn):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):hover {
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* (Active resets the lift immediately for snappy press feel) */
+:is(button, .btn, .dxbl-btn):not(.vtmf-kbd-num, .vtmf-kbd-ctrl, .vtmf-kbd-start):active {
+  transform: translateY(0) !important;
+}
+
+/* --- Primary button — subtle pulse on idle to draw attention --- */
+@keyframes vtmf-primary-breathe {
+  0%, 100% { box-shadow: var(--shadow-md); }
+  50%      { box-shadow: 0 6px 20px rgba(26, 29, 36, .20); }
+}
+
+:is(.btn-primary, .dxbl-btn-primary):not(:hover):not(:active) {
+  animation: vtmf-primary-breathe 3s ease-in-out infinite;
+}
+
+/* --- State pills — slide in from left --- */
+:is(.vtmf-state-success, .vtmf-state-warning, .vtmf-state-secondary,
+    .vtmf-state-primary, .vtmf-state-info,
+    .vtmf-state-working, .vtmf-state-error) {
+  animation: vtmf-slide-in-right 250ms var(--ease) both;
+}
+
+/* --- Alerts — slide up with border draw --- */
+:is(.vtmf-alert-success, .alert.alert-dark, .alert-alert-dark, div.alert-alert-dark) {
+  animation:
+    vtmf-slide-up 320ms var(--ease) both,
+    vtmf-border-draw 400ms var(--ease) both;
+}
+
+/* --- Grid rows — subtle fade in --- */
+.dxbl-grid tbody tr {
+  animation: vtmf-fade-up 200ms var(--ease) both;
+}
+
+/* Stagger first 10 visible rows */
+.dxbl-grid tbody tr:nth-child(1)  { animation-delay: 0ms; }
+.dxbl-grid tbody tr:nth-child(2)  { animation-delay: 30ms; }
+.dxbl-grid tbody tr:nth-child(3)  { animation-delay: 60ms; }
+.dxbl-grid tbody tr:nth-child(4)  { animation-delay: 90ms; }
+.dxbl-grid tbody tr:nth-child(5)  { animation-delay: 120ms; }
+.dxbl-grid tbody tr:nth-child(6)  { animation-delay: 150ms; }
+.dxbl-grid tbody tr:nth-child(7)  { animation-delay: 180ms; }
+.dxbl-grid tbody tr:nth-child(8)  { animation-delay: 210ms; }
+.dxbl-grid tbody tr:nth-child(9)  { animation-delay: 240ms; }
+.dxbl-grid tbody tr:nth-child(10) { animation-delay: 270ms; }
+
+/* --- Grid hover: smooth background with slight left nudge --- */
+.dxbl-grid tbody tr {
+  transition:
+    background var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+.dxbl-grid tbody tr:hover {
+  transform: translateX(2px);
+}
+
+/* --- Inputs — focus glow animation --- */
+@keyframes vtmf-focus-glow {
+  from { box-shadow: 0 0 0 0 transparent; }
+  to   { box-shadow: 0 0 0 3px rgba(26, 29, 36, .15); }
+}
+
+:is(input, select, textarea, .form-control):focus,
+:is(.dxbl-edit, .dxbl-textbox, .dxbl-combobox, .dxbl-spin-edit, .dxbl-memo):focus-within {
+  animation: vtmf-focus-glow 200ms var(--ease) forwards;
+}
+
+/* --- Loading panel — scale in + glow --- */
+:is(.dxbl-loadpanel, .dxbl-loading-panel, .dxbl-waiting-panel) {
+  animation:
+    vtmf-scale-in 250ms var(--ease) both,
+    vtmf-glow-in 350ms var(--ease) both;
+}
+
+/* --- Loading spinner shimmer bar (if DX renders one) --- */
+.dxbl-loadpanel-indicator,
+.dxbl-loading-panel-indicator {
+  background:
+    linear-gradient(90deg, transparent 0%, var(--s-3) 50%, transparent 100%) !important;
+  background-size: 200% 100% !important;
+  animation: vtmf-shimmer 1.5s linear infinite !important;
+}
+
+/* --- Keypad keys entrance — pop in staggered --- */
+.vtmf-kbd-num,
+.vtmf-kbd-ctrl {
+  animation: vtmf-pop 180ms var(--ease) both;
+}
+
+/* --- Cards — glow border on hover --- */
+.dxbl-card {
+  transition:
+    box-shadow var(--t-med) var(--ease),
+    border-color var(--t-med) var(--ease);
+}
+.dxbl-card:hover {
+  box-shadow: var(--shadow-md) !important;
+  border-color: var(--line-strong) !important;
+}
+
+/* --- Nav buttons — hover lift --- */
+.vtmf-nav-btn {
+  transition:
+    background var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease),
+    box-shadow var(--t-fast) var(--ease) !important;
+}
+.vtmf-nav-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md) !important;
+}
+.vtmf-nav-btn:active {
+  transform: translateY(0);
+}
+
+/* --- Detail values — fade in when rendered --- */
+.vtmf-detail-value,
+.vtmf-detail-value-lg,
+.vtmf-detail-value-xl {
+  animation: vtmf-fade-up 250ms var(--ease) both;
 }
 
 /* =========================================================
@@ -1127,8 +1331,8 @@ div.dxbl-edit-dropdown,
   .vtmf-detail-value-xl { font-size: 1.3rem; }
 
   :is(header, .navbar, .dxbs-topbar) button {
-    min-height: 44px !important;
-    min-width: 44px !important;
-    padding: .4rem .6rem !important;
+    min-height: 36px !important;
+    min-width: 36px !important;
+    padding: .25rem .5rem !important;
   }
 }
