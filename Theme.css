@@ -217,6 +217,41 @@ input[type="number"],
   color: var(--fg) !important;
 }
 
+/* --- Compact navbar height --- */
+.navbar {
+  padding-top: .15rem !important;
+  padding-bottom: .15rem !important;
+  min-height: 0 !important;
+  max-height: 44px !important;
+}
+
+.navbar .navbar-brand,
+.navbar .navbar-brand img {
+  max-height: 28px !important;
+  padding: 0 !important;
+}
+
+.navbar .navbar-nav .nav-link {
+  padding-top: .25rem !important;
+  padding-bottom: .25rem !important;
+  font-size: .9rem !important;
+}
+
+.navbar > .container,
+.navbar > .container-fluid {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 0 !important;
+}
+
+.navbar button,
+.navbar .btn {
+  min-height: 34px !important;
+  min-width: 34px !important;
+  padding: .2rem .5rem !important;
+  font-size: .85rem !important;
+}
+
 /* =========================================================
    5. HAMBURGER
 ========================================================= */
@@ -229,16 +264,17 @@ input[type="number"],
   background-image: var(--bs-navbar-toggler-icon-bg) !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-size: 22px 22px !important;
+  background-size: 20px 20px !important;
   opacity: 1 !important;
   filter: none !important;
-  width: 36px !important;
-  height: 36px !important;
+  width: 32px !important;
+  height: 32px !important;
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler {
-  min-width: 40px !important;
-  min-height: 40px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  padding: .15rem !important;
 }
 
 :is(header, .navbar, .dxbs-topbar) .navbar-toggler svg {
